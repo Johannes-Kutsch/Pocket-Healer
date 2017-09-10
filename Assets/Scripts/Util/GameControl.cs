@@ -4,6 +4,10 @@ using System;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 
+/// <summary>
+/// Consistent across alls Scenes.
+/// Has informations about choosen talents, choosen spells, unlocked levels, current settings...
+/// </summary>
 public class GameControl : MonoBehaviour {
     public static GameControl control;
     public int[] spellId = new int[4];
@@ -16,11 +20,16 @@ public class GameControl : MonoBehaviour {
     public AudioSource source;
     public int selectedSpellId = 1;
     public int difficulty = 1;
-    public float easyMultiplyer = 0.75f; //damage Multiplyer for easy setting
-    
+    public float easyMultiplyer = 0.75f; //damage multiplyer for easy setting
+                                         //ToDo should make the variables private and work with getters/setters
+
+
+    /// <summary>
+    /// Called on Awake.
+    /// </summary>
     void Awake()
     {
-        if (control == null)
+        if (control == null) //only 1 Gamecontrol
         {
             DontDestroyOnLoad(gameObject);
             control = this;
@@ -29,15 +38,22 @@ public class GameControl : MonoBehaviour {
         {
             Destroy(gameObject);
         }
+
         source = GetComponent<AudioSource>();
         source.volume = soundMultiplyer;
     }
 
+    /// <summary>
+    /// Called on Start.
+    /// </summary>
     void Start()
     {
         Screen.orientation = ScreenOrientation.Portrait;
     }
 
+    /// <summary>
+    /// Resets the current gameprogress. (unlocked levels/skills/talents)
+    /// </summary>
     public void ResetProgress()
     {
         maxLevelIdUnlocked = 1;
@@ -53,6 +69,9 @@ public class GameControl : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Called when a level was sucessfully done. Changes the current and max levelid.
+    /// </summary>
     public void LevelDone()
     {
         if(currentLevelId < maxLevelId)
@@ -66,6 +85,10 @@ public class GameControl : MonoBehaviour {
         SwitchCurrentLevel(currentLevelId);
     }
 
+    /// <summary>
+    /// Switches the current level. (Used during levelselect)
+    /// </summary>
+    /// <param name="Id">The identifier of the new level.</param>
     public void SwitchCurrentLevel(int Id)
     {
         switch (Id)
@@ -109,16 +132,25 @@ public class GameControl : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Called on enable, loads the current playerdata.
+    /// </summary>
     void OnEnable()
     {
         Load();
-    } 
+    }
 
+    /// <summary>
+    /// Called on disable, loads the current playerdata.
+    /// </summary>
     void OnDisable()
     {
         Save();
-    }  
+    }
 
+    /// <summary>
+    /// Saves the current playerdata.
+    /// </summary>
     public void Save()
     {
         BinaryFormatter bf = new BinaryFormatter();
@@ -138,6 +170,9 @@ public class GameControl : MonoBehaviour {
         file.Close();
     }
 
+    /// <summary>
+    /// Loads the current playerdata.
+    /// </summary>
     public void Load()
     {
         if (File.Exists(Application.persistentDataPath + "/playerInfo.dat"))
@@ -159,6 +194,9 @@ public class GameControl : MonoBehaviour {
     }
 }
 
+/// <summary>
+/// Container for savegamedata.
+/// </summary>
 [Serializable]
 class PlayerData
 {

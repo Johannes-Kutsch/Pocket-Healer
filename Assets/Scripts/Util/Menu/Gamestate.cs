@@ -19,7 +19,7 @@ public class Gamestate : MonoBehaviour {
     private ManaBar manaBar;
     private GcdBar gcdBar;
     private Boss Boss;
-    private List<ISpell> spellDict = new List<ISpell>(); //List containing all Spells currently used by the Player
+    private List<ISpell> spellDict = new List<ISpell>(); //List containing all currently used Spells
     private bool finished = false; //true if the current boss is dead
     private bool paused; //Stops boss autoattacks and raider autoattacks, does currently not stop boss abilitys
     private float maxMana = 1000f;

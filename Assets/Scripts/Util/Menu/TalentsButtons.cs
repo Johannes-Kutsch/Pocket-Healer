@@ -2,18 +2,25 @@
 using System.Collections;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// Responsible for Navigation during the talent selection Scene
+/// </summary>
 public class TalentsButtons : MonoBehaviour
 {
-    private bool spellSelected = false;
-
+    /// <summary>
+    /// Called on every update.
+    /// </summary>
     void FixedUpdate()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            SceneManager.LoadScene("MainMenu");
+            SceneManager.LoadScene("MainMenu"); //escape key is pressed
         }
     }
 
+    /// <summary>
+    /// Called when the "Next" button is pressed.
+    /// </summary>
     public void SwitchToFightScene()
     {
         GameControl.control.SwitchCurrentLevel(GameControl.control.currentLevelId);
@@ -21,6 +28,9 @@ public class TalentsButtons : MonoBehaviour
         SceneManager.LoadScene(GameControl.control.currentLevel);
     }
 
+    /// <summary>
+    /// Called when the "Talents" button is pressed.
+    /// </summary>
     public void SwitchToSkillSelectorScene()
     {
         GameControl.control.Save();

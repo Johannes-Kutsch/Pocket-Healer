@@ -2,6 +2,9 @@
 using System.Collections;
 using UnityEngine.UI;
 
+/// <summary>
+/// This class contains a series of ability description for bosses, used for the boss description display during the level select scene.
+/// </summary>
 public class BossDescription : MonoBehaviour {
     public Text name;
     public Text description;
@@ -16,6 +19,9 @@ public class BossDescription : MonoBehaviour {
     public Image skillFourImage;
     public Image skillFiveImage;
 
+    /// <summary>
+    /// Called on start, loads the images and texts associated to the current level in the description.
+    /// </summary>
     void Start () {
         switch (GameControl.control.currentLevelId)
         {
@@ -58,6 +64,11 @@ public class BossDescription : MonoBehaviour {
         }
     }
 
+    //ToDo: Translate to English
+
+    /// <summary>
+    /// Loads images and texts for level 1 in the description.
+    /// </summary>
     public void LevelOne()
     {
         name.text = "Hogger";
@@ -70,6 +81,9 @@ public class BossDescription : MonoBehaviour {
         skillThree.text = "Hogger wirft regelmäßig mit einem Stein nach einem Mitspieler.";
     }
 
+    /// <summary>
+    /// Loads images and texts for level 2 in the description.
+    /// </summary>
     public void LevelTwo()
     {
         name.text = "Horridon";
@@ -82,6 +96,9 @@ public class BossDescription : MonoBehaviour {
         skillThree.text = "Horridon ist so groß das er deine Gruppe zertrampeln kann.";
     }
 
+    /// <summary>
+    /// Loads images and texts for level 3 in the description.
+    /// </summary>
     public void LevelThree()
     {
         name.text = "Coldarra";
@@ -96,6 +113,9 @@ public class BossDescription : MonoBehaviour {
         skillFour.text = "Coldarra hohlt mit ihrem Schwanz aus und schlägt einzelne Spieler zu boden.";
     }
 
+    /// <summary>
+    /// Loads images and texts for level 4 in the description.
+    /// </summary>
     public void LevelFour()
     {
         name.text = "Ko'ragh";
@@ -110,6 +130,9 @@ public class BossDescription : MonoBehaviour {
         skillFour.text = "Ko'ragh beschwört einen Blizzard welcher kontinuierlich Schaden an der gesamten Gruppe anrichtet.";
     }
 
+    /// <summary>
+    /// Loads images and texts for level 5 in the description.
+    /// </summary>
     public void LevelFive()
     {
         name.text = "Kargath";
@@ -122,6 +145,9 @@ public class BossDescription : MonoBehaviour {
         skillThree.text = "Kargath markiert einen Spieler, welche starken Schaden erleidet und mehr Schaden verursacht.";
     }
 
+    /// <summary>
+    /// Loads images and texts for level 6 in the description.
+    /// </summary>
     public void LevelSix()
     {
         name.text = "Varian";
@@ -136,6 +162,9 @@ public class BossDescription : MonoBehaviour {
         skillFour.text = "Varian fixiert sich auf einen Tank und deckt ihn mit einer Abfolge von mehreren Schlägen ein.";
     }
 
+    /// <summary>
+    /// Loads images and texts for level 7 in the description.
+    /// </summary>
     public void LevelSeven()
     {
         name.text = "Tectus";
@@ -150,6 +179,9 @@ public class BossDescription : MonoBehaviour {
         skillFour.text = "Das Ziel ist versteinert und erhält regelmäßig Schaden bis es vollgeheilt wird.";
     }
 
+    /// <summary>
+    /// Loads images and texts for level 8 in the description.
+    /// </summary>
     public void LevelEight()
     {
         name.text = "Brackenspore";
@@ -164,6 +196,9 @@ public class BossDescription : MonoBehaviour {
         skillFour.text = "Aus dem Boden spriesen regelmäßig Pilze welche sobald geheilt deine Gruppe unterstützen.";
     }
 
+    /// <summary>
+    /// Loads images and texts for level 9 in the description.
+    /// </summary>
     public void LevelNine()
     {
         name.text = "Valeera";
@@ -180,6 +215,9 @@ public class BossDescription : MonoBehaviour {
         skillFive.text = "Valeera erschüttert ein Gruppenmitglied und verhindert das es Heilung erhält.";
     }
 
+    /// <summary>
+    /// Loads images and texts for level 10 in the description.
+    /// </summary>
     public void LevelTen()
     {
         name.text = "Al'akir";
@@ -196,6 +234,9 @@ public class BossDescription : MonoBehaviour {
         skillFive.text = "In der Wasserphase zieht ein Blizzard auf der Verbrennungen entfernt und Schaden verursacht.";
     }
 
+    /// <summary>
+    /// Loads images and texts for level 11 in the description.
+    /// </summary>
     public void LevelEleven()
     {
         name.text = "Ultraxion";
@@ -212,6 +253,9 @@ public class BossDescription : MonoBehaviour {
         skillFive.text = "Der Grüne Drache dupliziert deine Heilung und verteilt sie gleichmäßig auf deine Gruppe.";
     }
 
+    /// <summary>
+    /// Loads images and texts for level 12 in the description.
+    /// </summary>
     public void LevelTwelve()
     {
         name.text = "Dia Darkwhisper";

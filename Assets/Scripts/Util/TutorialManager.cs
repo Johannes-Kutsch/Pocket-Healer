@@ -3,7 +3,7 @@ using System.Collections;
 using System.Linq;
 
 /// <summary>
-/// Manages the Flow of the tutorial scene
+/// Manages the flow of the tutorial scene
 /// </summary>
 public class TutorialManager : MonoBehaviour {
     public GameObject popupOne;
