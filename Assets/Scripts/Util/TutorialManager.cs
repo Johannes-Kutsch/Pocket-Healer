@@ -2,6 +2,9 @@
 using System.Collections;
 using System.Linq;
 
+/// <summary>
+/// Manages the Flow of the tutorial scene
+/// </summary>
 public class TutorialManager : MonoBehaviour {
     public GameObject popupOne;
     public GameObject popupTwo;
@@ -13,26 +16,31 @@ public class TutorialManager : MonoBehaviour {
 
     /// <summary>
     /// Called on every Update.
+    /// Checks if the contidtions for the 3rd and 4th tutorial popup are fulfilled.
     /// </summary>
     void Update()
     {
         if (Gamestate.gamestate.GetTarget() != null && !buttonThreeClicked && buttonTwoClicked)
         {
-            buttonThreeClicked = true;
             ButtonThree();
         } else if(Gamestate.gamestate.GetGcdBar().GetIsInGcd() && !buttonFourClicked && buttonThreeClicked)
         {
-            Gamestate.gamestate.paused = false;
-            buttonFourClicked = true;
             ButtonFour();
         } 
     }
 
+    /// <summary>
+    /// Gets called when popup button 1 is clicked.
+    /// </summary>
     public void ButtonOne()
     {
         popupOne.SetActive(false);
         popupTwo.SetActive(true);
     }
+
+    /// <summary>
+    /// Gets called when popup button 2 is clicked.
+    /// </summary>
     public void ButtonTwo()
     {
         buttonTwoClicked = true;
@@ -40,14 +48,25 @@ public class TutorialManager : MonoBehaviour {
         popupThree.SetActive(true);
         RaiderDB.GetInstance().GetAllTanks().First().Damage(40);
     }
+
+    /// <summary>
+    /// Gets called when the requierements for popup 3 are fulfilled.
+    /// </summary>
     public void ButtonThree()
     {
+        buttonThreeClicked = true;
         popupThree.SetActive(false);
         popupFour.SetActive(true);
         Gamestate.gamestate.GetCastBar().disableCasting(false);
     }
+
+    /// <summary>
+    /// Gets called when the requierements for popup 4 are fulfilled.
+    /// </summary>
     public void ButtonFour()
     {
+        buttonFourClicked = true;
+        Gamestate.gamestate.SetPaused(false);
         popupFour.SetActive(false);
     }
 }

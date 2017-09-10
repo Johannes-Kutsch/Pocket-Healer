@@ -6,7 +6,7 @@ public class SkillSelectorButtons : MonoBehaviour
 {
     private bool spellSelected = false;
     public GameObject popup;
-    public GameObject beschreibung;
+    public GameObject description;
 
     void Start()
     {
@@ -59,19 +59,19 @@ public class SkillSelectorButtons : MonoBehaviour
         SceneManager.LoadScene("Talents");
     }
 
-    public void PopupButton()
+    public void HidePopup()
     {
         popup.SetActive(false);
     }
 
-    public void ShowBeschreibung()
+    public void ShowDescription()
     {
-        beschreibung.SetActive(true);
+        description.SetActive(true);
     }
 
-    public void BeschreibungButton()
+    public void HideDescription()
     {
-        beschreibung.SetActive(false);
+        description.SetActive(false);
     }
 }
 

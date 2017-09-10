@@ -65,7 +65,7 @@ public class Green : MonoBehaviour, IRaider
         {
             canSwing = false;
             List<IRaider> raiderDict;
-            raiderDict = RaiderDB.GetInstance().GetAllRaiderSortetByHealth();
+            raiderDict = RaiderDB.GetInstance().GetAllRaiderSortedByHealth();
             foreach (IRaider raider in raiderDict)
             {
                 GreenBuffInvis buff = raider.GetGameObject().AddComponent<GreenBuffInvis>();
@@ -170,13 +170,13 @@ public class Green : MonoBehaviour, IRaider
 
     public void SetTarget()
     {
-        if (gamestate.HasTarget() && gamestate.target.IsAlive())
+        if (gamestate.HasTarget() && gamestate.GetTarget().IsAlive())
         {
-            gamestate.target.ChangeBackgroundColor(keinTargetColor);
+            gamestate.GetTarget().ChangeBackgroundColor(keinTargetColor);
         }
-        else if (gamestate.HasTarget() && !gamestate.target.IsAlive())
+        else if (gamestate.HasTarget() && !gamestate.GetTarget().IsAlive())
         {
-            gamestate.target.ChangeBackgroundColor(deadColor);
+            gamestate.GetTarget().ChangeBackgroundColor(deadColor);
         }
         gamestate.SetTarget(this);
         ChangeBackgroundColor(targetColor);

@@ -167,13 +167,13 @@ public class Red : MonoBehaviour, IRaider
 
     public void SetTarget()
     {
-        if (gamestate.HasTarget() && gamestate.target.IsAlive())
+        if (gamestate.HasTarget() && gamestate.GetTarget().IsAlive())
         {
-            gamestate.target.ChangeBackgroundColor(keinTargetColor);
+            gamestate.GetTarget().ChangeBackgroundColor(keinTargetColor);
         }
-        else if (gamestate.HasTarget() && !gamestate.target.IsAlive())
+        else if (gamestate.HasTarget() && !gamestate.GetTarget().IsAlive())
         {
-            gamestate.target.ChangeBackgroundColor(deadColor);
+            gamestate.GetTarget().ChangeBackgroundColor(deadColor);
         }
         gamestate.SetTarget(this);
         ChangeBackgroundColor(targetColor);

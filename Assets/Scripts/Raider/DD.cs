@@ -72,7 +72,7 @@ public class DD : MonoBehaviour, IRaider
         {
             Die();
         }
-        if (canSwing && alive && !Gamestate.gamestate.paused)
+        if (canSwing && alive && !Gamestate.gamestate.GetPaused())
         {
             currentBoss = gamestate.GetBoss();
             float swingTimer = UnityEngine.Random.Range(swingTimerBot, swingTimerTop);
@@ -228,13 +228,13 @@ public class DD : MonoBehaviour, IRaider
     /// </summary>
     public void SetTarget()
     {
-        if (gamestate.HasTarget() && gamestate.target.IsAlive())
+        if (gamestate.HasTarget() && gamestate.GetTarget().IsAlive())
         {
-            gamestate.target.ChangeBackgroundColor(notTargetColor);
+            gamestate.GetTarget().ChangeBackgroundColor(notTargetColor);
         }
-        else if (gamestate.HasTarget() && !gamestate.target.IsAlive())
+        else if (gamestate.HasTarget() && !gamestate.GetTarget().IsAlive())
         {
-            gamestate.target.ChangeBackgroundColor(deadColor);
+            gamestate.GetTarget().ChangeBackgroundColor(deadColor);
         }
 
         gamestate.SetTarget(this);

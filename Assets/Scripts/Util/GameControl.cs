@@ -16,7 +16,7 @@ public class GameControl : MonoBehaviour {
     public AudioSource source;
     public int selectedSpellId = 1;
     public int difficulty = 1;
-    public float easyMultiplyer = 0.75f;
+    public float easyMultiplyer = 0.75f; //damage Multiplyer for easy setting
     
     void Awake()
     {

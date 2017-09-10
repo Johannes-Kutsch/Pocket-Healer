@@ -2,9 +2,9 @@
 using System.Collections;
 using UnityEngine.UI;
 
-public class BossBeschreibung : MonoBehaviour {
+public class BossDescription : MonoBehaviour {
     public Text name;
-    public Text beschreibung;
+    public Text description;
     public Text skillOne;
     public Text skillTwo;
     public Text skillThree;
@@ -61,7 +61,7 @@ public class BossBeschreibung : MonoBehaviour {
     public void LevelOne()
     {
         name.text = "Hogger";
-        beschreibung.text = "Hogger ist ein kleiner Gnoll, der das örtliche Farmland unsicher macht. Stelle dich im um den Bauern wieder ein sicheres Leben zu ermöglichen und erste Kampferfahrungen zu sammeln.";
+        description.text = "Hogger ist ein kleiner Gnoll, der das örtliche Farmland unsicher macht. Stelle dich im um den Bauern wieder ein sicheres Leben zu ermöglichen und erste Kampferfahrungen zu sammeln.";
         skillOneImage.sprite = Resources.Load("Klaue", typeof(Sprite)) as Sprite;
         skillOne.text = "Hoggers schlägt mit seinen starken Klauen nach deinem Tank.";
         skillTwoImage.sprite = Resources.Load("Giftwolke", typeof(Sprite)) as Sprite;
@@ -73,7 +73,7 @@ public class BossBeschreibung : MonoBehaviour {
     public void LevelTwo()
     {
         name.text = "Horridon";
-        beschreibung.text = "Horridon ist ein stachelieges, gepanzertes Reptiel das sich in einen nahen Wald verirrt hat. Töte ihn um das Land ein kleines Stück sicherer zu machen.";
+        description.text = "Horridon ist ein stachelieges, gepanzertes Reptiel das sich in einen nahen Wald verirrt hat. Töte ihn um das Land ein kleines Stück sicherer zu machen.";
         skillOneImage.sprite = Resources.Load("Klaue", typeof(Sprite)) as Sprite;
         skillOne.text = "Horridon schlägt mit seinen starken Klauen nach deinem Tank.";
         skillTwoImage.sprite = Resources.Load("Stacheln", typeof(Sprite)) as Sprite;
@@ -85,7 +85,7 @@ public class BossBeschreibung : MonoBehaviour {
     public void LevelThree()
     {
         name.text = "Coldarra";
-        beschreibung.text = "Coldarra ist ein Drache der die Viehherden einiger localen Bauern stark dezimiert hat. Töte Coldarra um die Region vor einer Hungersnot zu bewahren.";
+        description.text = "Coldarra ist ein Drache der die Viehherden einiger localen Bauern stark dezimiert hat. Töte Coldarra um die Region vor einer Hungersnot zu bewahren.";
         skillOneImage.sprite = Resources.Load("DragonKlaue", typeof(Sprite)) as Sprite;
         skillOne.text = "Coldarra schlägt mit ihren starken Klauen nach deinen Tanks.";
         skillTwoImage.sprite = Resources.Load("DragonSpikes", typeof(Sprite)) as Sprite;
@@ -99,7 +99,7 @@ public class BossBeschreibung : MonoBehaviour {
     public void LevelFour()
     {
         name.text = "Ko'ragh";
-        beschreibung.text = "Ko'ragh ist ein Magier, welcher der dunklen Seite verfallen ist. Er hat einige Kinder aus einem nahem Dorf entführt. Töte ihn und bring die Kinder zu ihren Familien zurück.";
+        description.text = "Ko'ragh ist ein Magier, welcher der dunklen Seite verfallen ist. Er hat einige Kinder aus einem nahem Dorf entführt. Töte ihn und bring die Kinder zu ihren Familien zurück.";
         skillOneImage.sprite = Resources.Load("MagicAutoAttack", typeof(Sprite)) as Sprite;
         skillOne.text = "Ko'ragh schießt Magische geschosse mit seinem Stab.";
         skillTwoImage.sprite = Resources.Load("KillDebuff", typeof(Sprite)) as Sprite;
@@ -113,7 +113,7 @@ public class BossBeschreibung : MonoBehaviour {
     public void LevelFive()
     {
         name.text = "Kargath";
-        beschreibung.text = "Kargath ist ein Schurke, der durch Bestechung die Kontrolle über ein kleines Dorf erlangt hat. Töte ihn um das Dorf wieder zu befreien.";
+        description.text = "Kargath ist ein Schurke, der durch Bestechung die Kontrolle über ein kleines Dorf erlangt hat. Töte ihn um das Dorf wieder zu befreien.";
         skillOneImage.sprite = Resources.Load("Dagger", typeof(Sprite)) as Sprite;
         skillOne.text = "Kargath schlägt mit seinen Dolchen nach deinen Tanks.";
         skillTwoImage.sprite = Resources.Load("Shuriken", typeof(Sprite)) as Sprite;
@@ -125,7 +125,7 @@ public class BossBeschreibung : MonoBehaviour {
     public void LevelSix()
     {
         name.text = "Varian";
-        beschreibung.text = "Varian war einst ein edler Krieger, welcher sich auf die Suche nach ewigem Leben begeben hat und dort dem Wahnsinn verfallen ist. Beende sein Leben mit Würde.";
+        description.text = "Varian war einst ein edler Krieger, welcher sich auf die Suche nach ewigem Leben begeben hat und dort dem Wahnsinn verfallen ist. Beende sein Leben mit Würde.";
         skillOneImage.sprite = Resources.Load("Schwert", typeof(Sprite)) as Sprite;
         skillOne.text = "Varian schlägt mit seinem Schwert nach deinen Tanks.";
         skillTwoImage.sprite = Resources.Load("Wahnsinn", typeof(Sprite)) as Sprite;
@@ -139,7 +139,7 @@ public class BossBeschreibung : MonoBehaviour {
     public void LevelSeven()
     {
         name.text = "Tectus";
-        beschreibung.text = "Tectus ist ein Steingigant der in einer Höhle nahe einer großen Straße haust und Reisenden auflauert. Gerüchte sagen er würde die Reisenden versteinern und in seine Höhle schleppen.";
+        description.text = "Tectus ist ein Steingigant der in einer Höhle nahe einer großen Straße haust und Reisenden auflauert. Gerüchte sagen er würde die Reisenden versteinern und in seine Höhle schleppen.";
         skillOneImage.sprite = Resources.Load("StoneFist", typeof(Sprite)) as Sprite;
         skillOne.text = "Tectus schlägt mit seine Steinernen Fäusten nach deinen Tanks.";
         skillTwoImage.sprite = Resources.Load("StoneRange", typeof(Sprite)) as Sprite;
@@ -153,7 +153,7 @@ public class BossBeschreibung : MonoBehaviour {
     public void LevelEight()
     {
         name.text = "Brackenspore";
-        beschreibung.text = "Brackenspore ist ein Sumpfmonster, welches einem düsterem Moor enstammt und nun ein kleines Dorf belauert. Töte es um das Dorf zu beschützen.";
+        description.text = "Brackenspore ist ein Sumpfmonster, welches einem düsterem Moor enstammt und nun ein kleines Dorf belauert. Töte es um das Dorf zu beschützen.";
         skillOneImage.sprite = Resources.Load("Ranken", typeof(Sprite)) as Sprite;
         skillOne.text = "Brackenspore schlägt mit seinen Ranken nach deinen Tanks.";
         skillTwoImage.sprite = Resources.Load("Sporen", typeof(Sprite)) as Sprite;
@@ -167,7 +167,7 @@ public class BossBeschreibung : MonoBehaviour {
     public void LevelNine()
     {
         name.text = "Valeera";
-        beschreibung.text = "Valeera ist die Anführerin einer großen Diebesgilde. Töte sie um diese Gilde zu zerschmettern.";
+        description.text = "Valeera ist die Anführerin einer großen Diebesgilde. Töte sie um diese Gilde zu zerschmettern.";
         skillOneImage.sprite = Resources.Load("Dagger", typeof(Sprite)) as Sprite;
         skillOne.text = "Valeera schlägt mit ihrem Dolch nach deinen Tanks.";
         skillTwoImage.sprite = Resources.Load("Cleave", typeof(Sprite)) as Sprite;
@@ -183,7 +183,7 @@ public class BossBeschreibung : MonoBehaviour {
     public void LevelTen()
     {
         name.text = "Al'akir";
-        beschreibung.text = "Al'akir ist ein mächtiger Elementarlord. Er wurde korrupiert und versucht nun die Elemente in ein Ungleichgewicht zu bringen.";
+        description.text = "Al'akir ist ein mächtiger Elementarlord. Er wurde korrupiert und versucht nun die Elemente in ein Ungleichgewicht zu bringen.";
         skillOneImage.sprite = Resources.Load("ElementalAttack", typeof(Sprite)) as Sprite;
         skillOne.text = "Al'akir unterwirft die Elemente und fügt einzelnen Spielern regelmäßig Schaden zu.";
         skillTwoImage.sprite = Resources.Load("AlakirPhasen", typeof(Sprite)) as Sprite;
@@ -199,7 +199,7 @@ public class BossBeschreibung : MonoBehaviour {
     public void LevelEleven()
     {
         name.text = "Ultraxion";
-        beschreibung.text = "Ultraxion ist ein mächtiger dunkler Drache. Er zwingt anderen Drachen seinen Willen auf. Heile diese Drachen damit sie dich im Kampf unterstützen.";
+        description.text = "Ultraxion ist ein mächtiger dunkler Drache. Er zwingt anderen Drachen seinen Willen auf. Heile diese Drachen damit sie dich im Kampf unterstützen.";
         skillOneImage.sprite = Resources.Load("Claw", typeof(Sprite)) as Sprite;
         skillOne.text = "Ultraxion klauen können beide Tanks gleichzeitig verletzen und er Fixiert regelmäßig einen Tank.";
         skillTwoImage.sprite = Resources.Load("ShadowAura", typeof(Sprite)) as Sprite;
@@ -215,7 +215,7 @@ public class BossBeschreibung : MonoBehaviour {
     public void LevelTwelve()
     {
         name.text = "Dia Darkwhisper";
-        beschreibung.text = "Dot der immer stärker wird, kann dispellt werden und verdoppelt sich dann. In bestimmten intervalls werden alle Dots gecleared.";
+        description.text = "Dot der immer stärker wird, kann dispellt werden und verdoppelt sich dann. In bestimmten intervalls werden alle Dots gecleared.";
         skillOneImage.sprite = Resources.Load("AUTOATTACK", typeof(Sprite)) as Sprite;
         skillOne.text = "AUTOATTACK";
         skillTwoImage.sprite = Resources.Load("DOTLEICHT", typeof(Sprite)) as Sprite;

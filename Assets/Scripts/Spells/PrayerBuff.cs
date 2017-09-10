@@ -41,7 +41,7 @@ public class PrayerBuff : MonoBehaviour, IBuff {
         raider.Heal(heal);
         if (jumps > 0)
         {
-            raiderDict = RaiderDB.GetInstance().GetAllRaiderSortetByHealth();
+            raiderDict = RaiderDB.GetInstance().GetAllRaiderSortedByHealth();
             raiderDict.Remove(raider);
             IRaider target;
             int anzahlRaider = raiderDict.Count;

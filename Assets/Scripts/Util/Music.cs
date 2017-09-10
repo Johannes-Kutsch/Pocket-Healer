@@ -1,17 +1,23 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/// <summary>
+/// This class controlls the playback of music
+/// </summary>
 public class Music : MonoBehaviour {
     public static Music music;
     private AudioSource source;
     private int trackNumber;
     private AudioClip track;
 
+    /// <summary>
+    /// Called on Awake
+    /// </summary>
     void Awake()
     {
         if (music == null)
         {
-            DontDestroyOnLoad(gameObject);
+            DontDestroyOnLoad(gameObject); //Dont destroy this Object when transitioning to a new scene
             music = this;
         }
         else if (music != this)
@@ -20,15 +26,23 @@ public class Music : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Called on start.
+    /// Creates the audiosource and selects a random track.
+    /// </summary>
     void Start()
     {
         source = GameControl.control.source;
         trackNumber = UnityEngine.Random.Range(1, 9);
     }
 
+    /// <summary>
+    /// Called on every Update.
+    /// If currently no backgroundtrack is played, start playing the new backgroundtrack.
+    /// </summary>
     void Update()
     {
-        if (!source.isPlaying)
+        if (!source.isPlaying) //ToDo this is really sloppy and should be changed to a system that knows when an audioclip is finished.
         {
             switch (trackNumber) {
                 case 1:
@@ -59,7 +73,7 @@ public class Music : MonoBehaviour {
                     source.PlayOneShot(Resources.Load("Background_9", typeof(AudioClip)) as AudioClip, 0.75f);
                     break;
             }
-            if (trackNumber == 9)
+            if (trackNumber == 9) //go to the next track
                 trackNumber = 0;
             else
                 trackNumber++;

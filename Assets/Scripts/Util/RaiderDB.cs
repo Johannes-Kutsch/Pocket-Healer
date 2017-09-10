@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 
+/// <summary>
+/// This class represents a database consisting of 3 dictionaries, one containing all raiders, one containing all tanks and one containing all dds.
+/// A tank is also a raider, a dd is also a raider but a raider does not have to be a tank or dd.
+/// </summary>
 public class RaiderDB {
     public System.Random _random = new System.Random();
     private GameObject myGO;
@@ -11,6 +15,9 @@ public class RaiderDB {
     private List<IRaider> tankDict;
     private List<IRaider> ddDict;
 
+    /// <summary>
+    /// Constructor, creates the dictionaries.
+    /// </summary>
     private RaiderDB()
     {
         raiderDict = new List<IRaider>();
@@ -18,55 +25,10 @@ public class RaiderDB {
         ddDict = new List<IRaider>();
     }
 
-    public void RegisterRaider(IRaider raider)
-    {
-        raiderDict.Add(raider);
-    }
-
-    public void DeRegisterRaider(IRaider raider)
-    {
-        raiderDict.Remove(raider);
-    }
-
-    public void RegisterTank(IRaider raider)
-    {
-        raiderDict.Add(raider);
-        tankDict.Add(raider);
-    }
-
-    public void DeRegisterTank(IRaider raider)
-    {
-        raiderDict.Remove(raider);
-        tankDict.Remove(raider);
-    }
-
-    public void RegisterDD(IRaider raider)
-    {
-        raiderDict.Add(raider);
-        ddDict.Add(raider);
-    }
-
-    public void DeRegisterDD(IRaider raider)
-    {
-        raiderDict.Remove(raider);
-        ddDict.Remove(raider);
-    }
-
-    public List<IRaider> GetAllRaider()
-    {
-        return raiderDict.OrderBy(o => Random.Range(1, 100)).ToList();
-    }
-
-    public List<IRaider> GetAllTanks()
-    {
-        return tankDict.OrderBy(o => Random.Range(1, 100)).ToList();
-    }
-
-    public List<IRaider> GetAllDDs()
-    {
-        return ddDict.OrderBy(o => Random.Range(1, 100)).ToList();
-    }
-
+    /// <summary>
+    /// Makes sure the is only one Instance of this class.
+    /// </summary>
+    /// <returns></returns>
     public static RaiderDB GetInstance()
     {
         if (self == null)
@@ -76,7 +38,96 @@ public class RaiderDB {
         return self;
     }
 
-    public List<IRaider> GetAllRaiderSortetByHealth()
+    /// <summary>
+    /// Registers a raider.
+    /// </summary>
+    /// <param name="raider">The raider.</param>
+    public void RegisterRaider(IRaider raider)
+    {
+        raiderDict.Add(raider);
+    }
+
+    /// <summary>
+    /// Deregisters a raider.
+    /// </summary>
+    /// <param name="raider">The raider.</param>
+    public void DeRegisterRaider(IRaider raider)
+    {
+        raiderDict.Remove(raider);
+    }
+
+    /// <summary>
+    /// Registers a tank.
+    /// </summary>
+    /// <param name="tank">The tank.</param>
+    public void RegisterTank(IRaider tank)
+    {
+        raiderDict.Add(tank);
+        tankDict.Add(tank);
+    }
+
+    /// <summary>
+    /// Deregisters a tank.
+    /// </summary>
+    /// <param name="tank">The tank.</param>
+    public void DeRegisterTank(IRaider tank)
+    {
+        raiderDict.Remove(tank);
+        tankDict.Remove(tank);
+    }
+
+    /// <summary>
+    /// Registers a dd.
+    /// </summary>
+    /// <param name="dd">The dd.</param>
+    public void RegisterDD(IRaider dd)
+    {
+        raiderDict.Add(dd);
+        ddDict.Add(dd);
+    }
+
+    /// <summary>
+    /// Deregisters a dd.
+    /// </summary>
+    /// <param name="dd">The dd.</param>
+    public void DeRegisterDD(IRaider dd)
+    {
+        raiderDict.Remove(dd);
+        ddDict.Remove(dd);
+    }
+
+    /// <summary>
+    /// Gets all raiders in random order.
+    /// </summary>
+    /// <returns>a list containing all raiders in random order</returns>
+    public List<IRaider> GetAllRaider()
+    {
+        return raiderDict.OrderBy(o => Random.Range(1, 100)).ToList();
+    }
+
+    /// <summary>
+    /// Gets all tanks in random order.
+    /// </summary>
+    /// <returns>a list containing all tanks in random order</returns>
+    public List<IRaider> GetAllTanks()
+    {
+        return tankDict.OrderBy(o => Random.Range(1, 100)).ToList();
+    }
+
+    /// <summary>
+    /// Gets all dds in random order.
+    /// </summary>
+    /// <returns>a list containing all dds in random order</returns>
+    public List<IRaider> GetAllDDs()
+    {
+        return ddDict.OrderBy(o => Random.Range(1, 100)).ToList();
+    }
+
+    /// <summary>
+    /// Gets all raiders sorted by health. (ascending, lowest health first)
+    /// </summary>
+    /// <returns>a list containing all raiders sorted by health</returns>
+    public List<IRaider> GetAllRaiderSortedByHealth()
     {
         return raiderDict.OrderBy(o => o.GetHealth()).ToList();
     }

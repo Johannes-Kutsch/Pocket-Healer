@@ -79,7 +79,7 @@ public class Schutzgeist : MonoBehaviour, ISpell
         }
         if(GameControl.control.talente[8])
         {
-            raiderDict = RaiderDB.GetInstance().GetAllRaiderSortetByHealth();
+            raiderDict = RaiderDB.GetInstance().GetAllRaiderSortedByHealth();
             raiderDict.Remove(target);
             foreach(IRaider raider in raiderDict)
             {

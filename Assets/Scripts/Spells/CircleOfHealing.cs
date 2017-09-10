@@ -72,7 +72,7 @@ public class CircleOfHealing : MonoBehaviour, ISpell {
             if (gamestate.DecreaseMana(manaKosten))
             {
                 source.PlayOneShot(impactSound, GameControl.control.soundMultiplyer);
-                raiderDict = RaiderDB.GetInstance().GetAllRaiderSortetByHealth();
+                raiderDict = RaiderDB.GetInstance().GetAllRaiderSortedByHealth();
                 if(raiderDict.Count() < numberTargets)
                 {
                     numberTargets = raiderDict.Count();
@@ -113,7 +113,7 @@ public class CircleOfHealing : MonoBehaviour, ISpell {
         yield return new WaitForSeconds(castTime);
         source.Stop();
         source.PlayOneShot(impactSound, GameControl.control.soundMultiplyer);
-        raiderDict = RaiderDB.GetInstance().GetAllRaiderSortetByHealth();
+        raiderDict = RaiderDB.GetInstance().GetAllRaiderSortedByHealth();
         if (raiderDict.Count() < numberTargets)
         {
             numberTargets = raiderDict.Count();

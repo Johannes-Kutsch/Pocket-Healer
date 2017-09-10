@@ -34,7 +34,7 @@ public class ManaBar : MonoBehaviour
     /// </summary>
     /// <param name="maxMana">The maximum mana.</param>
     /// <param name="currentMana">The current mana.</param>
-    public void setManaBar(float maxMana, float currentMana)
+    public void SetManaBar(float maxMana, float currentMana)
     {
        manaTransform.position = Vector3.Lerp(endPos, startPos, currentMana/maxMana);
        manaText.text = currentMana.ToString("F0") + "/" + maxMana.ToString("F0");

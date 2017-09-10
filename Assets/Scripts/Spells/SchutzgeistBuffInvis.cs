@@ -71,7 +71,7 @@ public class SchutzgeistBuffInvis : MonoBehaviour, IBuff, ISchutzgeist {
     {
         raider.HealSimple(300, false);
         Destroy();
-        raiderDict = RaiderDB.GetInstance().GetAllRaiderSortetByHealth();
+        raiderDict = RaiderDB.GetInstance().GetAllRaiderSortedByHealth();
         raiderDict.Remove(raider);
         foreach (IRaider target in raiderDict)
         {

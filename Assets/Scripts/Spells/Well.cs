@@ -41,7 +41,7 @@ public class Well : MonoBehaviour {
         cooldownMax = cooldown;
         onCooldown = true;
         cooldownOverlay.color = new Color32(160, 160, 160, 160);
-        raiderDict = RaiderDB.GetInstance().GetAllRaiderSortetByHealth();
+        raiderDict = RaiderDB.GetInstance().GetAllRaiderSortedByHealth();
         target = raiderDict.First();
         target.Heal(healAmount);
     }

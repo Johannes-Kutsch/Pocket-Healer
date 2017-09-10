@@ -75,7 +75,7 @@ public class SchutzgeistBuff : MonoBehaviour, IBuff, ISchutzgeist
         Destroy();
         if (GameControl.control.talente[8])
         {
-            raiderDict = RaiderDB.GetInstance().GetAllRaiderSortetByHealth();
+            raiderDict = RaiderDB.GetInstance().GetAllRaiderSortedByHealth();
             raiderDict.Remove(raider);
             foreach (IRaider target in raiderDict)
             {

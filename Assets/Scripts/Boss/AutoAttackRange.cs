@@ -21,7 +21,7 @@ public class AutoAttackRange : MonoBehaviour {
     void FixedUpdate()
     {
         swingTimerCurrent += 0.02f;
-        if (swingTimerCurrent >= swingTimer && !Gamestate.gamestate.paused)
+        if (swingTimerCurrent >= swingTimer && !Gamestate.gamestate.GetPaused())
         {
             targetDict = new List<IRaider>(RaiderDB.GetInstance().GetAllDDs());
             if (target != null && targetDict.Count > 1)

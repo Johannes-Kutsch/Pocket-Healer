@@ -18,7 +18,7 @@ public class KillDebuff : MonoBehaviour, IBuff {
 
     void Update()
     {
-        if (!(raider == FindObjectOfType<Gamestate>().target))
+        if (!(raider == FindObjectOfType<Gamestate>().GetTarget()))
         {
             raider.ChangeBackgroundColor(debuffColor);
         }
@@ -57,7 +57,7 @@ public class KillDebuff : MonoBehaviour, IBuff {
 
     public void Destroy()
     {
-        if (raider == FindObjectOfType<Gamestate>().target)
+        if (raider == FindObjectOfType<Gamestate>().GetTarget())
         {
             raider.ChangeBackgroundColor(raider.GetTargetColor());
         } else

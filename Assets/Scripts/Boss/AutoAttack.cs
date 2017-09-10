@@ -37,7 +37,7 @@ public class AutoAttack : MonoBehaviour {
         {
             ChangeTarget();
         }
-        if (canAttack && !Gamestate.gamestate.paused)
+        if (canAttack && !Gamestate.gamestate.GetPaused())
         {
             target.Damage(dmg);
             timer = StartCoroutine(Timer(swingTimer));
