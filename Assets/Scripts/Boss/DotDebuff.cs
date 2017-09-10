@@ -5,7 +5,7 @@ using System;
 public class DotDebuff : MonoBehaviour, IBuff
 {
     private Color32 debuffColor = new Color32(170, 0, 255, 255);
-    public Material image = Resources.Load("Dot_Debuff", typeof(Material)) as Material;
+    public Material image;
     public float duration = 12f;
     public float runtime;
     public float damagePerTick = 20f;
@@ -15,6 +15,7 @@ public class DotDebuff : MonoBehaviour, IBuff
 
     void Start()
     {
+        image = Resources.Load("Dot_Debuff", typeof(Material)) as Material;
         if (GameControl.control.difficulty == 0)
         {
             damagePerTick *= GameControl.control.easyMultiplyer;

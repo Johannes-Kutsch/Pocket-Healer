@@ -18,7 +18,7 @@ public class Cloudburst : MonoBehaviour
     {
         if (cloudburst == null)
         {
-            DontDestroyOnLoad(gameObject);
+            //DontDestroyOnLoad(gameObject);
             cloudburst = this;
         }
         else if (cloudburst != this)

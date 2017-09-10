@@ -5,7 +5,7 @@ using System.Linq;
 
 public class FixateCleave : MonoBehaviour {
     private List<IRaider> targetDict = new List<IRaider>();
-    private List<IRaider> targetDictAA = new List<IRaider>();
+    //private List<IRaider> targetDictAA = new List<IRaider>();
     private IRaider target = null;
     private Coroutine timer;
     private bool canAttack = false;

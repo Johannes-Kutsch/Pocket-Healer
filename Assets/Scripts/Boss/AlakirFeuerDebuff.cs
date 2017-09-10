@@ -4,14 +4,15 @@ using System;
 
 public class AlakirFeuerDebuff : MonoBehaviour, IBuff
 {
-    private Color32 debuffColor = new Color32(170, 0, 255, 255);
-    public Material image = Resources.Load("Feuer_Debuff", typeof(Material)) as Material;
+    //private Color32 debuffColor = new Color32(170, 0, 255, 255);
+    public Material image;
     public float damagePerTick = 20f;
     public float tickLength = 1.5f;
     private IRaider raider;
 
     void Start()
     {
+        image = Resources.Load("Feuer_Debuff", typeof(Material)) as Material;
         if (GameControl.control.difficulty == 0)
         {
             damagePerTick *= GameControl.control.easyMultiplyer;

@@ -18,11 +18,13 @@ public class GroßeHeilung : MonoBehaviour, ISpell {
     private string spellName = "Greater Heal";
 
     private AudioSource source;
-    private AudioClip castSound = Resources.Load("GreaterHealCast", typeof(AudioClip)) as AudioClip;
-    private AudioClip impactSound = Resources.Load("GreaterHealImpact", typeof(AudioClip)) as AudioClip;
+    private AudioClip castSound;
+    private AudioClip impactSound;
 
     void Start()
     {
+        castSound = Resources.Load("GreaterHealCast", typeof(AudioClip)) as AudioClip;
+        impactSound = Resources.Load("GreaterHealImpact", typeof(AudioClip)) as AudioClip;
         if (GameControl.control.talente[1])
         {
             castTime *= 0.75f;

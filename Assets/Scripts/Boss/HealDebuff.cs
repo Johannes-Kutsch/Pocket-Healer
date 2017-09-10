@@ -4,23 +4,24 @@ using System;
 
 public class HealDebuff : MonoBehaviour, IBuff
 {
-    public Material image = Resources.Load("Heal_Debuff", typeof(Material)) as Material;
+    public Material image;
     public float duration = 12f;
     public float runtime;
     public float damagePerTick = 20f;
     public float tickLength = 1.5f;
     private int ticksSinceLastEffect = 0;
     private IRaider raider;
-    private Boss boss;
+    //private Boss boss;
 
     void Start()
     {
+        image = Resources.Load("Heal_Debuff", typeof(Material)) as Material;
         if (GameControl.control.difficulty == 0)
         {
             damagePerTick *= GameControl.control.easyMultiplyer;
         }
         raider = GetComponent<IRaider>();
-        boss = FindObjectOfType<Boss>();
+        //boss = FindObjectOfType<Boss>();
         StartCoroutine(ApplyDamage());
     }
 

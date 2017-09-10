@@ -3,10 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class PermanentAoe : MonoBehaviour {
-    private IRaider target = null;
+    //private IRaider target = null;
     private List<IRaider> targetDict = new List<IRaider>();
     private Coroutine timer;
-    private bool canAttack = false;
+    //private bool canAttack = false;
     private float swingTimerCurrent;
     public float swingTimer;
     public float dmgAoe;

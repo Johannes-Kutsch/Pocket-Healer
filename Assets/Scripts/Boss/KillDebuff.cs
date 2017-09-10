@@ -3,7 +3,7 @@ using System.Collections;
 using System;
 
 public class KillDebuff : MonoBehaviour, IBuff {
-    public Material image = Resources.Load("Kill_Debuff", typeof(Material)) as Material;
+    public Material image;
     public float duration = 10f;
     public float runtime;
     private IRaider raider;
@@ -11,6 +11,7 @@ public class KillDebuff : MonoBehaviour, IBuff {
 
     void Start()
     {
+        image = Resources.Load("Kill_Debuff", typeof(Material)) as Material;
         raider = GetComponent<IRaider>();
         raider.ChangeBackgroundColor(debuffColor);
     }

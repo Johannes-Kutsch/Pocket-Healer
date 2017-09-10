@@ -5,7 +5,7 @@ using System.Linq;
 
 public class PrayerBuff : MonoBehaviour, IBuff {
     private List<IRaider> raiderDict;
-    public Material image = Resources.Load("PrayerOfMending_Buff", typeof(Material)) as Material;
+    public Material image;
     public float heal = 40f;
     public float duration = 10f;
     public float runtime;
@@ -16,6 +16,7 @@ public class PrayerBuff : MonoBehaviour, IBuff {
 
     void Start()
     {
+        image = Resources.Load("PrayerOfMending_Buff", typeof(Material)) as Material;
     }
 
     void FixedUpdate()

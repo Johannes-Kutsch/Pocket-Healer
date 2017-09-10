@@ -17,10 +17,11 @@ public class Dispell : MonoBehaviour, ISpell {
     private string spellName = "Dispell";
 
     private AudioSource source;
-    private AudioClip castSound = Resources.Load("DispellCast", typeof(AudioClip)) as AudioClip;
+    private AudioClip castSound;
 
     void Start()
     {
+        castSound = Resources.Load("DispellCast", typeof(AudioClip)) as AudioClip;
         gamestate = Gamestate.gamestate;
         cooldownOverlay = GetComponentInChildren<Image>();
         gamestate.AddSpell(this);

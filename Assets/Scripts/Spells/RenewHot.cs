@@ -5,7 +5,7 @@ using System.Linq;
 
 public class RenewHot : MonoBehaviour, IBuff {
     private List<IRaider> raiderDict;
-    public Material image = Resources.Load("Renew_Buff", typeof(Material)) as Material;
+    public Material image;
     public float healPerTick = 10f;
     public float tickLength = 2f;
     public float duration = 10f;
@@ -18,6 +18,7 @@ public class RenewHot : MonoBehaviour, IBuff {
 
     void Start()
     {
+        image = Resources.Load("Renew_Buff", typeof(Material)) as Material;
         raider = GetComponent<IRaider>();
         StartCoroutine(ApplyHeal());
     }

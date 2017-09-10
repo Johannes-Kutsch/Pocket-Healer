@@ -5,7 +5,6 @@ public class AutoAttackRange : MonoBehaviour {
     private IRaider target = null;
     private List<IRaider> targetDict = new List<IRaider>();
 
-    private bool canAttack = false;
     public float swingTimerCurrent;
     public float swingTimer;
     public float dmg;

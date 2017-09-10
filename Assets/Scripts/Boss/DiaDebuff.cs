@@ -9,7 +9,7 @@ public class DiaDebuff : MonoBehaviour, IBuff
     private Color32 debuffColor = new Color32(170, 0, 255, 255);
     private List<IRaider> targetDict = new List<IRaider>();
     private IRaider target = null;
-    public Material image = Resources.Load("Feuer_Debuff", typeof(Material)) as Material;
+    public Material image;
     public float damagePerTick = 5f;
     public float damageIncrease = 2f;
     public float tickLength = 2f;
@@ -18,6 +18,7 @@ public class DiaDebuff : MonoBehaviour, IBuff
 
     void Start()
     {
+        image = Resources.Load("Feuer_Debuff", typeof(Material)) as Material;
         if (GameControl.control.difficulty == 0)
         {
             damagePerTick *= GameControl.control.easyMultiplyer;

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class TimedAoe : MonoBehaviour {
     private List<IRaider> targetDict = new List<IRaider>();
 
-    private bool canAttack = false;
+    //private bool canAttack = false;
     public float swingTimerCurrent;
     public float swingTimer;
     public float dmg;

@@ -16,10 +16,11 @@ public class Renew : MonoBehaviour, ISpell {
     private string spellName = "Renew";
 
     private AudioSource source;
-    private AudioClip castSound = Resources.Load("RenewCast", typeof(AudioClip)) as AudioClip;
+    private AudioClip castSound;
 
     void Start()
     {
+        castSound = Resources.Load("RenewCast", typeof(AudioClip)) as AudioClip;
         if (GameControl.control.talente[0])
             cooldown = 0f;
         gamestate = Gamestate.gamestate;

@@ -5,13 +5,14 @@ using System.Linq;
 
 public class FlammeBuff : MonoBehaviour, IBuff {
     private List<IRaider> raiderDict;
-    public Material image = Resources.Load("Flamme_Buff", typeof(Material)) as Material;
+    public Material image;
     private float scaler = 0.2f;
 
     private IRaider raider;
 
     void Start()
     {
+        image = Resources.Load("Flamme_Buff", typeof(Material)) as Material;
         raider = GetComponent<IRaider>();
     }
 

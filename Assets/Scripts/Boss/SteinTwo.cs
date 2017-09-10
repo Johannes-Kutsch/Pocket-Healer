@@ -5,14 +5,15 @@ using System.Collections.Generic;
 
 public class SteinTwo : MonoBehaviour, IBuff
 {
-    public Material image = Resources.Load("Stein_2", typeof(Material)) as Material;
+    public Material image;
     public float damagePerTick = 20f;
     public float tickLength = 3f;
-    private int ticksSinceLastEffect = 0;
+    //private int ticksSinceLastEffect = 0;
     private IRaider raider;
 
     void Start()
     {
+        image = Resources.Load("Stein_2", typeof(Material)) as Material;
         if (GameControl.control.difficulty == 0)
         {
             damagePerTick *= GameControl.control.easyMultiplyer;

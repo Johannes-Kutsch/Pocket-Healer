@@ -21,11 +21,13 @@ public class CircleOfHealing : MonoBehaviour, ISpell {
     private string spellName = "Kreis der Heilung";
 
     private AudioSource source;
-    private AudioClip castSound = Resources.Load("GreaterHealCast", typeof(AudioClip)) as AudioClip;
-    private AudioClip impactSound = Resources.Load("CircleCast", typeof(AudioClip)) as AudioClip;
+    private AudioClip castSound;
+    private AudioClip impactSound;
 
     void Start()
     {
+        castSound = Resources.Load("GreaterHealCast", typeof(AudioClip)) as AudioClip;
+        impactSound = Resources.Load("CircleCast", typeof(AudioClip)) as AudioClip;
         if (GameControl.control.talente[2])
         {
             numberTargets += 2;

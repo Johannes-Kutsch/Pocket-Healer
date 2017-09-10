@@ -23,11 +23,13 @@ public class BindingHeal : MonoBehaviour, ISpell
     private string spellName = "Verbindende Heilung";
 
     private AudioSource source;
-    private AudioClip castSound = Resources.Load("GreaterHealCast", typeof(AudioClip)) as AudioClip;
-    private AudioClip impactSound = Resources.Load("FlashHealImpact", typeof(AudioClip)) as AudioClip;
+    private AudioClip castSound;
+    private AudioClip impactSound;
 
     void Start()
     {
+        castSound = Resources.Load("GreaterHealCast", typeof(AudioClip)) as AudioClip;
+        impactSound = Resources.Load("FlashHealImpact", typeof(AudioClip)) as AudioClip;
         gamestate = FindObjectOfType<Gamestate>();
         cooldownOverlay = GetComponentInChildren<Image>();
         gamestate.AddSpell(this);

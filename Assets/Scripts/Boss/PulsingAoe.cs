@@ -6,7 +6,7 @@ public class PulsingAoe : MonoBehaviour {
     private IRaider target = null;
     private List<IRaider> targetDict = new List<IRaider>();
     private Coroutine timer;
-    private bool canAttack = false;
+    //private bool canAttack = false;
     private float swingTimerCurrent;
     private float rocksBetweenAoeCurrent;
     private int aoeCount = 0;

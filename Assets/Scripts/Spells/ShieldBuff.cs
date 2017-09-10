@@ -6,7 +6,7 @@ using System.Linq;
 public class ShieldBuff : MonoBehaviour, IBuff
 {
     private List<IRaider> raiderDict;
-    public Material image = Resources.Load("Shield_Buff", typeof(Material)) as Material;
+    public Material image;
     public float absorb = 80f;
     public float duration = 15f;
     public float runtime;
@@ -16,6 +16,7 @@ public class ShieldBuff : MonoBehaviour, IBuff
 
     void Start()
     {
+        image = Resources.Load("Shield_Buff", typeof(Material)) as Material;
     }
 
     void FixedUpdate()

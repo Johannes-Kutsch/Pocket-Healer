@@ -6,7 +6,7 @@ using System.Linq;
 public class SchutzgeistBuff : MonoBehaviour, IBuff, ISchutzgeist
 {
     private List<IRaider> raiderDict;
-    public Material image = Resources.Load("Schutzgeist_Buff", typeof(Material)) as Material;
+    public Material image;
     public float duration = 14f;
     public float runtime;
     public float timeLeft;
@@ -15,6 +15,7 @@ public class SchutzgeistBuff : MonoBehaviour, IBuff, ISchutzgeist
 
     void Start()
     {
+        image = Resources.Load("Schutzgeist_Buff", typeof(Material)) as Material;
         raider = GetComponent<IRaider>();
     }
 

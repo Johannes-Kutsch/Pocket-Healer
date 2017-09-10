@@ -7,7 +7,7 @@ public class SteinOne : MonoBehaviour, IBuff
 {
     private List<IRaider> targetDict;
     public float exploDmg = 70f;
-    public Material image = Resources.Load("Stein_1", typeof(Material)) as Material;
+    public Material image;
     public float duration = 10f;
     public float runtime;
     public float damagePerTick = 20f;
@@ -17,6 +17,7 @@ public class SteinOne : MonoBehaviour, IBuff
 
     void Start()
     {
+        image = Resources.Load("Stein_1", typeof(Material)) as Material;
         if (GameControl.control.difficulty == 0)
         {
             damagePerTick *= GameControl.control.easyMultiplyer;

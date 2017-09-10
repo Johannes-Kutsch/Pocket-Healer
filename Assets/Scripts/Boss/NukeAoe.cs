@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class NukeAoe : MonoBehaviour {
     private List<IRaider> targetDict = new List<IRaider>();
     public string emoteText;
-    private bool canAttack = false;
+    //private bool canAttack = false;
     public float swingTimerCurrent;
     public float swingTimer;
     public float dmg;

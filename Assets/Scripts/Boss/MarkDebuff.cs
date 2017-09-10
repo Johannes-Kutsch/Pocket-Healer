@@ -4,7 +4,7 @@ using System;
 
 public class MarkDebuff : MonoBehaviour, IBuff
 {
-    public Material image = Resources.Load("Marked_Debuff", typeof(Material)) as Material;
+    public Material image;
     public float duration = 18f;
     public float runtime;
     public float damagePerTick = 2f;
@@ -18,6 +18,7 @@ public class MarkDebuff : MonoBehaviour, IBuff
 
     void Start()
     {
+        image = Resources.Load("Marked_Debuff", typeof(Material)) as Material;
         if (GameControl.control.difficulty == 0)
         {
             damagePerTick *= GameControl.control.easyMultiplyer;

@@ -19,10 +19,11 @@ public class Hymne : MonoBehaviour, ISpell {
     private string spellName = "Hymne der Hoffnung";
 
     private AudioSource source;
-    private AudioClip castSound = Resources.Load("HymneCast", typeof(AudioClip)) as AudioClip;
+    private AudioClip castSound;
 
     void Start()
     {
+        castSound = Resources.Load("HymneCast", typeof(AudioClip)) as AudioClip;
         gamestate = Gamestate.gamestate;
         cooldownOverlay = GetComponentInChildren<Image>();
         gamestate.AddSpell(this);

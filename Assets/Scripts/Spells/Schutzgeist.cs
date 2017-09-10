@@ -18,10 +18,11 @@ public class Schutzgeist : MonoBehaviour, ISpell
     private string spellName = "Schutzgeist";
 
     private AudioSource source;
-    private AudioClip castSound = Resources.Load("SchutzgeistCast", typeof(AudioClip)) as AudioClip;
+    private AudioClip castSound;
 
     void Start()
     {
+        castSound = Resources.Load("SchutzgeistCast", typeof(AudioClip)) as AudioClip;
         gamestate = Gamestate.gamestate;
         cooldownOverlay = GetComponentInChildren<Image>();
         gamestate.AddSpell(this);

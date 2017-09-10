@@ -17,10 +17,11 @@ public class Shield : MonoBehaviour, ISpell
     private string spellName = "Machtwort: Schild";
 
     private AudioSource source;
-    private AudioClip impactSound = Resources.Load("ShieldImpact", typeof(AudioClip)) as AudioClip;
+    private AudioClip impactSound;
 
     void Start()
     {
+        impactSound = Resources.Load("ShieldImpact", typeof(AudioClip)) as AudioClip;
         gamestate = Gamestate.gamestate;
         cooldownOverlay = GetComponentInChildren<Image>();
         gamestate.AddSpell(this);
