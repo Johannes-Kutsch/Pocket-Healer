@@ -10,9 +10,9 @@ public class CombatText : MonoBehaviour {
     private Vector3 direction = new Vector3(0, 1, 0);
 
     /// <summary>
-    /// Called on every update
+    /// Called in each simulation tick i.e. 50 times a second.
     /// </summary>
-    void Update()
+    void FixedUpdate()
     {
         float translation = speed * Time.deltaTime;
         transform.Translate(direction * translation);

@@ -44,7 +44,7 @@ public class DotDebuff : MonoBehaviour, IBuff
         for (ticksSinceLastEffect = 0; ticksSinceLastEffect < ticks; ticksSinceLastEffect++)
         {
             yield return new WaitForSeconds(tickLength);
-            raider.ReduceHP(damagePerTick);
+            raider.Damage(damagePerTick);
         }
         Destroy();
     }

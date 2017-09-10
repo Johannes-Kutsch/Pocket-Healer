@@ -39,7 +39,7 @@ public class AutoAttack : MonoBehaviour {
         }
         if (canAttack && !Gamestate.gamestate.paused)
         {
-            target.ReduceHP(dmg);
+            target.Damage(dmg);
             timer = StartCoroutine(Timer(swingTimer));
             dmg += multiplyer;
         }

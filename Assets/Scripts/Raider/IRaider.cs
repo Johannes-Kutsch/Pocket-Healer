@@ -4,32 +4,36 @@
 /// Interface for a raider, i.e. a partymember or encounterobject that can be healed and damaged
 /// </summary>
 public interface IRaider {
+    //ToDo combine Damage and DamageSimple / Heal and HealSimple and controll cloudburst/events with variables
 
     /// <summary>
-    /// Reduces the hp.
+    /// Damages the raider by an amount, i.e. decreases the currentHealth.
+    /// Triggers DamageTaken events in all buffs.
     /// </summary>
     /// <param name="amount">The amount.</param>
-    void ReduceHP(float amount);
+    void Damage(float amount);
 
     /// <summary>
-    /// Increases the hp.
+    /// Heals the raider by an amount, i.e. increases the currentHealth.
+    /// Triggers HealingTaken events in all buffs.
+    /// The currentHealth can not be bigger than maxHealth.
     /// </summary>
     /// <param name="amount">The amount.</param>
-    void IncreaseHP(float amount);
+    void Heal(float amount);
 
     /// <summary>
-    /// Reduces the hp in a simple way (i.e. without triggering the DamageTaken events of debuffs).
-    /// </summary>
-    /// <param name="amount">The amount.</param>
-    /// <param name="combatText">if set to <c>true</c> a combat text will be displayed.</param>
-    void ReduceHPSimple(float amount, bool combatText);
-
-    /// <summary>
-    /// Increases the hp in a simple way (i.e. without triggering the cloudburst talent).
+    /// Damages the raider by an amount in a simple way (i.e. without triggering the DamageTaken events in buffs).
     /// </summary>
     /// <param name="amount">The amount.</param>
     /// <param name="combatText">if set to <c>true</c> a combat text will be displayed.</param>
-    void IncreaseHPSimple(float amount, bool combatText);
+    void DamageSimple(float amount, bool combatText);
+
+    /// <summary>
+    /// Heals the raider by an amount in a simple way (i.e. without triggering the cloudburst talent).
+    /// </summary>
+    /// <param name="amount">The amount.</param>
+    /// <param name="combatText">if set to <c>true</c> a combat text will be displayed.</param>
+    void HealSimple(float amount, bool combatText);
 
     /// <summary>
     /// Updates the hp bar.

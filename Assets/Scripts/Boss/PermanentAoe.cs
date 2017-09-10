@@ -28,7 +28,7 @@ public class PermanentAoe : MonoBehaviour {
             targetDict = new List<IRaider>(RaiderDB.GetInstance().GetAllRaider());
             foreach (IRaider raider in targetDict)
             {
-                raider.ReduceHP(dmgAoe);
+                raider.Damage(dmgAoe);
             }
             swingTimerCurrent = 0;
             dmgAoe += multiplyer;

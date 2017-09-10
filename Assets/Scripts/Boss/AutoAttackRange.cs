@@ -29,7 +29,7 @@ public class AutoAttackRange : MonoBehaviour {
                 targetDict.Remove(target);
             }
             target = targetDict[Random.Range(0, targetDict.Count)];
-            target.ReduceHP(dmg);
+            target.Damage(dmg);
             dmg += multiplyer;
             swingTimerCurrent = 0f;
         }

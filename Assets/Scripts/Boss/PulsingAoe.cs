@@ -48,7 +48,7 @@ public class PulsingAoe : MonoBehaviour {
                     targetDict.Remove(target);
                 }
                 target = targetDict[Random.Range(0, targetDict.Count)];
-                target.ReduceHP(dmgRock);
+                target.Damage(dmgRock);
             }
             rocksBetweenAoeCurrent--;
             swingTimerCurrent = 0f;
@@ -57,7 +57,7 @@ public class PulsingAoe : MonoBehaviour {
             targetDict = new List<IRaider>(RaiderDB.GetInstance().GetAllRaider());
             foreach (IRaider raider in targetDict)
             {
-                raider.ReduceHP(dmgAoe);
+                raider.Damage(dmgAoe);
             }
             aoeCount++;
             swingTimerCurrent = swingTimer - 0.4f;

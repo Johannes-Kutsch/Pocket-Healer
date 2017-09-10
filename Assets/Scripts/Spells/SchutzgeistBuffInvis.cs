@@ -69,7 +69,7 @@ public class SchutzgeistBuffInvis : MonoBehaviour, IBuff, ISchutzgeist {
 
     public float FatalDamage(float amount)
     {
-        raider.IncreaseHPSimple(300, false);
+        raider.HealSimple(300, false);
         Destroy();
         raiderDict = RaiderDB.GetInstance().GetAllRaiderSortetByHealth();
         raiderDict.Remove(raider);

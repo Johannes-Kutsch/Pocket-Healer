@@ -14,6 +14,8 @@ public class Cloudburst : MonoBehaviour
     private float storedHealth = 0f;
     private float multiplyer = 1f;
 
+    //ToDo Cloudburst should apply an invisible buff to track overheal
+
     void Awake()
     {
         if (cloudburst == null)
@@ -59,7 +61,7 @@ public class Cloudburst : MonoBehaviour
         targetDict = RaiderDB.GetInstance().GetAllRaider();
         float anzTargets = targetDict.Count;
         foreach (IRaider raider in targetDict) {
-            raider.IncreaseHPSimple(storedHealth*multiplyer/ anzTargets, true);
+            raider.HealSimple(storedHealth*multiplyer/ anzTargets, true);
         }
         storedHealth = 0;
     }

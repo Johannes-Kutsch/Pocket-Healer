@@ -34,7 +34,7 @@ public class SteinOne : MonoBehaviour, IBuff
         {
             targetDict = RaiderDB.GetInstance().GetAllRaider();
             foreach (IRaider target in targetDict)
-                target.ReduceHP(exploDmg);
+                target.Damage(exploDmg);
             Destroy();
         }
     }
@@ -45,7 +45,7 @@ public class SteinOne : MonoBehaviour, IBuff
         for (ticksSinceLastEffect = 0; ticksSinceLastEffect < ticks; ticksSinceLastEffect++)
         {
             yield return new WaitForSeconds(tickLength);
-            raider.ReduceHP(damagePerTick);
+            raider.Damage(damagePerTick);
         }
         Destroy();
     }

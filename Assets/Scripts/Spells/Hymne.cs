@@ -52,7 +52,7 @@ public class Hymne : MonoBehaviour, ISpell {
 
     public void Cast()
     {
-        if (!gamestate.GetCastBar().IsCasting() && !gamestate.GetGcdBar().GetGcd() && !onCooldown)
+        if (!gamestate.GetCastBar().IsCasting() && !gamestate.GetGcdBar().GetIsInGcd() && !onCooldown)
         {
             if (gamestate.DecreaseMana(manaKosten))
             {
@@ -63,7 +63,7 @@ public class Hymne : MonoBehaviour, ISpell {
 
     IEnumerator Timer()
     {
-        gamestate.GetCastBar().SetzeCasting(true);
+        gamestate.GetCastBar().SetCasting(true);
         gamestate.GetCastBar().Caste(castTime, spellName);
         gamestate.GetGcdBar().StartGcd();
         cooldownTimer = 0f;
@@ -75,7 +75,7 @@ public class Hymne : MonoBehaviour, ISpell {
             
             foreach (IRaider raider in RaiderDB.GetInstance().GetAllRaider())
             {
-                raider.IncreaseHP(healAmount);
+                raider.Heal(healAmount);
                 
             }
             yield return new WaitForSeconds(castTime / (ticks -1));
@@ -83,13 +83,13 @@ public class Hymne : MonoBehaviour, ISpell {
         }
         foreach (IRaider raider in RaiderDB.GetInstance().GetAllRaider())
         {
-            raider.IncreaseHP(healAmount);
+            raider.Heal(healAmount);
             if (GameControl.control.talente[5])
             {
                 GenerateHot(raider);
             }
         }
-        gamestate.GetCastBar().SetzeCasting(false);
+        gamestate.GetCastBar().SetCasting(false);
         source.Stop();
     }
 

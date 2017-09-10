@@ -41,7 +41,7 @@ public class ApplyStone : MonoBehaviour {
             }
             if (target != null)
             {
-                target.ReduceHP(20f);
+                target.Damage(20f);
                 SteinOne debuff = target.GetGameObject().AddComponent<SteinOne>();
                 target.GetGameObject().GetComponent<BuffManager>().RegisterBuff(debuff);
                 target = null;
@@ -67,7 +67,7 @@ public class ApplyStone : MonoBehaviour {
             }
             if (target != null)
             {
-                target.ReduceHP(30f);
+                target.Damage(30f);
                 SteinTwo debuff = target.GetGameObject().AddComponent<SteinTwo>();
                 target.GetGameObject().GetComponent<BuffManager>().RegisterBuff(debuff);
                 target = null;

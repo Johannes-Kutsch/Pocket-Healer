@@ -38,7 +38,7 @@ public class Gamestate : MonoBehaviour {
         if (SceneManager.GetActiveScene().name == "Tutorial")
         {
             paused = true;
-            castBar.SetzeCasting(true);
+            castBar.SetCasting(true);
         }
     }
 
@@ -129,7 +129,7 @@ public class Gamestate : MonoBehaviour {
         {
             currentMana += mana;
         }
-        manaBar.setzeManaBar(maxMana, currentMana);
+        manaBar.setManaBar(maxMana, currentMana);
     }
 
     public bool DecreaseMana(float mana)
@@ -137,7 +137,7 @@ public class Gamestate : MonoBehaviour {
         if (mana <= currentMana)
         {
             currentMana -= mana;
-            manaBar.setzeManaBar(maxMana, currentMana);
+            manaBar.setManaBar(maxMana, currentMana);
             return true;
         }
         return false;

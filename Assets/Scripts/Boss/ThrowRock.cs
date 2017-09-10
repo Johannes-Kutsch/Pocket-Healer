@@ -35,7 +35,7 @@ public class ThrowRock : MonoBehaviour {
                        targetDict.Remove(target);
                    }
                    target = targetDict[Random.Range(0, targetDict.Count)];
-                   target.ReduceHP(dmg);
+                   target.Damage(dmg);
                }
                swingTimerCurrent = 0f;
            }

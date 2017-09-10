@@ -41,7 +41,7 @@ public class TooltipTalente : MonoBehaviour
         beschreibung[17] = "TODO";
         beschreibung[18] = "Deine Heilzauber heilen 5% mehr.";
         beschreibung[19] = "Dein Mana ist um 10% erhöht.";
-        beschreibung[20] = "Deine Heilzauber heilen an Zielen mit weniger als 30% Gesundheit 10% mehr.";
+        beschreibung[20] = "Deine Heilzauber heilen an Zielen mit weniger als 30% Gesundheit 25% mehr.";
         beschreibung[21] = "TODO";
         beschreibung[22] = "TODO";
     }

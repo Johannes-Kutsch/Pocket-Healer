@@ -71,7 +71,7 @@ public class SchutzgeistBuff : MonoBehaviour, IBuff, ISchutzgeist
 
     public float FatalDamage(float amount)
     {
-        raider.IncreaseHPSimple(300, false);
+        raider.HealSimple(300, false);
         Destroy();
         if (GameControl.control.talente[8])
         {

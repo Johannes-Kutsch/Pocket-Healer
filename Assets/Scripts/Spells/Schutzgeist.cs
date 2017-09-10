@@ -52,7 +52,7 @@ public class Schutzgeist : MonoBehaviour, ISpell
     public void Cast()
     {
         target = gamestate.GetTarget();
-        if (gamestate.HasTarget() && !gamestate.GetCastBar().IsCasting() && !gamestate.GetGcdBar().GetGcd() && !onCooldown && target.IsAlive())
+        if (gamestate.HasTarget() && !gamestate.GetCastBar().IsCasting() && !gamestate.GetGcdBar().GetIsInGcd() && !onCooldown && target.IsAlive())
             if (gamestate.DecreaseMana(manaKosten))
             {
                 cooldownTimer = 0f;

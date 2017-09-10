@@ -30,7 +30,7 @@ public class TimedAoe : MonoBehaviour {
             targetDict = new List<IRaider>(RaiderDB.GetInstance().GetAllRaider());
             foreach(IRaider raider in targetDict)
             {
-                raider.ReduceHP(dmg);
+                raider.Damage(dmg);
             }
             swingTimerCurrent = 0f;
         }

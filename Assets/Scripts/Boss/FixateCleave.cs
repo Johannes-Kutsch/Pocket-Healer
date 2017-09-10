@@ -53,7 +53,7 @@ public class FixateCleave : MonoBehaviour {
         }
         if (canAttack)
         {
-            target.ReduceHP(dmgAutoAttack);
+            target.Damage(dmgAutoAttack);
             timer = StartCoroutine(Timer(swingTimerAutoAttack));
             dmgAutoAttack += multiplyerAutoAttack;
         }
@@ -72,7 +72,7 @@ public class FixateCleave : MonoBehaviour {
                 dmgCleaveActual *= 0.5f;
             }
             foreach (IRaider raider in targetDictCleave)
-                raider.ReduceHP(dmgCleaveActual);
+                raider.Damage(dmgCleaveActual);
             cleavesBetweenFixateCurrent--;
             swingTimerCurrent = 0f;
         }
@@ -80,7 +80,7 @@ public class FixateCleave : MonoBehaviour {
         {
             StopAllCoroutines();
             canAttack = false;
-            target.ReduceHP(dmgFixateActual);
+            target.Damage(dmgFixateActual);
             countFixate++;
             dmgFixateActual *= multiplyerFixate;
             swingTimerCurrent = swingTimer - 1f;

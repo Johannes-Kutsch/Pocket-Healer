@@ -18,7 +18,7 @@ public class BuffManager : MonoBehaviour {
     private Image[] imageArray = new Image[3];
 
     /// <summary>
-    /// Starts this instance.
+    /// Called on Start.
     /// </summary>
     void Start()
     {
@@ -28,7 +28,8 @@ public class BuffManager : MonoBehaviour {
     }
 
     /// <summary>
-    /// Called in each simulation tick i.e. 30 times a second.
+    /// Called in each simulation tick i.e. 50 times a second.
+    /// Recalculates the order in which buffs should be displayed.
     /// </summary>
     void FixedUpdate()
     {

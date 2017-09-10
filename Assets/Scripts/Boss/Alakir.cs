@@ -80,7 +80,7 @@ public class Alakir : MonoBehaviour {
                         targetDict.Remove(rangeTarget);
                     }
                     rangeTarget = targetDict[Random.Range(0, targetDict.Count)];
-                    rangeTarget.ReduceHP(rangeAttackDamage);
+                    rangeTarget.Damage(rangeAttackDamage);
                 }
                 else if (timeInPhase > phasendauer - 2.05f && timeInPhase < phasendauer - 1.95f)
                     GetComponent<Boss>().SetEmoteText(" " + emotePhaseOne);
@@ -130,7 +130,7 @@ public class Alakir : MonoBehaviour {
                     targetDict = new List<IRaider>(RaiderDB.GetInstance().GetAllRaider());
                     foreach (IRaider raider in targetDict)
                     {
-                        raider.ReduceHP(frostDamage);
+                        raider.Damage(frostDamage);
                     }
                 }
                 if (timeInPhase > phasendauer - 2.05f && timeInPhase < phasendauer - 1.95f)

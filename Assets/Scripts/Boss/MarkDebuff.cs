@@ -48,7 +48,7 @@ public class MarkDebuff : MonoBehaviour, IBuff
             
             if (raider != null)
             {
-                raider.ReduceHP(damagePerTick);
+                raider.Damage(damagePerTick);
                 boss.ErhalteSchaden(bossSchaden);
             }
             if (damagePerTick*multiplyer > maxDamagePerTick)

@@ -1,7 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
-
+/// <summary>
+/// This class manages the castbar.
+/// </summary>
 public class CastBar : MonoBehaviour {
     private Gamestate gamestate;
     public Text castTime;
@@ -14,12 +16,16 @@ public class CastBar : MonoBehaviour {
     private float scaleX;
     private RectTransform castTransform;
 
-    private float castProgress;
-    private float castDuration;
-    private float rate;
-    private bool isCasting = false;
+    private float castProgress; //1 if cast is over, 0 if cast has just startet
+    private float castDuration; //duration of the current cast in seconds
+    private float castRate;  //increase of castProgress for each FixedUpdate
+    private bool isCasting = false; //true if a cast is currently in progress
     private float fadeSpeed = 3f;
 
+    /// <summary>
+    /// Called on start.
+    /// Sets some variables and calculates the startPos.
+    /// </summary>
     void Start()
     {
         gamestate = Gamestate.gamestate;
@@ -30,15 +36,22 @@ public class CastBar : MonoBehaviour {
         startPos = new Vector3(castTransform.position.x - castTransform.rect.width * scaleX, castTransform.position.y, castTransform.position.z);
     }
 
+    /// <summary>
+    /// Called in each simulation tick i.e. 50 times a second.
+    /// Advances the castProgress, updates the castduration text and starts the FadeOut Coroutine.
+    /// </summary>
     void FixedUpdate()
     {
-        if(castProgress <= 1.0)
+        if(castProgress < 1.0)
         {
             castTransform.position = Vector3.Lerp(startPos, endPos, castProgress);
+
+            //set text
             float max = castDuration / 50f;
             float aktuell = castProgress * max;
             this.castTime.text = aktuell.ToString("F1") + " / " + max.ToString("F1");
-            castProgress += rate;
+            castProgress += castRate;
+
         }
         else
         {
@@ -46,7 +59,7 @@ public class CastBar : MonoBehaviour {
         }
     }
 
-    public void SetzeCasting(bool casting)
+    public void SetCasting(bool casting)
     {
         isCasting = casting;
     }
@@ -61,7 +74,7 @@ public class CastBar : MonoBehaviour {
         StartCoroutine("FadeIn");
         castProgress = 0f;
         castDuration = castTime * 50;
-        rate = 1f / castDuration;
+        castRate = 1f / castDuration;
         this.spellName.text = spellName;
     }
 

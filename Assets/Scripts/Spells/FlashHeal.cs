@@ -54,7 +54,7 @@ public class FlashHeal : MonoBehaviour, ISpell
 
     public void Cast()
     {
-        if (!gamestate.GetCastBar().IsCasting() && !gamestate.GetGcdBar().GetGcd() && !onCooldown && gamestate.HasTarget())
+        if (!gamestate.GetCastBar().IsCasting() && !gamestate.GetGcdBar().GetIsInGcd() && !onCooldown && gamestate.HasTarget())
         {
             target = gamestate.GetTarget();
             if (target.IsAlive())
@@ -69,15 +69,15 @@ public class FlashHeal : MonoBehaviour, ISpell
 
     IEnumerator Timer()
     {
-        gamestate.GetCastBar().SetzeCasting(true);
+        gamestate.GetCastBar().SetCasting(true);
         gamestate.GetCastBar().Caste(castTime, spellName);
         gamestate.GetGcdBar().StartGcd();
         source.PlayOneShot(castSound, GameControl.control.soundMultiplyer);
         yield return new WaitForSeconds(castTime);
         source.Stop();
         source.PlayOneShot(impactSound, GameControl.control.soundMultiplyer);
-        target.IncreaseHP(healAmount);
-        gamestate.GetCastBar().SetzeCasting(false);
+        target.Heal(healAmount);
+        gamestate.GetCastBar().SetCasting(false);
     }
 
     public void StartGcd()

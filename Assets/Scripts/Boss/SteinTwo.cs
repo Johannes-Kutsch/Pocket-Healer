@@ -36,7 +36,7 @@ public class SteinTwo : MonoBehaviour, IBuff
         while (1 == 1)
         {
             yield return new WaitForSeconds(tickLength);
-            raider.ReduceHP(damagePerTick);
+            raider.Damage(damagePerTick);
         }
     }
 

@@ -3,6 +3,9 @@ using System.Collections;
 using UnityEngine.UI;
 using System.Collections.Generic;
 
+/// <summary>
+/// This class manages the gcdbar, i.e. the 1 second you have to wait between instant casts.
+/// </summary>
 public class GcdBar : MonoBehaviour {
     private Gamestate gamestate;
     public CanvasGroup canvasGroup;
@@ -14,13 +17,17 @@ public class GcdBar : MonoBehaviour {
     private RectTransform castTransform;
     private List<ISpell> spellDict = new List<ISpell>();
 
-    private float castProgress;
-    private float castDuration;
-    private float rate;
-    private bool isInGcd = false;
+    private float gcdDuration = 1f; //duration of gcd in seconds
+    private float gcdProgress; //1 if gcd is over, 0 if gcd has just startet
+    private float gcdRate; //increase of gcdProgress for each FixedUpdate
+    private bool isInGcd = false; //true if a gcd is currently active
     private float fadeSpeed = 3f;
-    private float gcdTime = 1f;
 
+
+    /// <summary>
+    /// Called on start.
+    /// Sets some variables, calculates the endPos and gcdRate.
+    /// </summary>
     void Start()
     {
         gamestate = Gamestate.gamestate;
@@ -29,14 +36,21 @@ public class GcdBar : MonoBehaviour {
         castTransform = GetComponent<RectTransform>();
         startPos = castTransform.position;
         endPos = new Vector3(castTransform.position.x - castTransform.rect.width * scaleX, castTransform.position.y, castTransform.position.z);
+        spellDict = gamestate.GetSpells();
+
+        gcdRate = 1f / (gcdDuration * 50);
     }
 
+    /// <summary>
+    /// Called in each simulation tick i.e. 50 times a second.
+    /// Advances the gcdProgress and starts the FadeOut Coroutine.
+    /// </summary>
     void FixedUpdate()
     {
-        if (castProgress <= 1.0)
+        if (gcdProgress < 1.0)
         {
-            castTransform.position = Vector3.Lerp(startPos, endPos, castProgress);
-            castProgress += rate;
+            castTransform.position = Vector3.Lerp(startPos, endPos, gcdProgress);
+            gcdProgress += gcdRate;
         }
         else
         {
@@ -45,31 +59,43 @@ public class GcdBar : MonoBehaviour {
         }
     }
 
-    public bool GetGcd()
+    /// <summary>
+    /// Gets isInGcd.
+    /// </summary>
+    /// <returns><c>true</c> if is in gcd; otherwise, <c>false</c>.</returns>
+    public bool GetIsInGcd()
     {
         return isInGcd;
     }
 
+    /// <summary>
+    /// Gets the current gcdTime.
+    /// </summary>
+    /// <returns>the gcdTime</returns>
     public float GetGcdTime()
     {
-        return gcdTime;
+        return gcdDuration;
     }
 
+    /// <summary>
+    /// Starts a gcd.
+    /// </summary>
     public void StartGcd()
     {
         isInGcd = true;
         StartCoroutine("FadeIn");
-        castProgress = 0f;
-        castDuration = gcdTime * 50;
-        rate = 1f / castDuration;
+        gcdProgress = 0f;
 
-        spellDict = gamestate.GetSpells();
         foreach (ISpell spell in spellDict)
         {
             spell.StartGcd();
         }
     }
 
+    /// <summary>
+    /// Starts a fadeout of the gcd bar.
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator FadeOut()
     {
         StopCoroutine("FadeIn");
@@ -90,6 +116,10 @@ public class GcdBar : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Starts a fadein of the gcd bar
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator FadeIn()
     {
         StopCoroutine("FadeOut");

@@ -43,7 +43,7 @@ public class Well : MonoBehaviour {
         cooldownOverlay.color = new Color32(160, 160, 160, 160);
         raiderDict = RaiderDB.GetInstance().GetAllRaiderSortetByHealth();
         target = raiderDict.First();
-        target.IncreaseHP(healAmount);
+        target.Heal(healAmount);
     }
 
     public void RemoveSpellFromButton()

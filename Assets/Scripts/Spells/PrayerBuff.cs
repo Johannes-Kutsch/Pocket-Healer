@@ -38,7 +38,7 @@ public class PrayerBuff : MonoBehaviour, IBuff {
     public void jump()
     {
         raider = GetComponent<IRaider>();
-        raider.IncreaseHP(heal);
+        raider.Heal(heal);
         if (jumps > 0)
         {
             raiderDict = RaiderDB.GetInstance().GetAllRaiderSortetByHealth();

@@ -11,13 +11,16 @@ public class TutorialManager : MonoBehaviour {
     public bool buttonThreeClicked = false;
     public bool buttonFourClicked = false;
 
+    /// <summary>
+    /// Called on every Update.
+    /// </summary>
     void Update()
     {
         if (Gamestate.gamestate.GetTarget() != null && !buttonThreeClicked && buttonTwoClicked)
         {
             buttonThreeClicked = true;
             ButtonThree();
-        } else if(Gamestate.gamestate.GetGcdBar().GetGcd() && !buttonFourClicked && buttonThreeClicked)
+        } else if(Gamestate.gamestate.GetGcdBar().GetIsInGcd() && !buttonFourClicked && buttonThreeClicked)
         {
             Gamestate.gamestate.paused = false;
             buttonFourClicked = true;
@@ -35,13 +38,13 @@ public class TutorialManager : MonoBehaviour {
         buttonTwoClicked = true;
         popupTwo.SetActive(false);
         popupThree.SetActive(true);
-        RaiderDB.GetInstance().GetAllTanks().First().ReduceHP(40);
+        RaiderDB.GetInstance().GetAllTanks().First().Damage(40);
     }
     public void ButtonThree()
     {
         popupThree.SetActive(false);
         popupFour.SetActive(true);
-        Gamestate.gamestate.GetCastBar().SetzeCasting(false);
+        Gamestate.gamestate.GetCastBar().SetCasting(false);
     }
     public void ButtonFour()
     {

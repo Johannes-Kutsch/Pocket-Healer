@@ -75,7 +75,7 @@ public class Green : MonoBehaviour, IRaider
         }
     }
 
-    public void IncreaseHP(float heilung)
+    public void Heal(float heilung)
     {
         if (alive)
         {
@@ -107,7 +107,7 @@ public class Green : MonoBehaviour, IRaider
         }
     }
 
-    public void ReduceHP(float schaden)
+    public void Damage(float schaden)
     {
         if (alive)
         {
@@ -131,7 +131,7 @@ public class Green : MonoBehaviour, IRaider
         }
     }
 
-    public void IncreaseHPSimple(float heilung, bool combatText)
+    public void HealSimple(float heilung, bool combatText)
     {
         if (alive)
         {
@@ -149,7 +149,7 @@ public class Green : MonoBehaviour, IRaider
         }
     }
 
-    public void ReduceHPSimple(float schaden, bool combatText)
+    public void DamageSimple(float schaden, bool combatText)
     {
         if (alive)
         {

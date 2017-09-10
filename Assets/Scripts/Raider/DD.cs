@@ -33,7 +33,8 @@ public class DD : MonoBehaviour, IRaider
     private Coroutine timer;
 
     /// <summary>
-    /// Starts this instance.
+    /// Called on Start.
+    /// Sets some variables, calculates the hpBarEndPos and registers the tank in the database.
     /// </summary>
     void Start()
     {
@@ -51,6 +52,7 @@ public class DD : MonoBehaviour, IRaider
 
     /// <summary>
     /// Called when [mouse down].
+    /// Sets the dd as current target.
     /// </summary>
     void OnMouseDown()
     {
@@ -61,7 +63,8 @@ public class DD : MonoBehaviour, IRaider
     }
 
     /// <summary>
-    /// Called in each simulation tick i.e. 30 times a second
+    /// Called in each simulation tick i.e. 50 times a second.
+    /// Checks if the dd is dead and if the dd can attack the boss.
     /// </summary>
     void FixedUpdate()
     {
@@ -78,22 +81,26 @@ public class DD : MonoBehaviour, IRaider
         }
     }
 
+
     /// <summary>
-    /// Increases the hp.
+    /// Heals the raider by an amount, i.e. increases the currentHealth.
+    /// The currentHealth can not be bigger than maxHealth.
     /// </summary>
     /// <param name="amount">The amount.</param>
-    public void IncreaseHP(float amount)
+    public void Heal(float amount)
     {
         if (alive)
         {
-            if (GameControl.control.talente[20] && currentHealth / maxHealth <= 0.3)
-                amount *= 1.1f;
+            if (GameControl.control.talente[20] && currentHealth / maxHealth <= 0.3) //increase healing by 25% if health is <= 30% and talent is choosen
+                amount *= 1.25f;
 
-            amount *= healMultiplyer;
+            amount *= healMultiplyer; //increase Healing by a heal multiplyer (i.e. flat 5% Heal talent)
+
             foreach (IBuff buff in GetComponent<BuffManager>().GetAllBuffsSortetByDuration())
             {
                 amount = buff.HealingTaken(amount); //call the HealingTaken method in every buff
             }
+
             foreach (IRaider raider in RaiderDB.GetInstance().GetAllRaider())
             {
                 foreach (IBuff buff in raider.GetGameObject().GetComponent<BuffManager>().GetAllBuffsSortetByDuration())
@@ -110,6 +117,7 @@ public class DD : MonoBehaviour, IRaider
                     Cloudburst.cloudburst.AddOverheal(currentHealth + amount - maxHealth); //add overheal to cloudburst if the talent is choosen
                 currentHealth = maxHealth;
             }
+
             else
             {
                 currentHealth += amount;
@@ -123,7 +131,7 @@ public class DD : MonoBehaviour, IRaider
     /// Reduces the hp.
     /// </summary>
     /// <param name="amount">The amount.</param>
-    public void ReduceHP(float amount)
+    public void Damage(float amount)
     {
         if (alive)
         {
@@ -153,18 +161,19 @@ public class DD : MonoBehaviour, IRaider
     }
 
     /// <summary>
-    /// Increases the hp in a simple way (i.e. without triggering the cloudburst talent).
+    /// Increases the hp in a simple way (i.e. without triggering the cloudburst talent and without calling healing taken methods in buffs).
     /// </summary>
     /// <param name="amount">The amount.</param>
     /// <param name="combatText">if set to <c>true</c> a combat text will be displayed.</param>
-    public void IncreaseHPSimple(float amount, bool combatText)
+    public void HealSimple(float amount, bool combatText)
     {
         if (alive)
         {
-            if (GameControl.control.talente[20] && currentHealth / maxHealth <= 0.3)
+            if (GameControl.control.talente[20] && currentHealth / maxHealth <= 0.3)  //increase healing by 25% if health is <= 30% and talent is choosen
                 amount *= 1.1f;
 
-            amount *= healMultiplyer;
+            amount *= healMultiplyer; //increase Healing by a heal multiplyer (i.e. flat 5% Heal talent)
+
             if (amount > maxHealth - currentHealth)
             {
                 currentHealth = maxHealth;
@@ -182,11 +191,11 @@ public class DD : MonoBehaviour, IRaider
     }
 
     /// <summary>
-    /// Reduces the hp in a simple way (i.e. without triggering the DamageTaken events of debuffs).
+    /// Reduces the hp in a simple way (i.e. without triggering the DamageTaken events of buffs).
     /// </summary>
     /// <param name="amount">The amount.</param>
     /// <param name="combatText">if set to <c>true</c> a combat text will be displayed.</param>
-    public void ReduceHPSimple(float amount, bool combatText)
+    public void DamageSimple(float amount, bool combatText)
     {
         if (alive)
         {

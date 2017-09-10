@@ -43,7 +43,7 @@ public class RenewHot : MonoBehaviour, IBuff {
         {
             yield return new WaitForSeconds(tickLength);
             if (raider != null)
-                raider.IncreaseHP(healPerTick);
+                raider.Heal(healPerTick);
         }
         if (GameControl.control.talente[3])
             jump();

@@ -56,7 +56,7 @@ public class GreenBuffInvis : MonoBehaviour, IBuff, ISchutzgeist
         raiderCount = raiderDict.Count;
         foreach(IRaider target in raiderDict)
         {
-            target.IncreaseHPSimple(amount / raiderCount/2, false);
+            target.HealSimple(amount / raiderCount/2, false);
         }
         return amount;
     }

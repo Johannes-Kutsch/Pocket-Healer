@@ -64,7 +64,7 @@ public class FlammeBuff : MonoBehaviour, IBuff {
 
     public float GlobalHealingTaken(float amount)
     {
-        raider.IncreaseHPSimple(amount * scaler, true);
+        raider.HealSimple(amount * scaler, true);
         return amount;
     }
 

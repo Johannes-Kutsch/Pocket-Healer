@@ -2,6 +2,9 @@
 using System.Collections;
 using UnityEngine.UI;
 
+/// <summary>
+/// This class is responsible for drawing the manabar.
+/// </summary>
 public class ManaBar : MonoBehaviour
 {
     private Gamestate gamestate;
@@ -12,6 +15,10 @@ public class ManaBar : MonoBehaviour
     private RectTransform manaTransform;
     private float scaleX;
 
+    /// <summary>
+    /// Called on Start.
+    /// Sets some variables and calculates some positions.
+    /// </summary>
     void Start()
     {
         gamestate = Gamestate.gamestate;
@@ -22,9 +29,14 @@ public class ManaBar : MonoBehaviour
         endPos = new Vector3(manaTransform.position.x - manaTransform.rect.width * scaleX, manaTransform.position.y, manaTransform.position.z);
     }
 
-    public void setzeManaBar(float maxMana, float currentMana)
+    /// <summary>
+    /// Sets the mana bar.
+    /// </summary>
+    /// <param name="maxMana">The maximum mana.</param>
+    /// <param name="currentMana">The current mana.</param>
+    public void setManaBar(float maxMana, float currentMana)
     {
        manaTransform.position = Vector3.Lerp(endPos, startPos, currentMana/maxMana);
-        manaText.text = currentMana.ToString("F0") + "/" + maxMana.ToString("F0");
+       manaText.text = currentMana.ToString("F0") + "/" + maxMana.ToString("F0");
     }
 }

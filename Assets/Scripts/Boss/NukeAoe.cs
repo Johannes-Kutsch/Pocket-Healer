@@ -27,7 +27,7 @@ public class NukeAoe : MonoBehaviour {
             targetDict = new List<IRaider>(RaiderDB.GetInstance().GetAllRaider());
             foreach (IRaider target in targetDict)
             {
-                target.ReduceHP(dmg);
+                target.Damage(dmg);
             }
             swingTimerCurrent = 0f;
         }

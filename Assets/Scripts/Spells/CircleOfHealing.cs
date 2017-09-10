@@ -68,7 +68,7 @@ public class CircleOfHealing : MonoBehaviour, ISpell {
 
     public void CastInstant()
     {
-        if (!gamestate.GetCastBar().IsCasting() && !gamestate.GetGcdBar().GetGcd() && !onCooldown)
+        if (!gamestate.GetCastBar().IsCasting() && !gamestate.GetGcdBar().GetIsInGcd() && !onCooldown)
             if (gamestate.DecreaseMana(manaKosten))
             {
                 source.PlayOneShot(impactSound, GameControl.control.soundMultiplyer);
@@ -82,7 +82,7 @@ public class CircleOfHealing : MonoBehaviour, ISpell {
                     target = raiderDict.First();
                     if (target.IsAlive())
                     {
-                        target.IncreaseHP(healAmount);
+                        target.Heal(healAmount);
                     }
                     raiderDict.Remove(target);
                 }
@@ -96,7 +96,7 @@ public class CircleOfHealing : MonoBehaviour, ISpell {
 
     public void Cast()
     {
-        if (!gamestate.GetCastBar().IsCasting() && !gamestate.GetGcdBar().GetGcd() && !onCooldown)
+        if (!gamestate.GetCastBar().IsCasting() && !gamestate.GetGcdBar().GetIsInGcd() && !onCooldown)
         {
             if (gamestate.DecreaseMana(manaKosten))
             {
@@ -107,7 +107,7 @@ public class CircleOfHealing : MonoBehaviour, ISpell {
 
     IEnumerator Timer()
     {
-        gamestate.GetCastBar().SetzeCasting(true);
+        gamestate.GetCastBar().SetCasting(true);
         gamestate.GetCastBar().Caste(castTime, spellName);
         gamestate.GetGcdBar().StartGcd();
         source.PlayOneShot(castSound, GameControl.control.soundMultiplyer);
@@ -124,7 +124,7 @@ public class CircleOfHealing : MonoBehaviour, ISpell {
             target = raiderDict.First();
             if (target.IsAlive())
             {
-                target.IncreaseHP(healAmount);
+                target.Heal(healAmount);
             }
             raiderDict.Remove(target);
         }
@@ -132,7 +132,7 @@ public class CircleOfHealing : MonoBehaviour, ISpell {
         cooldownMax = cooldown;
         onCooldown = true;
         cooldownOverlay.color = new Color32(160, 160, 160, 160);
-        gamestate.GetCastBar().SetzeCasting(false);
+        gamestate.GetCastBar().SetCasting(false);
     }
 
     public void StartGcd()
