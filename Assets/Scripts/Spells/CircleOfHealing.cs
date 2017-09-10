@@ -107,8 +107,7 @@ public class CircleOfHealing : MonoBehaviour, ISpell {
 
     IEnumerator Timer()
     {
-        gamestate.GetCastBar().SetCasting(true);
-        gamestate.GetCastBar().Caste(castTime, spellName);
+        gamestate.GetCastBar().Cast(castTime, spellName);
         gamestate.GetGcdBar().StartGcd();
         source.PlayOneShot(castSound, GameControl.control.soundMultiplyer);
         yield return new WaitForSeconds(castTime);
@@ -132,7 +131,6 @@ public class CircleOfHealing : MonoBehaviour, ISpell {
         cooldownMax = cooldown;
         onCooldown = true;
         cooldownOverlay.color = new Color32(160, 160, 160, 160);
-        gamestate.GetCastBar().SetCasting(false);
     }
 
     public void StartGcd()

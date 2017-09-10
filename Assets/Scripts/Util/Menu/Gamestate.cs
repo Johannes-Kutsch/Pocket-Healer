@@ -38,7 +38,7 @@ public class Gamestate : MonoBehaviour {
         if (SceneManager.GetActiveScene().name == "Tutorial")
         {
             paused = true;
-            castBar.SetCasting(true);
+            castBar.disableCasting(true);
         }
     }
 

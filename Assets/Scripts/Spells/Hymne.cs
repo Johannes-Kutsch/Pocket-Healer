@@ -63,8 +63,7 @@ public class Hymne : MonoBehaviour, ISpell {
 
     IEnumerator Timer()
     {
-        gamestate.GetCastBar().SetCasting(true);
-        gamestate.GetCastBar().Caste(castTime, spellName);
+        gamestate.GetCastBar().Cast(castTime, spellName);
         gamestate.GetGcdBar().StartGcd();
         cooldownTimer = 0f;
         cooldownMax = cooldown;
@@ -89,7 +88,6 @@ public class Hymne : MonoBehaviour, ISpell {
                 GenerateHot(raider);
             }
         }
-        gamestate.GetCastBar().SetCasting(false);
         source.Stop();
     }
 

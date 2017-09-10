@@ -44,7 +44,7 @@ public class TutorialManager : MonoBehaviour {
     {
         popupThree.SetActive(false);
         popupFour.SetActive(true);
-        Gamestate.gamestate.GetCastBar().SetCasting(false);
+        Gamestate.gamestate.GetCastBar().disableCasting(false);
     }
     public void ButtonFour()
     {

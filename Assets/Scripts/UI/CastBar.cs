@@ -55,22 +55,40 @@ public class CastBar : MonoBehaviour {
         }
         else
         {
+            isCasting = false;
             StartCoroutine("FadeOut");
         }
     }
 
-    public void SetCasting(bool casting)
+    /// <summary>
+    /// Manually disables/enables the ability to cast.
+    /// Be carefull when using this while a cast is in progress!
+    /// </summary>
+    /// <param name="casting">if set to <c>true</c> [casting].</param>
+    public void disableCasting(bool casting)
     {
         isCasting = casting;
     }
 
+    /// <summary>
+    /// Determines whether a cast is in progrees.
+    /// </summary>
+    /// <returns>
+    ///   <c>true</c> if a cast is in progress; otherwise, <c>false</c>.
+    /// </returns>
     public bool IsCasting()
     {
         return isCasting;
     }
 
-    public void Caste(float castTime, string spellName)
+    /// <summary>
+    /// Starts a new cast.
+    /// </summary>
+    /// <param name="castTime">The cast time.</param>
+    /// <param name="spellName">Name of the spell.</param>
+    public void Cast(float castTime, string spellName)
     {
+        isCasting = true;
         StartCoroutine("FadeIn");
         castProgress = 0f;
         castDuration = castTime * 50;
@@ -78,6 +96,10 @@ public class CastBar : MonoBehaviour {
         this.spellName.text = spellName;
     }
 
+    /// <summary>
+    /// Starts a fadeout of the castbar.
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator FadeOut()
     {
         StopCoroutine("FadeIn");
@@ -98,6 +120,10 @@ public class CastBar : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Starts a fadein of the castbar.
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator FadeIn()
     {
         StopCoroutine("FadeOut");

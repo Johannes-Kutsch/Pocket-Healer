@@ -71,15 +71,13 @@ public class BindingHeal : MonoBehaviour, ISpell
 
     IEnumerator Timer()
     {
-        gamestate.GetCastBar().SetCasting(true);
-        gamestate.GetCastBar().Caste(castTime, spellName);
+        gamestate.GetCastBar().Cast(castTime, spellName);
         gamestate.GetGcdBar().StartGcd();
         source.PlayOneShot(castSound, GameControl.control.soundMultiplyer);
         yield return new WaitForSeconds(castTime);
         source.Stop();
         source.PlayOneShot(impactSound, GameControl.control.soundMultiplyer);
         target.Heal(HealAmount);
-        gamestate.GetCastBar().SetCasting(false);
         raiderDict = RaiderDB.GetInstance().GetAllRaiderSortetByHealth();
         for (int i = 0; i < numberJumps && i < raiderDict.Count(); i++)
         {
