@@ -1,12 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
-
+/// <summary>
+/// Responsible for displaying tooltips during talent selection.
+/// </summary>
 public class TooltipTalente : MonoBehaviour
 {
     public static TooltipTalente tooltips;
     private string[] beschreibung = new string[23];
 
+    /// <summary>
+    /// Called on awake.
+    /// </summary>
     void Awake()
     {
         if (tooltips == null)
@@ -19,9 +24,12 @@ public class TooltipTalente : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Called on start, sets the tooltip texts.
+    /// </summary>
     void Start()
     {
-        beschreibung[0] = "Erneuerung hat keine Abklingzeit mehr.";
+        beschreibung[0] = "Erneuerung hat keine Abklingzeit mehr."; //ToDo: English
         beschreibung[1] = "Die Zauberzeit von Großer Heilung wird um 25% beschleunigt.";
         beschreibung[2] = "Kreis der Heilung heilt zwei weitere Ziele.";
         beschreibung[3] = "Erneuerung springt auf ein anderes Ziel sobald sie ausläuft";
@@ -46,11 +54,19 @@ public class TooltipTalente : MonoBehaviour
         beschreibung[22] = "TODO";
     }
 
+    /// <summary>
+    /// Called when a spell is clicked, updates the tooltip text.
+    /// </summary>
+    /// <param name="spellId">The spell identifier.</param>
     public void UpdateTooltip(int talentId)
     {
         GetComponent<Text>().text = beschreibung[talentId];
     }
 
+    /// <summary>
+    /// Write a text in the tooltip box.
+    /// </summary>
+    /// <param name="text">The text.</param>
     public void SetText(string text)
     {
         GetComponent<Text>().text = text;

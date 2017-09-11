@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/// <summary>
+/// Loads the images and scripts for spells used during the tutorial.
+/// </summary>
 public class SpellBarManagerTutorial : MonoBehaviour
 {
     public GameObject buttonOne;
@@ -9,11 +12,17 @@ public class SpellBarManagerTutorial : MonoBehaviour
     public GameObject buttonFour;
     public GameObject passiveButton;
 
+    /// <summary>
+    /// Called on Start, updates all buttons.
+    /// </summary>
     void Start()
     {
         UpdateButtons();
     }
 
+    /// <summary>
+    /// Updates all buttonimages and attaches the spellscript to these buttons.
+    /// </summary>
     public void UpdateButtons()
     {
         UpdateButton(buttonOne, 2);
@@ -23,6 +32,9 @@ public class SpellBarManagerTutorial : MonoBehaviour
         UpdatePassiveButton(passiveButton);
     }
 
+    /// <summary>
+    /// Disables all buttons.
+    /// </summary>
     public void DisableButtons()
     {
         buttonOne.SetActive(false);
@@ -31,7 +43,11 @@ public class SpellBarManagerTutorial : MonoBehaviour
         buttonFour.SetActive(false);
     }
 
-
+    /// <summary>
+    /// Updates the spellimage and script for a "normal" button.
+    /// </summary>
+    /// <param name="button">The button.</param>
+    /// <param name="spellId">The spell id.</param>
     public void UpdateButton(GameObject button, int spellId)
     {
         switch (spellId)
@@ -72,6 +88,11 @@ public class SpellBarManagerTutorial : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Updates the spellimage and script for a "special" button.
+    /// </summary>
+    /// <param name="button">The button.</param>
+    /// <param name="spellId">The spell id.</param>
     public void UpdateSpecialButton(GameObject button, int spellId)
     {
         switch (spellId)
@@ -88,6 +109,10 @@ public class SpellBarManagerTutorial : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Activates a button and attaches the "Renew" image and script to it.
+    /// </summary>
+    /// <param name="button">The button.</param>
     private void AddSpellOne(GameObject button)
     {
         button.SetActive(true);
@@ -95,6 +120,10 @@ public class SpellBarManagerTutorial : MonoBehaviour
         button.AddComponent<Renew>();
     }
 
+    /// <summary>
+    /// Activates a button and attaches the "GreaterHeal" image and script to it.
+    /// </summary>
+    /// <param name="button">The button.</param>
     private void AddSpellTwo(GameObject button)
     {
         button.SetActive(true);
@@ -102,6 +131,10 @@ public class SpellBarManagerTutorial : MonoBehaviour
         button.AddComponent<GroßeHeilung>();
     }
 
+    /// <summary>
+    /// Activates a button and attaches the "CircleOfHealing" image and script to it.
+    /// </summary>
+    /// <param name="button">The button.</param>
     private void AddSpellThree(GameObject button)
     {
         button.SetActive(true);
@@ -109,6 +142,10 @@ public class SpellBarManagerTutorial : MonoBehaviour
         button.AddComponent<CircleOfHealing>();
     }
 
+    /// <summary>
+    /// Activates a button and attaches the "PrayerOfMending" image and script to it.
+    /// </summary>
+    /// <param name="button">The button.</param>
     private void AddSpellFour(GameObject button)
     {
         button.SetActive(true);
@@ -116,6 +153,10 @@ public class SpellBarManagerTutorial : MonoBehaviour
         button.AddComponent<Prayer>();
     }
 
+    /// <summary>
+    /// Activates a button and attaches the "HealingWell" image and script to it.
+    /// </summary>
+    /// <param name="button">The button.</param>
     private void AddSpellFive(GameObject button)
     {
         button.SetActive(true);
@@ -123,6 +164,10 @@ public class SpellBarManagerTutorial : MonoBehaviour
         button.AddComponent<Well>();
     }
 
+    /// <summary>
+    /// Activates a button and attaches the "Flamme" image and script to it.
+    /// </summary>
+    /// <param name="button">The button.</param>
     private void AddSpellSix(GameObject button)
     {
         button.SetActive(true);
@@ -130,6 +175,10 @@ public class SpellBarManagerTutorial : MonoBehaviour
         button.AddComponent<Flamme>();
     }
 
+    /// <summary>
+    /// Activates a button and attaches the "Hymne" image and script to it.
+    /// </summary>
+    /// <param name="button">The button.</param>
     private void AddSpellSeven(GameObject button)
     {
         button.SetActive(true);
@@ -137,6 +186,10 @@ public class SpellBarManagerTutorial : MonoBehaviour
         button.AddComponent<Hymne>();
     }
 
+    /// <summary>
+    /// Activates a button and attaches the "Dispell" image and script to it.
+    /// </summary>
+    /// <param name="button">The button.</param>
     private void AddSpellEight(GameObject button)
     {
         button.SetActive(true);
@@ -144,6 +197,10 @@ public class SpellBarManagerTutorial : MonoBehaviour
         button.AddComponent<Dispell>();
     }
 
+    /// <summary>
+    /// Activates a button and attaches the "FlashHeal" image and script to it.
+    /// </summary>
+    /// <param name="button">The button.</param>
     private void AddSpellNine(GameObject button)
     {
         button.SetActive(true);
@@ -151,6 +208,10 @@ public class SpellBarManagerTutorial : MonoBehaviour
         button.AddComponent<FlashHeal>();
     }
 
+    /// <summary>
+    /// Activates a button and attaches the "Shield" image and script to it.
+    /// </summary>
+    /// <param name="button">The button.</param>
     private void AddSpellTen(GameObject button)
     {
         button.SetActive(true);
@@ -158,6 +219,10 @@ public class SpellBarManagerTutorial : MonoBehaviour
         button.AddComponent<Shield>();
     }
 
+    /// <summary>
+    /// Activates a button and attaches the "BindingHeal" image and script to it.
+    /// </summary>
+    /// <param name="button">The button.</param>
     private void AddSpellEleven(GameObject button)
     {
         button.SetActive(true);
@@ -165,6 +230,10 @@ public class SpellBarManagerTutorial : MonoBehaviour
         button.AddComponent<BindingHeal>();
     }
 
+    /// <summary>
+    /// Activates a button and attaches the "Schutzgeist" image and script to it.
+    /// </summary>
+    /// <param name="button">The button.</param>
     private void AddSpellTwelve(GameObject button)
     {
         button.SetActive(true);
@@ -172,18 +241,30 @@ public class SpellBarManagerTutorial : MonoBehaviour
         button.AddComponent<Schutzgeist>();
     }
 
+    /// <summary>
+    /// Activates a button and attaches the "Empty_Skill" image to it.
+    /// </summary>
+    /// <param name="button">The button.</param>
     private void AddSpellDefault(GameObject button)
     {
         button.SetActive(true);
         button.GetComponent<MeshRenderer>().material = Resources.Load("Empty_Skill", typeof(Material)) as Material;
     }
 
+    /// <summary>
+    /// Activates a button and attaches the "Empty_Ultimate" image to it.
+    /// </summary>
+    /// <param name="button">The button.</param>
     private void AddSpellDefaultSpecial(GameObject button)
     {
         button.SetActive(true);
         button.GetComponent<MeshRenderer>().material = Resources.Load("Empty_Ultimate", typeof(Material)) as Material;
     }
 
+    /// <summary>
+    /// Activates the talent button and attaches the "correct" image and script to it.
+    /// </summary>
+    /// <param name="button">The button.</param>
     public void UpdatePassiveButton(GameObject button)
     {
         if (GameControl.control.talente[9])
