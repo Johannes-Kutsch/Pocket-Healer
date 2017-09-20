@@ -8,16 +8,25 @@ public class AutoAttack : MonoBehaviour {
     private List<IRaider> targetDict = new List<IRaider>();
     private IRaider target = null;
 
+    public int levelIndex;
+
     private bool canAttack = false;
     public float swingTimer;
     public float changeTargetTimer;
     private float onTarget = 0f;
     public float dmg;
-    public float multiplyer;
+    public float multiplier;
     private int numberTargets = 0;
 
     void Start()
     {
+        Settings settings = new Settings(levelIndex);
+
+        swingTimer = settings.autoAttackSwingTimer;
+        changeTargetTimer = settings.autoAttackChangeTargetTimer;
+        dmg = settings.autoAttackDmg;
+        multiplier = settings.autoAttackMultiplier;
+
         if (GameControl.control.difficulty == 0)
         {
             dmg *= GameControl.control.easyMultiplyer;
@@ -41,7 +50,7 @@ public class AutoAttack : MonoBehaviour {
         {
             target.Damage(dmg);
             timer = StartCoroutine(Timer(swingTimer));
-            dmg += multiplyer;
+            dmg += multiplier;
         }
     }
 
