@@ -25,7 +25,7 @@ public class PermanentAoe : MonoBehaviour {
         swingTimerCurrent += 0.02f;
         if (swingTimerCurrent >= swingTimer)
         {
-            targetDict = new List<IRaider>(RaiderDB.GetInstance().GetAllRaider());
+            targetDict = new List<IRaider>(RaiderDB.GetInstance().GetAllRaiders());
             foreach (IRaider raider in targetDict)
             {
                 raider.Damage(dmgAoe);

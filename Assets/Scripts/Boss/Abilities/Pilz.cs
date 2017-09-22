@@ -63,7 +63,7 @@ public class Pilz : MonoBehaviour, IRaider
         else if (canSwing && alive && activated)
         {
             timer = StartCoroutine(Timer(swingTimer));
-            foreach (IRaider raider in RaiderDB.GetInstance().GetAllRaider())
+            foreach (IRaider raider in RaiderDB.GetInstance().GetAllRaiders())
             {
                 raider.HealSimple(healAmount, true);
             }
@@ -83,7 +83,7 @@ public class Pilz : MonoBehaviour, IRaider
             {
                 heilung = buff.HealingTaken(heilung);
             }
-            foreach (IRaider raider in RaiderDB.GetInstance().GetAllRaider())
+            foreach (IRaider raider in RaiderDB.GetInstance().GetAllRaiders())
             {
                 foreach (IBuff buff in raider.GetGameObject().GetComponent<BuffManager>().GetAllBuffsSortetByDuration())
                 {
@@ -116,7 +116,7 @@ public class Pilz : MonoBehaviour, IRaider
                     schaden = buff.FatalDamage(schaden);
                 }
             }
-            foreach (IRaider raider in RaiderDB.GetInstance().GetAllRaider())
+            foreach (IRaider raider in RaiderDB.GetInstance().GetAllRaiders())
             {
                 foreach (IBuff buff in raider.GetGameObject().GetComponent<BuffManager>().GetAllBuffsSortetByDuration())
                 {

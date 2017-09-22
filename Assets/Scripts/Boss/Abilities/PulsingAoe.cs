@@ -9,16 +9,17 @@ public class PulsingAoe : MonoBehaviour {
     //private bool canAttack = false;
     private float swingTimerCurrent;
     private float rocksBetweenAoeCurrent;
+
+    public string emoteText1 = "holt mit seinem Schwanz aus.";
+    public string emoteText2 = "ist kurz davor seinen feurigen Atem über deiner Gruppe zu entladen.";
+
     private int aoeCount = 0;
     public float swingTimer;
     public float dmgRock;
     public int numberTargetsRock;
-    public string emoteText1 = "holt mit seinem Schwanz aus.";
-    public string emoteText2 = "ist kurz davor seinen feurigen Atem über deiner Gruppe zu entladen.";
-
-    public float rocksBetweenAoe;
+    public int rocksBetweenAoe;
     public float dmgAoe;
-    public float ticksAoe;
+    public int ticksAoe;
     
 
     void Start()
@@ -54,7 +55,7 @@ public class PulsingAoe : MonoBehaviour {
             swingTimerCurrent = 0f;
         } else if(swingTimerCurrent >= swingTimer && rocksBetweenAoeCurrent <= 0)
         {
-            targetDict = new List<IRaider>(RaiderDB.GetInstance().GetAllRaider());
+            targetDict = new List<IRaider>(RaiderDB.GetInstance().GetAllRaiders());
             foreach (IRaider raider in targetDict)
             {
                 raider.Damage(dmgAoe);

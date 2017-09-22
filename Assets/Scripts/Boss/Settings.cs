@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// 
+/// Contains some Settings for Boss Damage Values and Timers
 /// </summary>
 public class Settings{
     public int level;
@@ -13,15 +13,38 @@ public class Settings{
     public float autoAttackChangeTargetTimer;
     public float autoAttackMultiplier;
 
-    public Settings(int level)
-    {
-        this.level = level;
+    public float rangeAutoAttackSwingTimer;
+    public float rangeAutoAttackDmg;
+    public float rangeAutoAttackMultiplier;
+    public float rangeAutoAttackSwingTimerStart = 0f;
 
-        switch (level)
+    public float throwRockSwingTimer;
+    public float throwRockAttackDmg;
+    public int throwRockNumberTargets;
+
+    public float timedAOESwingTimer;
+    public float timedAOEAttackDmg;
+
+    public float PulsingAOEswingTimer;
+    public float PulsingAOEdmgRock;
+    public int PulsingAOEnumberTargetsRock;
+    public int PulsingAOErocksBetweenAoe;
+    public float PulsingAOEdmgAoe;
+    public int PulsingAOEticksAoe;
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="Settings"/> class.
+    /// </summary>
+    /// <param name="levelIndex">The levelIndex</param>
+    public Settings(int levelIndex)
+    {
+        this.level = levelIndex;
+
+        switch (levelIndex)
         {
             case 0:
                 LoadLevelZero();
-                Debug.Log("WARNING LEVEL INDES IS ZERO");
+                Debug.Log("WARNING LEVEL INDES IS ZERO (DEFAULT/TUTORIAL)");
                 break;
             case 1:
                 LoadLevelOne();
@@ -59,6 +82,9 @@ public class Settings{
         }
     }
 
+    /// <summary>
+    /// Loads the level zero (Tutorail.
+    /// </summary>
     private void LoadLevelZero() {
         //Tutorial
         //AutoAttack
@@ -66,26 +92,61 @@ public class Settings{
         autoAttackDmg = 15f;
         autoAttackChangeTargetTimer = 15f;
         autoAttackMultiplier = 0.1f;
+
+        //RangeAutoAttack
+        rangeAutoAttackSwingTimer = 4f;
+        rangeAutoAttackDmg = 15f;
+        rangeAutoAttackMultiplier = 0.1f;
     }
 
-    private void LoadLevelOne() {
+    /// <summary>
+    /// Loads the level one.
+    /// </summary>
+    private void LoadLevelOne()
+    {
         //Scene one
         //AutoAttack
         autoAttackSwingTimer = 2f;
         autoAttackDmg = 15f;
         autoAttackChangeTargetTimer = 15f;
         autoAttackMultiplier = 0.1f;
+
+        //RangeAutoAttack
+        rangeAutoAttackSwingTimer = 3f;
+        rangeAutoAttackDmg = 10f;
+        rangeAutoAttackMultiplier = 0f;
+
+        //ThrowRock
+        throwRockSwingTimer = 8;
+        throwRockAttackDmg = 40;
+        throwRockNumberTargets = 2;
     }
 
-    private void LoadLevelTwo() {
+    /// <summary>
+    /// Loads the level two.
+    /// </summary>
+    private void LoadLevelTwo()
+    {
         //Scene two
         //AutoAttack
         autoAttackSwingTimer = 2f;
         autoAttackDmg = 20f;
         autoAttackChangeTargetTimer = 15f;
         autoAttackMultiplier = 0.1f;
+
+        //RangeAutoAttack
+        rangeAutoAttackSwingTimer = 3f;
+        rangeAutoAttackDmg = 20f;
+        rangeAutoAttackMultiplier = 0.1f;
+
+        //TimedAOE
+        timedAOESwingTimer = 10f;
+        timedAOEAttackDmg = 45f;
     }
 
+    /// <summary>
+    /// Loads the level three.
+    /// </summary>
     private void LoadLevelThree()
     {
         //Scene three
@@ -94,8 +155,24 @@ public class Settings{
         autoAttackDmg = 20f;
         autoAttackChangeTargetTimer = 15f;
         autoAttackMultiplier = 0.1f;
+
+        //RangeAutoAttack
+        rangeAutoAttackSwingTimer = 2.5f;
+        rangeAutoAttackDmg = 10f;
+        rangeAutoAttackMultiplier = 0.1f;
+
+        //PulsingAOE
+        PulsingAOEswingTimer = 5f;
+        PulsingAOEdmgRock = 35f;
+        PulsingAOEnumberTargetsRock = 2;
+        PulsingAOErocksBetweenAoe = 2;
+        PulsingAOEdmgAoe = 10f;
+        PulsingAOEticksAoe = 7;
     }
 
+    /// <summary>
+    /// Loads the level four.
+    /// </summary>
     private void LoadLevelFour()
     {
         //Scene four
@@ -104,8 +181,24 @@ public class Settings{
         autoAttackDmg = 20f;
         autoAttackChangeTargetTimer = 15f;
         autoAttackMultiplier = 0.1f;
+
+        //RangeAutoAttack
+        rangeAutoAttackSwingTimer = 3.5f;
+        rangeAutoAttackDmg = 15f;
+        rangeAutoAttackMultiplier = 0.1f;
+
+        //PulsingAOE
+        PulsingAOEswingTimer = 6f;
+        PulsingAOEdmgRock = 35f;
+        PulsingAOEnumberTargetsRock = 3;
+        PulsingAOErocksBetweenAoe = 0;
+        PulsingAOEdmgAoe = 10f;
+        PulsingAOEticksAoe = 0;
     }
 
+    /// <summary>
+    /// Loads the level five.
+    /// </summary>
     private void LoadLevelFive()
     {
         //Scene five
@@ -114,8 +207,16 @@ public class Settings{
         autoAttackDmg = 20f;
         autoAttackChangeTargetTimer = 10f;
         autoAttackMultiplier = 0.1f;
+
+        //RangeAutoAttack
+        rangeAutoAttackSwingTimer = 3f;
+        rangeAutoAttackDmg = 20f;
+        rangeAutoAttackMultiplier = 0.1f;
     }
 
+    /// <summary>
+    /// Loads the level six.
+    /// </summary>
     private void LoadLevelSix()
     {
         //Scene six
@@ -124,8 +225,17 @@ public class Settings{
         autoAttackDmg = 20f;
         //autoAttackChangeTargetTimer = 15f;
         autoAttackMultiplier = 0.1f;
+
+        //RangeAutoAttack
+        rangeAutoAttackSwingTimer = 2f;
+        rangeAutoAttackDmg = 20f;
+        rangeAutoAttackMultiplier = 0.1f;
+        rangeAutoAttackSwingTimerStart = 1f;
     }
 
+    /// <summary>
+    /// Loads the level seven.
+    /// </summary>
     private void LoadLevelSeven()
     {
         //Scene seven
@@ -134,8 +244,17 @@ public class Settings{
         autoAttackDmg = 20f;
         autoAttackChangeTargetTimer = 10f;
         autoAttackMultiplier = 0.1f;
+
+        //RangeAutoAttack
+        rangeAutoAttackSwingTimer = 2f;
+        rangeAutoAttackDmg = 10f;
+        rangeAutoAttackMultiplier = 0f;
+        rangeAutoAttackSwingTimerStart = 1f;
     }
 
+    /// <summary>
+    /// Loads the level eight.
+    /// </summary>
     private void LoadLevelEight()
     {
         //Scene eight
@@ -146,6 +265,9 @@ public class Settings{
         autoAttackMultiplier = 0.1f;
     }
 
+    /// <summary>
+    /// Loads the level nine.
+    /// </summary>
     private void LoadLevelNine()
     {
         //Scene nine
@@ -156,6 +278,9 @@ public class Settings{
         autoAttackMultiplier = 0.1f;
     }
 
+    /// <summary>
+    /// Loads the level ten.
+    /// </summary>
     private void LoadLevelTen()
     {
         //Scene ten
@@ -166,6 +291,9 @@ public class Settings{
         autoAttackMultiplier = 0.1f;
     }
 
+    /// <summary>
+    /// Loads the level eleven.
+    /// </summary>
     private void LoadLevelEleven()
     {
         //Scene eleven

@@ -70,7 +70,7 @@ public class Gamestate : MonoBehaviour {
             {
                 SceneManager.LoadScene("MainMenu");
             }
-            else if (RaiderDB.GetInstance().GetAllRaider().Count == 0 && !finished)
+            else if (RaiderDB.GetInstance().GetAllRaiders().Count == 0 && !finished)
             {
                 Popup.GetComponentInChildren<Text>().text = "Deine Gruppe wurde vernichtet bevor du " + Boss.name + " töten konntest. Versuche es erneut.";
                 finished = true;
@@ -94,7 +94,7 @@ public class Gamestate : MonoBehaviour {
             {
                 SceneManager.LoadScene("Skill_Selector");
             }
-            else if (RaiderDB.GetInstance().GetAllRaider().Count == 0 && !finished)
+            else if (RaiderDB.GetInstance().GetAllRaiders().Count == 0 && !finished)
             {
                 Popup.GetComponentInChildren<Text>().text = "Deine Gruppe wurde vernichtet bevor du " + Boss.name + " töten konntest. Versuche es erneut.";
                 finished = true;

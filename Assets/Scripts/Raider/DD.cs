@@ -101,7 +101,7 @@ public class DD : MonoBehaviour, IRaider
                 amount = buff.HealingTaken(amount); //call the HealingTaken method in every buff
             }
 
-            foreach (IRaider raider in RaiderDB.GetInstance().GetAllRaider())
+            foreach (IRaider raider in RaiderDB.GetInstance().GetAllRaiders())
             {
                 foreach (IBuff buff in raider.GetGameObject().GetComponent<BuffManager>().GetAllBuffsSortetByDuration())
                 {
@@ -146,7 +146,7 @@ public class DD : MonoBehaviour, IRaider
                     amount = buff.FatalDamage(amount); //if the damage would kill the raider call the FatalDamage method in every buff
                 }
             }
-            foreach (IRaider raider in RaiderDB.GetInstance().GetAllRaider())
+            foreach (IRaider raider in RaiderDB.GetInstance().GetAllRaiders())
             {
                 foreach (IBuff buff in raider.GetGameObject().GetComponent<BuffManager>().GetAllBuffsSortetByDuration())
                 {

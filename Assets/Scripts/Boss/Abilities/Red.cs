@@ -63,7 +63,7 @@ public class Red : MonoBehaviour, IRaider
         else if (canSwing && alive && activated)
         {
             canSwing = false;
-            List<IRaider> raiderDict = RaiderDB.GetInstance().GetAllRaider();
+            List<IRaider> raiderDict = RaiderDB.GetInstance().GetAllRaiders();
             foreach (IRaider raider in raiderDict)
             {
                 raider.ChangeHealmultiplyer(2);
@@ -83,7 +83,7 @@ public class Red : MonoBehaviour, IRaider
             {
                 heilung = buff.HealingTaken(heilung);
             }
-            foreach (IRaider raider in RaiderDB.GetInstance().GetAllRaider())
+            foreach (IRaider raider in RaiderDB.GetInstance().GetAllRaiders())
             {
                 foreach (IBuff buff in raider.GetGameObject().GetComponent<BuffManager>().GetAllBuffsSortetByDuration())
                 {
@@ -116,7 +116,7 @@ public class Red : MonoBehaviour, IRaider
                     schaden = buff.FatalDamage(schaden);
                 }
             }
-            foreach (IRaider raider in RaiderDB.GetInstance().GetAllRaider())
+            foreach (IRaider raider in RaiderDB.GetInstance().GetAllRaiders())
             {
                 foreach (IBuff buff in raider.GetGameObject().GetComponent<BuffManager>().GetAllBuffsSortetByDuration())
                 {

@@ -86,7 +86,7 @@ public class Green : MonoBehaviour, IRaider
             {
                 heilung = buff.HealingTaken(heilung);
             }
-            foreach (IRaider raider in RaiderDB.GetInstance().GetAllRaider())
+            foreach (IRaider raider in RaiderDB.GetInstance().GetAllRaiders())
             {
                 foreach (IBuff buff in raider.GetGameObject().GetComponent<BuffManager>().GetAllBuffsSortetByDuration())
                 {
@@ -119,7 +119,7 @@ public class Green : MonoBehaviour, IRaider
                     schaden = buff.FatalDamage(schaden);
                 }
             }
-            foreach (IRaider raider in RaiderDB.GetInstance().GetAllRaider())
+            foreach (IRaider raider in RaiderDB.GetInstance().GetAllRaiders())
             {
                 foreach (IBuff buff in raider.GetGameObject().GetComponent<BuffManager>().GetAllBuffsSortetByDuration())
                 {
