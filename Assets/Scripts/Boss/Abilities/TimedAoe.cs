@@ -35,7 +35,7 @@ public class TimedAoe : MonoBehaviour {
 
         swingTimerCurrent = -1f;
 
-        BossModImage.sprite = Resources.Load("ThrowRock", typeof(Sprite)) as Sprite;
+        BossModImage.sprite = Resources.Load("Trampeln", typeof(Sprite)) as Sprite; //ToDo: change to a better Icon
         Image[] cooldownOverlays = BossModImage.GetComponentsInChildren<Image>();
 
         foreach (Image image in cooldownOverlays)

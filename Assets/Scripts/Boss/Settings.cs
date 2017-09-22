@@ -191,9 +191,9 @@ public class Settings{
         PulsingAOEswingTimer = 6f;
         PulsingAOEdmgRock = 35f;
         PulsingAOEnumberTargetsRock = 3;
-        PulsingAOErocksBetweenAoe = 0;
+        PulsingAOErocksBetweenAoe = 4;
         PulsingAOEdmgAoe = 10f;
-        PulsingAOEticksAoe = 0;
+        PulsingAOEticksAoe = 7;
     }
 
     /// <summary>
@@ -263,6 +263,14 @@ public class Settings{
         autoAttackDmg = 20f;
         autoAttackChangeTargetTimer = 10f;
         autoAttackMultiplier = 0.1f;
+
+        //PulsingAOE
+        PulsingAOEswingTimer = 11f;
+        PulsingAOEdmgRock = 0f;
+        PulsingAOEnumberTargetsRock = 0;
+        PulsingAOErocksBetweenAoe = 0;
+        PulsingAOEdmgAoe = 15f;
+        PulsingAOEticksAoe = 10;
     }
 
     /// <summary>

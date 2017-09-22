@@ -1,29 +1,85 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
+/// <summary>
+/// Alterantes between a dmg nuke to multiple targets and an  pulsing aoe.
+/// </summary>
 public class PulsingAoe : MonoBehaviour {
-    private IRaider target = null;
-    private List<IRaider> targetDict = new List<IRaider>();
-    private Coroutine timer;
-    //private bool canAttack = false;
-    private float swingTimerCurrent;
+    private List<IRaider> lastTargetDict = new List<IRaider>();
+
+    public int levelIndex;
+    public Image BossModImageRock;
+    private Image cooldownOverlayRock;
+    public Image BossModImagePulsing;
+    private Image cooldownOverlayPulsing;
+
+    private float swingTimerRockCurrent;
+    private float swingTimerPulsingCurrent;
     private float rocksBetweenAoeCurrent;
-
-    public string emoteText1 = "holt mit seinem Schwanz aus.";
-    public string emoteText2 = "ist kurz davor seinen feurigen Atem über deiner Gruppe zu entladen.";
-
     private int aoeCount = 0;
-    public float swingTimer;
-    public float dmgRock;
-    public int numberTargetsRock;
-    public int rocksBetweenAoe;
-    public float dmgAoe;
-    public int ticksAoe;
-    
+    private static float DELAYAOE = 0.4f;
 
+    private float swingTimerRock;
+    private float swingTimerPulsing;
+
+    public string emoteText1 = "is about to take a swing with his tail.";
+    public string emoteText2 = "is about to unleash his fiery breath over your group.";
+
+    private float swingTimer;
+    private float dmgRock;
+    private int numberTargetsRock;
+    private int rocksBetweenAoe;
+    private float dmgAoe;
+    private int ticksAoe;
+
+    /// <summary>
+    /// Called on start.
+    /// </summary>
     void Start()
     {
+
+        Settings settings = new Settings(levelIndex);
+
+        swingTimer = settings.PulsingAOEswingTimer;
+        dmgRock = settings.PulsingAOEdmgRock;
+        numberTargetsRock = settings.PulsingAOEnumberTargetsRock;
+        rocksBetweenAoe = settings.PulsingAOErocksBetweenAoe;
+        dmgAoe = settings.PulsingAOEdmgAoe;
+        ticksAoe = settings.PulsingAOEticksAoe;
+
+        swingTimerRock = swingTimer;
+        swingTimerPulsing = swingTimer * (rocksBetweenAoe + 1);
+
+        BossModImageRock.sprite = Resources.Load("Schwanzschlag", typeof(Sprite)) as Sprite;
+        Image[] cooldownOverlays = BossModImageRock.GetComponentsInChildren<Image>();
+
+        foreach (Image image in cooldownOverlays)
+        {
+            if (image.transform != BossModImageRock.transform)
+            {
+                cooldownOverlayRock = image;
+            }
+        }
+
+        BossModImageRock.enabled = true;
+        cooldownOverlayRock.enabled = true;
+
+        BossModImagePulsing.sprite = Resources.Load("FeuerAtem", typeof(Sprite)) as Sprite;
+        cooldownOverlays = BossModImagePulsing.GetComponentsInChildren<Image>();
+
+        foreach (Image image in cooldownOverlays)
+        {
+            if (image.transform != BossModImagePulsing.transform)
+            {
+                cooldownOverlayPulsing = image;
+            }
+        }
+
+        BossModImagePulsing.enabled = true;
+        cooldownOverlayPulsing.enabled = true;
+
         if (GameControl.control.difficulty == 0)
         {
             dmgRock *= GameControl.control.easyMultiplyer;
@@ -34,41 +90,155 @@ public class PulsingAoe : MonoBehaviour {
 
     void FixedUpdate()
     {
-        swingTimerCurrent += 0.02f;
-        if (swingTimerCurrent > swingTimer - 2.05f && swingTimerCurrent < swingTimer - 1.95f && rocksBetweenAoeCurrent > 0)
+        swingTimerRockCurrent += 0.02f;
+        swingTimerPulsingCurrent += 0.02f;
+
+        if (swingTimerRockCurrent > swingTimer - 2.05f && swingTimerRockCurrent < swingTimer - 1.95f && rocksBetweenAoeCurrent > 0)
             GetComponent<Boss>().SetEmoteText(" " + emoteText1);
-        else if (swingTimerCurrent > swingTimer - 2.05f && swingTimerCurrent < swingTimer - 1.95f && rocksBetweenAoeCurrent <= 0)
+        else if (swingTimerPulsingCurrent > swingTimer - 2.05f && swingTimerPulsingCurrent < swingTimer - 1.95f && rocksBetweenAoeCurrent <= 0)
             GetComponent<Boss>().SetEmoteText(" " + emoteText2);
-        if (swingTimerCurrent >= swingTimer && rocksBetweenAoeCurrent > 0)
+
+
+        
+        
+
+        //cooldownoverlay rock
+        cooldownOverlayRock.fillAmount = swingTimerRockCurrent / swingTimerRock;
+
+        //cooldownoverlay pusling
+        cooldownOverlayPulsing.fillAmount = swingTimerPulsingCurrent / swingTimerPulsing;
+
+        //abilitie logic
+        if (swingTimerRockCurrent >= swingTimerRock) //throw a rock
         {
-            targetDict = new List<IRaider>(RaiderDB.GetInstance().GetAllDDs());
-            for (int i = 0; i < numberTargetsRock; i++)
-            {
-                if (target != null && targetDict.Count > 1)
-                {
-                    targetDict.Remove(target);
-                }
-                target = targetDict[Random.Range(0, targetDict.Count)];
-                target.Damage(dmgRock);
-            }
+            AttackRock();
             rocksBetweenAoeCurrent--;
-            swingTimerCurrent = 0f;
-        } else if(swingTimerCurrent >= swingTimer && rocksBetweenAoeCurrent <= 0)
-        {
-            targetDict = new List<IRaider>(RaiderDB.GetInstance().GetAllRaiders());
-            foreach (IRaider raider in targetDict)
+            swingTimerRockCurrent = 0f;
+
+            if (rocksBetweenAoeCurrent > 0)
             {
-                raider.Damage(dmgAoe);
+                swingTimerRock = swingTimer;
+            } else
+            {
+                swingTimerRock = swingTimer * 2 + DELAYAOE * ticksAoe; //ToDo: check ob Timer immer richtig sind, wieso ist level aufeinmal so schwer?
             }
+        }
+        if(swingTimerPulsingCurrent >= swingTimerPulsing) //enough rocks thrown, time for the pulsing aoe
+        {
+            
+            AttackPulsing();
+
+            rocksBetweenAoeCurrent--;//trigger second cooldownOverlay Method
+
             aoeCount++;
-            swingTimerCurrent = swingTimer - 0.4f;
-            if (aoeCount >= ticksAoe)
+            swingTimerPulsingCurrent = 0f;
+
+            if (aoeCount >= ticksAoe) //pulsing is over
             {
                 aoeCount = 0;
                 rocksBetweenAoeCurrent = rocksBetweenAoe;
-                swingTimerCurrent = 0f;
+                swingTimerPulsing = swingTimer * (rocksBetweenAoe + 1);
+            } else
+            {
+                swingTimerPulsing = DELAYAOE;
             }
-            
+        }
+    }
+
+    /// <summary>
+    /// The rock attack routine.
+    /// first select random dd's not hit last round
+    /// if not enought targets are hit select random dd's not hit last round
+    /// if still not enought targets are hit select random tanks
+    /// if still not enought targets are hit, go ham and select random raiders until enought targets are hit
+    /// </summary>
+    private void AttackRock()
+    {
+
+        List<IRaider> targetDict = null;
+        int targetsLeft = numberTargetsRock;
+
+        if (targetsLeft > 0) //only hit dds not hit in the last round
+        {
+            targetDict = new List<IRaider>(RaiderDB.GetInstance().GetAllDDs());
+            foreach (IRaider raider in lastTargetDict)
+            {
+                if (targetDict.Contains(raider))
+                {
+                    targetDict.Remove(raider);
+                }
+            }
+
+            lastTargetDict = new List<IRaider>();
+
+            while (targetsLeft > 0 && targetDict.Count > 0)
+            {
+                IRaider target = targetDict[Random.Range(0, targetDict.Count)];
+                targetDict.Remove(target);
+                lastTargetDict.Add(target);
+                target.Damage(dmgRock);
+                targetsLeft--;
+            }
+        }
+
+        if (targetsLeft > 0) //only hit dds not jet hit in this round
+        {
+            targetDict = new List<IRaider>(RaiderDB.GetInstance().GetAllDDs());
+            foreach (IRaider raider in lastTargetDict)
+            {
+                if (targetDict.Contains(raider))
+                {
+                    targetDict.Remove(raider);
+                }
+            }
+
+            while (targetsLeft > 0 && targetDict.Count > 0)
+            {
+                IRaider target = targetDict[Random.Range(0, targetDict.Count)];
+                targetDict.Remove(target);
+                lastTargetDict.Add(target);
+                target.Damage(dmgRock);
+                targetsLeft--;
+            }
+        }
+
+        if (targetsLeft > 0) //hit tanks
+        {
+            targetDict = new List<IRaider>(RaiderDB.GetInstance().GetAllTanks());
+            while (targetsLeft > 0 && targetDict.Count > 0)
+            {
+                IRaider target = targetDict[Random.Range(0, targetDict.Count)];
+                targetDict.Remove(target);
+                lastTargetDict.Add(target);
+                target.Damage(dmgRock);
+                targetsLeft--;
+            }
+        }
+
+        while (targetsLeft > 0) //go wild, hit random raiders until enough are hit
+        {
+            targetDict = new List<IRaider>(RaiderDB.GetInstance().GetAllRaiders());
+
+            while (targetsLeft > 0 && targetDict.Count > 0)
+            {
+                IRaider target = targetDict[Random.Range(0, targetDict.Count)];
+                targetDict.Remove(target);
+                target.Damage(dmgRock);
+                targetsLeft--;
+            }
+        }
+    }
+
+    /// <summary>
+    /// Damages every raider for the pulsing damage.
+    /// </summary>
+    private void AttackPulsing()
+    {
+        List<IRaider> targetDict = new List<IRaider>(RaiderDB.GetInstance().GetAllRaiders());
+
+        foreach (IRaider raider in targetDict)
+        {
+            raider.Damage(dmgAoe);
         }
     }
 }
