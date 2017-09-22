@@ -67,7 +67,7 @@ public class DiaDebuff : MonoBehaviour, IBuff
 
     public void jump()
     {
-        targetDict = new List<IRaider>(RaiderDB.GetInstance().GetAllRaiders());
+        targetDict = new List<IRaider>(RaiderDB.GetInstance().GetAllRaider());
         for (int i = targetDict.Count - 1; i >= 0; i--)
         {
             if (targetDict[i].GetGameObject().GetComponent<DiaDebuff>() != null)

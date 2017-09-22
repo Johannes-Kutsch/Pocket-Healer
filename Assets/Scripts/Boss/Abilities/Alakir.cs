@@ -55,7 +55,7 @@ public class Alakir : MonoBehaviour {
                     }
                     if (feuerTarget == null)
                     {
-                        feuerTargetDict = new List<IRaider>(RaiderDB.GetInstance().GetAllRaiders());
+                        feuerTargetDict = new List<IRaider>(RaiderDB.GetInstance().GetAllRaider());
                         foreach (IRaider raider in feuerTargetDict)
                         {
                             if (!raider.GetGameObject().GetComponent<AlakirFeuerDebuff>())
@@ -86,7 +86,7 @@ public class Alakir : MonoBehaviour {
                     GetComponent<Boss>().SetEmoteText(" " + emotePhaseOne);
                 else if (timeInPhase > phasendauer)
                 {
-                    targetDict = new List<IRaider>(RaiderDB.GetInstance().GetAllRaiders());
+                    targetDict = new List<IRaider>(RaiderDB.GetInstance().GetAllRaider());
                     foreach (IRaider target in targetDict)
                     {
                         AlakirWasserDebuff debuff = target.GetGameObject().AddComponent<AlakirWasserDebuff>();
@@ -103,7 +103,7 @@ public class Alakir : MonoBehaviour {
                     GetComponent<Boss>().SetEmoteText(" " + emotePhaseTwo);
                 else if (timeInPhase > phasendauer)
                 {
-                    targetDict = new List<IRaider>(RaiderDB.GetInstance().GetAllRaiders());
+                    targetDict = new List<IRaider>(RaiderDB.GetInstance().GetAllRaider());
                     foreach (IRaider target in targetDict)
                     {
                         AlakirFeuerDebuff feuerBuff = target.GetGameObject().GetComponent<AlakirFeuerDebuff>();
@@ -127,7 +127,7 @@ public class Alakir : MonoBehaviour {
                 if (frostTimerCurrent >= frostTimer)
                 {
                     frostTimerCurrent = 0f;
-                    targetDict = new List<IRaider>(RaiderDB.GetInstance().GetAllRaiders());
+                    targetDict = new List<IRaider>(RaiderDB.GetInstance().GetAllRaider());
                     foreach (IRaider raider in targetDict)
                     {
                         raider.Damage(frostDamage);

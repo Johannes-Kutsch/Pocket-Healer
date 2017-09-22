@@ -22,7 +22,7 @@ public class ApplyDiaDebuff : MonoBehaviour
             GetComponent<Boss>().SetEmoteText(" " + emoteText);
         if (swingTimerCurrent >= swingTimer && !dotsApplyed)
         {
-            targetDict = new List<IRaider>(RaiderDB.GetInstance().GetAllRaiders());
+            targetDict = new List<IRaider>(RaiderDB.GetInstance().GetAllRaider());
             for (int i = 0; i < numberTargets; i++)
             {
                 if (target != null && targetDict.Count > 1)
@@ -37,7 +37,7 @@ public class ApplyDiaDebuff : MonoBehaviour
         }
         if (swingTimerCurrent >= dotDuration)
         {
-            targetDict = new List<IRaider>(RaiderDB.GetInstance().GetAllRaiders());
+            targetDict = new List<IRaider>(RaiderDB.GetInstance().GetAllRaider());
             foreach (IRaider target in targetDict)
             {
                 DiaDebuff debuff = target.GetGameObject().GetComponent<DiaDebuff>();

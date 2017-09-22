@@ -23,7 +23,7 @@ public class ApplyKillDebuff : MonoBehaviour {
             GetComponent<Boss>().SetEmoteText(" " + emoteText);
         if (swingTimerCurrent >= swingTimer)
         {
-            targetDict = new List<IRaider>(RaiderDB.GetInstance().GetAllRaiders());
+            targetDict = new List<IRaider>(RaiderDB.GetInstance().GetAllRaider());
             if (target != null && targetDict.Count > 1)
             {
                 targetDict.Remove(target);

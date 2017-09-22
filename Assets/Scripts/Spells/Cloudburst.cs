@@ -58,7 +58,7 @@ public class Cloudburst : MonoBehaviour
     {
         cooldownTimer = 0f;
         onCooldown = true;
-        targetDict = RaiderDB.GetInstance().GetAllRaiders();
+        targetDict = RaiderDB.GetInstance().GetAllRaider();
         float anzTargets = targetDict.Count;
         foreach (IRaider raider in targetDict) {
             raider.HealSimple(storedHealth*multiplyer/ anzTargets, true);

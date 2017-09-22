@@ -24,7 +24,7 @@ public class NukeAoe : MonoBehaviour {
             GetComponent<Boss>().SetEmoteText(" " + emoteText);
         if (swingTimerCurrent >= swingTimer)
         {
-            targetDict = new List<IRaider>(RaiderDB.GetInstance().GetAllRaiders());
+            targetDict = new List<IRaider>(RaiderDB.GetInstance().GetAllRaider());
             foreach (IRaider target in targetDict)
             {
                 target.Damage(dmg);

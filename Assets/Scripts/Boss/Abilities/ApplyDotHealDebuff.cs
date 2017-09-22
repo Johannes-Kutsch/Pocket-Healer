@@ -30,7 +30,7 @@ public class ApplyDotHealDebuff : MonoBehaviour
             targetDict = new List<IRaider>(RaiderDB.GetInstance().GetAllDDs());
             if(targetDict.Count <= 0)
             {
-                targetDict = new List<IRaider>(RaiderDB.GetInstance().GetAllRaiders());
+                targetDict = new List<IRaider>(RaiderDB.GetInstance().GetAllRaider());
             }
             if (target != null && targetDict.Count > 1)
             {

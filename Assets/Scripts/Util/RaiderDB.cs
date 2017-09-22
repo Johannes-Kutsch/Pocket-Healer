@@ -53,10 +53,7 @@ public class RaiderDB {
     /// <param name="raider">The raider.</param>
     public void DeRegisterRaider(IRaider raider)
     {
-        if (raiderDict.Contains(raider))
-        {
-            raiderDict.Remove(raider);
-        }
+        raiderDict.Remove(raider);
     }
 
     /// <summary>
@@ -75,15 +72,8 @@ public class RaiderDB {
     /// <param name="tank">The tank.</param>
     public void DeRegisterTank(IRaider tank)
     {
-        if (raiderDict.Contains(tank))
-        {
-            raiderDict.Remove(tank);
-        }
-
-        if(tankDict.Contains(tank))
-        {
+        raiderDict.Remove(tank);
         tankDict.Remove(tank);
-        }
     }
 
     /// <summary>
@@ -102,22 +92,15 @@ public class RaiderDB {
     /// <param name="dd">The dd.</param>
     public void DeRegisterDD(IRaider dd)
     {
-        if (raiderDict.Contains(dd))
-        {
-            raiderDict.Remove(dd);
-        }
-
-        if (ddDict.Contains(dd))
-        {
-            ddDict.Remove(dd);
-        }
+        raiderDict.Remove(dd);
+        ddDict.Remove(dd);
     }
 
     /// <summary>
     /// Gets all raiders in random order.
     /// </summary>
     /// <returns>a list containing all raiders in random order</returns>
-    public List<IRaider> GetAllRaiders()
+    public List<IRaider> GetAllRaider()
     {
         return raiderDict.OrderBy(o => Random.Range(1, 100)).ToList();
     }

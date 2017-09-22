@@ -26,7 +26,7 @@ public class ApplyHealDebuff : MonoBehaviour
             }
             if (targetDict.Count == 0)
             {
-                targetDict = new List<IRaider>(RaiderDB.GetInstance().GetAllRaiders());
+                targetDict = new List<IRaider>(RaiderDB.GetInstance().GetAllRaider());
             }
             target = targetDict[Random.Range(0, targetDict.Count)];
             HealDebuff debuff = target.GetGameObject().AddComponent<HealDebuff>();

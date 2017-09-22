@@ -102,7 +102,7 @@ public class Tank : MonoBehaviour, IRaider {
                 amount = buff.HealingTaken(amount); //call the HealingTaken method in every buff
             }
 
-            foreach (IRaider raider in RaiderDB.GetInstance().GetAllRaiders())
+            foreach (IRaider raider in RaiderDB.GetInstance().GetAllRaider())
             {
                 foreach (IBuff buff in raider.GetGameObject().GetComponent<BuffManager>().GetAllBuffsSortetByDuration())
                 {
@@ -150,7 +150,7 @@ public class Tank : MonoBehaviour, IRaider {
                 }
             }
 
-            foreach (IRaider raider in RaiderDB.GetInstance().GetAllRaiders())
+            foreach (IRaider raider in RaiderDB.GetInstance().GetAllRaider())
             {
                 foreach (IBuff buff in raider.GetGameObject().GetComponent<BuffManager>().GetAllBuffsSortetByDuration())
                 {

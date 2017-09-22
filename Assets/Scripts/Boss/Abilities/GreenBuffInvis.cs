@@ -52,7 +52,7 @@ public class GreenBuffInvis : MonoBehaviour, IBuff, ISchutzgeist
 
     public float HealingTaken(float amount)
     {
-        raiderDict = RaiderDB.GetInstance().GetAllRaiders();
+        raiderDict = RaiderDB.GetInstance().GetAllRaider();
         raiderCount = raiderDict.Count;
         foreach(IRaider target in raiderDict)
         {

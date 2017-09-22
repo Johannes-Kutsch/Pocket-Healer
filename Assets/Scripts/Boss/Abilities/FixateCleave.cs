@@ -68,7 +68,7 @@ public class FixateCleave : MonoBehaviour {
             targetDictCleave = new List<IRaider>(RaiderDB.GetInstance().GetAllTanks());
             if (targetDictCleave.Count <= 1)
             {
-                targetDictCleave = new List<IRaider>(RaiderDB.GetInstance().GetAllRaiders());
+                targetDictCleave = new List<IRaider>(RaiderDB.GetInstance().GetAllRaider());
                 dmgCleaveActual *= 0.5f;
             }
             foreach (IRaider raider in targetDictCleave)
@@ -103,7 +103,7 @@ public class FixateCleave : MonoBehaviour {
         numberTargets = targetDict.Count;
         if (numberTargets <= 0)
         {
-            targetDict = new List<IRaider>(RaiderDB.GetInstance().GetAllRaiders());
+            targetDict = new List<IRaider>(RaiderDB.GetInstance().GetAllRaider());
             numberTargets = targetDict.Count;
             dmgAutoAttack *= 4;
         }

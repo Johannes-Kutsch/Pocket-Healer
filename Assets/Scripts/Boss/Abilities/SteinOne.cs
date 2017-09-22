@@ -32,7 +32,7 @@ public class SteinOne : MonoBehaviour, IBuff
         runtime = runtime + 0.02f;
         if (raider.GetHealth() >= 1f)
         {
-            targetDict = RaiderDB.GetInstance().GetAllRaiders();
+            targetDict = RaiderDB.GetInstance().GetAllRaider();
             foreach (IRaider target in targetDict)
                 target.Damage(exploDmg);
             Destroy();

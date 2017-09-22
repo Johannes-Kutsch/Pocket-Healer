@@ -72,7 +72,7 @@ public class Hymne : MonoBehaviour, ISpell {
         for (float i = 0; i < castTime; )
         {
             
-            foreach (IRaider raider in RaiderDB.GetInstance().GetAllRaiders())
+            foreach (IRaider raider in RaiderDB.GetInstance().GetAllRaider())
             {
                 raider.Heal(healAmount);
                 
@@ -80,7 +80,7 @@ public class Hymne : MonoBehaviour, ISpell {
             yield return new WaitForSeconds(castTime / (ticks -1));
             i += (castTime / (ticks - 1));
         }
-        foreach (IRaider raider in RaiderDB.GetInstance().GetAllRaiders())
+        foreach (IRaider raider in RaiderDB.GetInstance().GetAllRaider())
         {
             raider.Heal(healAmount);
             if (GameControl.control.talente[5])

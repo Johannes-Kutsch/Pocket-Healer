@@ -30,7 +30,7 @@ public class ApplyStone : MonoBehaviour {
             }
             if (target == null)
             {
-                targetDict = new List<IRaider>(RaiderDB.GetInstance().GetAllRaiders());
+                targetDict = new List<IRaider>(RaiderDB.GetInstance().GetAllRaider());
                 foreach (IRaider raider in targetDict)
                 {
                     if (!raider.GetGameObject().GetComponent<SteinOne>() && !raider.GetGameObject().GetComponent<SteinTwo>())
@@ -56,7 +56,7 @@ public class ApplyStone : MonoBehaviour {
             }
             if (target == null)
             {
-                targetDict = new List<IRaider>(RaiderDB.GetInstance().GetAllRaiders());
+                targetDict = new List<IRaider>(RaiderDB.GetInstance().GetAllRaider());
                 foreach (IRaider raider in targetDict)
                 {
                     if (!raider.GetGameObject().GetComponent<SteinOne>() && !raider.GetGameObject().GetComponent<SteinTwo>())
