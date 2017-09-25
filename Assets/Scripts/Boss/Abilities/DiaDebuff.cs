@@ -48,7 +48,7 @@ public class DiaDebuff : MonoBehaviour, IBuff
         return image;
     }
 
-    public string GetRemainingTime()
+    public string GetRemainingDuration()
     {
         return (" ");
     }

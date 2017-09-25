@@ -25,12 +25,15 @@ public class Settings{
     public float timedAOESwingTimer;
     public float timedAOEAttackDmg;
 
-    public float PulsingAOEswingTimer;
-    public float PulsingAOEdmgRock;
-    public int PulsingAOEnumberTargetsRock;
-    public int PulsingAOErocksBetweenAoe;
-    public float PulsingAOEdmgAoe;
-    public int PulsingAOEticksAoe;
+    public float pulsingAOEswingTimer;
+    public float pulsingAOEdmgRock;
+    public int pulsingAOEnumberTargetsRock;
+    public int pulsingAOErocksBetweenAoe;
+    public float pulsingAOEdmgAoe;
+    public int pulsingAOEticksAoe;
+
+    public float applyKillDebuffTimer;
+    public float applyKillDebuffTimerStart = 0f;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="Settings"/> class.
@@ -162,12 +165,12 @@ public class Settings{
         rangeAutoAttackMultiplier = 0.1f;
 
         //PulsingAOE
-        PulsingAOEswingTimer = 5f;
-        PulsingAOEdmgRock = 35f;
-        PulsingAOEnumberTargetsRock = 2;
-        PulsingAOErocksBetweenAoe = 2;
-        PulsingAOEdmgAoe = 10f;
-        PulsingAOEticksAoe = 7;
+        pulsingAOEswingTimer = 6f;
+        pulsingAOEdmgRock = 40f;
+        pulsingAOEnumberTargetsRock = 3;
+        pulsingAOErocksBetweenAoe = 3;
+        pulsingAOEdmgAoe = 10f;
+        pulsingAOEticksAoe = 7;
     }
 
     /// <summary>
@@ -188,12 +191,16 @@ public class Settings{
         rangeAutoAttackMultiplier = 0.1f;
 
         //PulsingAOE
-        PulsingAOEswingTimer = 6f;
-        PulsingAOEdmgRock = 35f;
-        PulsingAOEnumberTargetsRock = 3;
-        PulsingAOErocksBetweenAoe = 4;
-        PulsingAOEdmgAoe = 10f;
-        PulsingAOEticksAoe = 7;
+        pulsingAOEswingTimer = 6f;
+        pulsingAOEdmgRock = 35f;
+        pulsingAOEnumberTargetsRock = 3;
+        pulsingAOErocksBetweenAoe = 4;
+        pulsingAOEdmgAoe = 10f;
+        pulsingAOEticksAoe = 7;
+
+        //kill debuff
+        applyKillDebuffTimer = 13f;
+        applyKillDebuffTimerStart = -2f;
     }
 
     /// <summary>
@@ -265,12 +272,12 @@ public class Settings{
         autoAttackMultiplier = 0.1f;
 
         //PulsingAOE
-        PulsingAOEswingTimer = 11f;
-        PulsingAOEdmgRock = 0f;
-        PulsingAOEnumberTargetsRock = 0;
-        PulsingAOErocksBetweenAoe = 0;
-        PulsingAOEdmgAoe = 15f;
-        PulsingAOEticksAoe = 10;
+        pulsingAOEswingTimer = 11f;
+        pulsingAOEdmgRock = 0f;
+        pulsingAOEnumberTargetsRock = 0;
+        pulsingAOErocksBetweenAoe = 0;
+        pulsingAOEdmgAoe = 15f;
+        pulsingAOEticksAoe = 10;
     }
 
     /// <summary>

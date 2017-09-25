@@ -73,7 +73,7 @@ public class MarkDebuff : MonoBehaviour, IBuff
         return image;
     }
 
-    public string GetRemainingTime()
+    public string GetRemainingDuration()
     {
         return (duration - runtime).ToString("F0");
     }

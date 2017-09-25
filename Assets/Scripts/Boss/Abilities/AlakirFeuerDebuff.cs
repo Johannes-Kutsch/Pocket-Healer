@@ -40,7 +40,7 @@ public class AlakirFeuerDebuff : MonoBehaviour, IBuff
         return image;
     }
 
-    public string GetRemainingTime()
+    public string GetRemainingDuration()
     {
         return (" ");
     }

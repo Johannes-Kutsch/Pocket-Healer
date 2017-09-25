@@ -11,7 +11,6 @@ public class HealDebuff : MonoBehaviour, IBuff
     public float tickLength = 1.5f;
     private int ticksSinceLastEffect = 0;
     private IRaider raider;
-    //private Boss boss;
 
     void Start()
     {
@@ -21,7 +20,6 @@ public class HealDebuff : MonoBehaviour, IBuff
             damagePerTick *= GameControl.control.easyMultiplyer;
         }
         raider = GetComponent<IRaider>();
-        //boss = FindObjectOfType<Boss>();
         StartCoroutine(ApplyDamage());
     }
 
@@ -55,7 +53,7 @@ public class HealDebuff : MonoBehaviour, IBuff
         return image;
     }
 
-    public string GetRemainingTime()
+    public string GetRemainingDuration()
     {
         return (duration - runtime).ToString("F0");
     }

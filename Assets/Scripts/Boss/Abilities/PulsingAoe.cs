@@ -24,8 +24,8 @@ public class PulsingAoe : MonoBehaviour {
     private float swingTimerRock;
     private float swingTimerPulsing;
 
-    public string emoteText1 = "is about to take a swing with his tail.";
-    public string emoteText2 = "is about to unleash his fiery breath over your group.";
+    public string emoteText1 = "is about to take a swing with her tail.";
+    public string emoteText2 = "is about to unleash her fiery breath over your group.";
 
     private float swingTimer;
     private float dmgRock;
@@ -42,17 +42,16 @@ public class PulsingAoe : MonoBehaviour {
 
         Settings settings = new Settings(levelIndex);
 
-        swingTimer = settings.PulsingAOEswingTimer;
-        dmgRock = settings.PulsingAOEdmgRock;
-        numberTargetsRock = settings.PulsingAOEnumberTargetsRock;
-        rocksBetweenAoe = settings.PulsingAOErocksBetweenAoe;
-        dmgAoe = settings.PulsingAOEdmgAoe;
-        ticksAoe = settings.PulsingAOEticksAoe;
+        swingTimer = settings.pulsingAOEswingTimer;
+        dmgRock = settings.pulsingAOEdmgRock;
+        numberTargetsRock = settings.pulsingAOEnumberTargetsRock;
+        rocksBetweenAoe = settings.pulsingAOErocksBetweenAoe;
+        dmgAoe = settings.pulsingAOEdmgAoe;
+        ticksAoe = settings.pulsingAOEticksAoe;
 
         swingTimerRock = swingTimer;
         swingTimerPulsing = swingTimer * (rocksBetweenAoe + 1);
 
-        BossModImageRock.sprite = Resources.Load("Schwanzschlag", typeof(Sprite)) as Sprite;
         Image[] cooldownOverlays = BossModImageRock.GetComponentsInChildren<Image>();
 
         foreach (Image image in cooldownOverlays)
@@ -66,7 +65,6 @@ public class PulsingAoe : MonoBehaviour {
         BossModImageRock.enabled = true;
         cooldownOverlayRock.enabled = true;
 
-        BossModImagePulsing.sprite = Resources.Load("FeuerAtem", typeof(Sprite)) as Sprite;
         cooldownOverlays = BossModImagePulsing.GetComponentsInChildren<Image>();
 
         foreach (Image image in cooldownOverlays)
@@ -93,14 +91,10 @@ public class PulsingAoe : MonoBehaviour {
         swingTimerRockCurrent += 0.02f;
         swingTimerPulsingCurrent += 0.02f;
 
-        if (swingTimerRockCurrent > swingTimer - 2.05f && swingTimerRockCurrent < swingTimer - 1.95f && rocksBetweenAoeCurrent > 0)
+        if (swingTimerRockCurrent > swingTimerRock - 2.05f && swingTimerRockCurrent < swingTimerRock - 1.95f)
             GetComponent<Boss>().SetEmoteText(" " + emoteText1);
-        else if (swingTimerPulsingCurrent > swingTimer - 2.05f && swingTimerPulsingCurrent < swingTimer - 1.95f && rocksBetweenAoeCurrent <= 0)
+        else if (swingTimerPulsingCurrent > swingTimerPulsing - 2.05f && swingTimerPulsingCurrent < swingTimerPulsing - 1.95f)
             GetComponent<Boss>().SetEmoteText(" " + emoteText2);
-
-
-        
-        
 
         //cooldownoverlay rock
         cooldownOverlayRock.fillAmount = swingTimerRockCurrent / swingTimerRock;
@@ -120,15 +114,13 @@ public class PulsingAoe : MonoBehaviour {
                 swingTimerRock = swingTimer;
             } else
             {
-                swingTimerRock = swingTimer * 2 + DELAYAOE * ticksAoe; //ToDo: check ob Timer immer richtig sind, wieso ist level aufeinmal so schwer?
+                swingTimerRock = swingTimer * 2 + DELAYAOE * (ticksAoe - 1);
             }
         }
         if(swingTimerPulsingCurrent >= swingTimerPulsing) //enough rocks thrown, time for the pulsing aoe
         {
             
             AttackPulsing();
-
-            rocksBetweenAoeCurrent--;//trigger second cooldownOverlay Method
 
             aoeCount++;
             swingTimerPulsingCurrent = 0f;
@@ -138,6 +130,7 @@ public class PulsingAoe : MonoBehaviour {
                 aoeCount = 0;
                 rocksBetweenAoeCurrent = rocksBetweenAoe;
                 swingTimerPulsing = swingTimer * (rocksBetweenAoe + 1);
+                swingTimerRockCurrent = swingTimer + DELAYAOE * (ticksAoe - 1);
             } else
             {
                 swingTimerPulsing = DELAYAOE;

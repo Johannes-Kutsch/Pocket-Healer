@@ -35,7 +35,7 @@ public class GreenBuffInvis : MonoBehaviour, IBuff, ISchutzgeist
         return image;
     }
 
-    public string GetRemainingTime()
+    public string GetRemainingDuration()
     {
         return " ";
     }

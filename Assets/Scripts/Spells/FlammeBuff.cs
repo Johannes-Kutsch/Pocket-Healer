@@ -37,7 +37,7 @@ public class FlammeBuff : MonoBehaviour, IBuff {
         return image;
     }
 
-    public string GetRemainingTime()
+    public string GetRemainingDuration()
     {
         return "";
     }

@@ -42,7 +42,7 @@ public class SchutzgeistBuffInvis : MonoBehaviour, IBuff, ISchutzgeist {
         return image;
     }
 
-    public string GetRemainingTime()
+    public string GetRemainingDuration()
     {
         return " ";
     }
