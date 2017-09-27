@@ -100,7 +100,7 @@ public interface IBuff {
 
 
     /// <summary>
-    /// Resets this buff to as if it was freshly applied. This is used 
+    /// Resets this buff as if it was freshly applied. This is used for the reset debuffs on dispell talent.
     /// </summary>
     void Reset();
 }

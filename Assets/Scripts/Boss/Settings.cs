@@ -35,6 +35,19 @@ public class Settings{
     public float applyKillDebuffTimer;
     public float applyKillDebuffTimerStart = 0f;
 
+    public float applyMarkDebuffTimer;
+    public float applyMarkDebuffTimerStart = 0f;
+
+    public float fixateCleaveSwingTimer;
+    public float fixateCleaveDmgCleave;
+    public int fixateCleaveCleaveBetweenFixate;
+    public int fixateCleaveHitsFixate;
+    public float fixateCleaveDmgFixate;
+    public float fixateCleaveMultiplierFixate;
+
+    public float applyStoneDebuffTimer;
+    public float applyStoneDebuffTimerStart = 0f;
+
     /// <summary>
     /// Initializes a new instance of the <see cref="Settings"/> class.
     /// </summary>
@@ -219,6 +232,10 @@ public class Settings{
         rangeAutoAttackSwingTimer = 3f;
         rangeAutoAttackDmg = 20f;
         rangeAutoAttackMultiplier = 0.1f;
+
+        //MarkDebuff
+        applyMarkDebuffTimer = 20f;
+        applyMarkDebuffTimerStart = 17f;
     }
 
     /// <summary>
@@ -230,7 +247,6 @@ public class Settings{
         //AutoAttack
         autoAttackSwingTimer = 2f;
         autoAttackDmg = 20f;
-        //autoAttackChangeTargetTimer = 15f;
         autoAttackMultiplier = 0.1f;
 
         //RangeAutoAttack
@@ -238,6 +254,14 @@ public class Settings{
         rangeAutoAttackDmg = 20f;
         rangeAutoAttackMultiplier = 0.1f;
         rangeAutoAttackSwingTimerStart = 1f;
+
+        //FixateCleave
+        fixateCleaveSwingTimer = 5f;
+        fixateCleaveDmgCleave = 50f;
+        fixateCleaveCleaveBetweenFixate = 2;
+        fixateCleaveHitsFixate = 5;
+        fixateCleaveDmgFixate = 38f;
+        fixateCleaveMultiplierFixate = 1.2f;
     }
 
     /// <summary>
@@ -257,6 +281,10 @@ public class Settings{
         rangeAutoAttackDmg = 10f;
         rangeAutoAttackMultiplier = 0f;
         rangeAutoAttackSwingTimerStart = 1f;
+
+        //StoneDebuff
+        applyStoneDebuffTimer = 12f;
+        applyStoneDebuffTimerStart = 9f;
     }
 
     /// <summary>
@@ -289,8 +317,15 @@ public class Settings{
         //AutoAttack
         autoAttackSwingTimer = 2f;
         autoAttackDmg = 20f;
-        //autoAttackChangeTargetTimer = 15f;
         autoAttackMultiplier = 0.1f;
+
+        //FixateCleave
+        fixateCleaveSwingTimer = 5f;
+        fixateCleaveDmgCleave = 50f;
+        fixateCleaveCleaveBetweenFixate = 2;
+        fixateCleaveHitsFixate = 5;
+        fixateCleaveDmgFixate = 35f;
+        fixateCleaveMultiplierFixate = 1.2f;
     }
 
     /// <summary>
@@ -315,8 +350,15 @@ public class Settings{
         //AutoAttack
         autoAttackSwingTimer = 2f;
         autoAttackDmg = 20f;
-        //autoAttackChangeTargetTimer = 15f;
         autoAttackMultiplier = 1f;
+
+        //FixateCleave
+        fixateCleaveSwingTimer = 6f;
+        fixateCleaveDmgCleave = 100f;
+        fixateCleaveCleaveBetweenFixate = 3;
+        fixateCleaveHitsFixate = 5;
+        fixateCleaveDmgFixate = 50f;
+        fixateCleaveMultiplierFixate = 1.2f;
     }
 
 

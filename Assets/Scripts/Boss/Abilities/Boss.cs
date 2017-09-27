@@ -45,7 +45,7 @@ public class Boss : MonoBehaviour{
         }
     }
 
-    public void ErhalteSchaden(float schaden)
+    public void TakeDamage(float schaden)
     {
         currentHealth = currentHealth - schaden;
         SetzeHpBar();

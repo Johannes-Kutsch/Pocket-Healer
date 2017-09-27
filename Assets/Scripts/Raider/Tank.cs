@@ -78,7 +78,7 @@ public class Tank : MonoBehaviour, IRaider {
             currentBoss = gamestate.GetBoss();
             float swingTimer = UnityEngine.Random.Range(swingTimerBot, swingTimerTop);
             timer = StartCoroutine(Wait(swingTimer));
-            currentBoss.ErhalteSchaden(dmg);
+            currentBoss.TakeDamage(dmg);
         }
     }
 

@@ -30,6 +30,7 @@ public class SteinOne : MonoBehaviour, IBuff
     void FixedUpdate()
     {
         runtime = runtime + 0.02f;
+        Debug.Log(raider.GetHealth());
         if (raider.GetHealth() >= 1f)
         {
             targetDict = RaiderDB.GetInstance().GetAllRaiders();

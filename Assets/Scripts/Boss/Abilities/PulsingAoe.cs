@@ -17,7 +17,7 @@ public class PulsingAoe : MonoBehaviour {
 
     private float swingTimerRockCurrent;
     private float swingTimerPulsingCurrent;
-    private float rocksBetweenAoeCurrent;
+    private float rocksBetweenAoeRemaining;
     private int aoeCount = 0;
     private static float DELAYAOE = 0.4f;
 
@@ -83,7 +83,7 @@ public class PulsingAoe : MonoBehaviour {
             dmgRock *= GameControl.control.easyMultiplyer;
             dmgAoe *= GameControl.control.easyMultiplyer;
         }
-        rocksBetweenAoeCurrent = rocksBetweenAoe;
+        rocksBetweenAoeRemaining = rocksBetweenAoe;
     }
 
     void FixedUpdate()
@@ -106,10 +106,10 @@ public class PulsingAoe : MonoBehaviour {
         if (swingTimerRockCurrent >= swingTimerRock) //throw a rock
         {
             AttackRock();
-            rocksBetweenAoeCurrent--;
+            rocksBetweenAoeRemaining--;
             swingTimerRockCurrent = 0f;
 
-            if (rocksBetweenAoeCurrent > 0)
+            if (rocksBetweenAoeRemaining > 0)
             {
                 swingTimerRock = swingTimer;
             } else
@@ -117,9 +117,9 @@ public class PulsingAoe : MonoBehaviour {
                 swingTimerRock = swingTimer * 2 + DELAYAOE * (ticksAoe - 1);
             }
         }
+
         if(swingTimerPulsingCurrent >= swingTimerPulsing) //enough rocks thrown, time for the pulsing aoe
         {
-            
             AttackPulsing();
 
             aoeCount++;
@@ -128,9 +128,9 @@ public class PulsingAoe : MonoBehaviour {
             if (aoeCount >= ticksAoe) //pulsing is over
             {
                 aoeCount = 0;
-                rocksBetweenAoeCurrent = rocksBetweenAoe;
+                rocksBetweenAoeRemaining = rocksBetweenAoe;
                 swingTimerPulsing = swingTimer * (rocksBetweenAoe + 1);
-                swingTimerRockCurrent = swingTimer + DELAYAOE * (ticksAoe - 1);
+                swingTimerRockCurrent = swingTimer;
             } else
             {
                 swingTimerPulsing = DELAYAOE;
