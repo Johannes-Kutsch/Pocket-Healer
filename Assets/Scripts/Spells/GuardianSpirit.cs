@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine.UI;
 using System.Collections.Generic;
 
-public class Schutzgeist : MonoBehaviour, ISpell
+public class GuardianSpirit : MonoBehaviour, ISpell
 {
     public Gamestate gamestate;
     public Image cooldownOverlay;
@@ -68,22 +68,22 @@ public class Schutzgeist : MonoBehaviour, ISpell
 
     private void GenerateBuff()
     {
-        if (!target.GetGameObject().GetComponent<SchutzgeistBuff>())
+        if (!target.GetGameObject().GetComponent<GuardianSpiritBuff>())
         {
-            SchutzgeistBuff buff = target.GetGameObject().AddComponent<SchutzgeistBuff>();
+            GuardianSpiritBuff buff = target.GetGameObject().AddComponent<GuardianSpiritBuff>();
             target.GetGameObject().GetComponent<BuffManager>().RegisterBuff(buff);
         }
         else
         {
-            target.GetGameObject().GetComponent<SchutzgeistBuff>().Reset();
+            target.GetGameObject().GetComponent<GuardianSpiritBuff>().Reset();
         }
         if(GameControl.control.talente[8])
         {
-            raiderDict = RaiderDB.GetInstance().GetAllRaiderSortedByHealth();
+            raiderDict = RaiderDB.GetInstance().GetAllRaidersSortedByHealth();
             raiderDict.Remove(target);
             foreach(IRaider raider in raiderDict)
             {
-                SchutzgeistBuffInvis buff = raider.GetGameObject().AddComponent<SchutzgeistBuffInvis>();
+                GuardianSpiritBuffInvis buff = raider.GetGameObject().AddComponent<GuardianSpiritBuffInvis>();
                 raider.GetGameObject().GetComponent<BuffManager>().RegisterBuff(buff);
             }
         }

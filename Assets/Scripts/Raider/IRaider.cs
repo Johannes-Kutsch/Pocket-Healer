@@ -101,8 +101,20 @@ public interface IRaider {
     Color32 GetNotTargetColor();
 
     /// <summary>
+    /// Sets the color that is used if the instance is not the target.
+    /// </summary>
+    /// <returns></returns>
+    void SetNotTargetColor(Color32 color);
+
+    /// <summary>
     /// Gets the color that is used if the instance is the target.
     /// </summary>
     /// <returns></returns>
     Color32 GetTargetColor();
+
+    /// <summary>
+    /// Sets the color that is used if the instance is the target.
+    /// </summary>
+    /// <returns></returns>
+    void SetTargetColor(Color32 color);
 }

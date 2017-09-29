@@ -47,6 +47,8 @@ public class Settings{
 
     public float applyStoneDebuffTimer;
     public float applyStoneDebuffTimerStart = 0f;
+    public float applyStoneDmg1;
+    public float applyStoneDmg2;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="Settings"/> class.
@@ -272,19 +274,21 @@ public class Settings{
         //Scene seven
         //AutoAttack
         autoAttackSwingTimer = 2f;
-        autoAttackDmg = 20f;
+        autoAttackDmg = 25f;
         autoAttackChangeTargetTimer = 10f;
         autoAttackMultiplier = 0.1f;
 
         //RangeAutoAttack
         rangeAutoAttackSwingTimer = 2f;
-        rangeAutoAttackDmg = 10f;
+        rangeAutoAttackDmg = 15f;
         rangeAutoAttackMultiplier = 0f;
         rangeAutoAttackSwingTimerStart = 1f;
 
         //StoneDebuff
         applyStoneDebuffTimer = 12f;
         applyStoneDebuffTimerStart = 9f;
+        applyStoneDmg1 = 40f;
+        applyStoneDmg2 = 50f;
     }
 
     /// <summary>

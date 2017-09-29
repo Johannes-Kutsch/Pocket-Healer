@@ -15,7 +15,7 @@ public class Pilz : MonoBehaviour, IRaider
     private float scaleX;
     private bool canSwing = true;
     private Color32 targetColor = new Color32(102, 255, 255, 255);
-    private Color32 keinTargetColor = new Color32(160, 160, 160, 255);
+    private Color32 notTargetColor = new Color32(160, 160, 160, 255);
     private Color32 deadColor = new Color32(191, 90, 90, 255);
     private float actualDmg;
     private float currentHealth;
@@ -27,7 +27,7 @@ public class Pilz : MonoBehaviour, IRaider
     public float healAmount = 25f;
     public float swingTimer;
     public float startDmg;
-    public float multiplyer;
+    public float multiplier;
 
     void Start()
     {
@@ -68,7 +68,7 @@ public class Pilz : MonoBehaviour, IRaider
                 raider.HealSimple(healAmount, true);
             }
             Damage(actualDmg);
-            actualDmg += multiplyer;
+            actualDmg += multiplier;
         } 
     }
 
@@ -169,7 +169,7 @@ public class Pilz : MonoBehaviour, IRaider
     {
         if (gamestate.HasTarget() && gamestate.GetTarget().IsAlive())
         {
-            gamestate.GetTarget().ChangeBackgroundColor(keinTargetColor);
+            gamestate.GetTarget().ChangeBackgroundColor(notTargetColor);
         }
         else if (gamestate.HasTarget() && !gamestate.GetTarget().IsAlive())
         {
@@ -220,7 +220,7 @@ public class Pilz : MonoBehaviour, IRaider
             currentHealth = startHealth;
             alive = true;
             actualDmg = startDmg;
-            background.color = keinTargetColor;
+            background.color = notTargetColor;
             UpdateHpBar();
             gameObject.SetActive(true);
         }
@@ -243,9 +243,19 @@ public class Pilz : MonoBehaviour, IRaider
         return targetColor;
     }
 
+    public void SetTargetColor(Color32 color)
+    {
+        targetColor = color;
+    }
+
     public Color32 GetNotTargetColor()
     {
-        return keinTargetColor;
+        return notTargetColor;
+    }
+
+    public void SetNotTargetColor(Color32 color)
+    {
+        notTargetColor = color;
     }
 
     public void ChangeHealmultiplyer(float multiplyer)

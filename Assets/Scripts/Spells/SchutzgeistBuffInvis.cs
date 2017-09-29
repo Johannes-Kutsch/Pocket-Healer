@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-public class SchutzgeistBuffInvis : MonoBehaviour, IBuff, ISchutzgeist {
+public class GuardianSpiritBuffInvis : MonoBehaviour, IBuff, ISchutzgeist {
     private List<IRaider> raiderDict;
     public Material image = null;
     public float duration = 14f;
@@ -71,7 +71,7 @@ public class SchutzgeistBuffInvis : MonoBehaviour, IBuff, ISchutzgeist {
     {
         raider.HealSimple(300, false);
         Destroy();
-        raiderDict = RaiderDB.GetInstance().GetAllRaiderSortedByHealth();
+        raiderDict = RaiderDB.GetInstance().GetAllRaidersSortedByHealth();
         raiderDict.Remove(raider);
         foreach (IRaider target in raiderDict)
         {

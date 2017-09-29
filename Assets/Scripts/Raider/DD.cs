@@ -330,12 +330,30 @@ public class DD : MonoBehaviour, IRaider
     }
 
     /// <summary>
+    /// Sets the color that is used if the instance is the target.
+    /// </summary>
+    /// <param name="color"></param>
+    public void SetTargetColor(Color32 color)
+    {
+        targetColor = color;
+    }
+
+    /// <summary>
     /// Gets the color that is used if the instance is not the target.
     /// </summary>
     /// <returns></returns>
     public Color32 GetNotTargetColor()
     {
         return notTargetColor;
+    }
+
+    /// <summary>
+    /// Sets the color that is used if the instance is not the target.
+    /// </summary>
+    /// <param name="color"></param>
+    public void SetNotTargetColor(Color32 color)
+    {
+        notTargetColor = color;
     }
 
     /// <summary>

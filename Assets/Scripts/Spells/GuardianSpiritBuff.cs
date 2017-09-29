@@ -3,27 +3,27 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-public class PrayerBuff : MonoBehaviour, IBuff {
+public class GuardianSpiritBuff : MonoBehaviour, IBuff, ISchutzgeist
+{
     private List<IRaider> raiderDict;
     public Material image;
-    public float heal = 40f;
-    public float duration = 10f;
+    public float duration = 14f;
     public float runtime;
     public float timeLeft;
-    public int jumps = 4;
 
     private IRaider raider;
 
     void Start()
     {
-        image = Resources.Load("PrayerOfMending_Buff", typeof(Material)) as Material;
+        image = Resources.Load("Schutzgeist_Buff", typeof(Material)) as Material;
+        raider = GetComponent<IRaider>();
     }
 
     void FixedUpdate()
     {
         runtime = runtime + (float)0.02;
         timeLeft = duration - runtime;
-        if(timeLeft <= 0)
+        if (timeLeft <= 0)
         {
             Destroy();
         }
@@ -32,34 +32,6 @@ public class PrayerBuff : MonoBehaviour, IBuff {
     public void Reset()
     {
         runtime = 0;
-        jumps = 4;
-    }
-
-    public void jump()
-    {
-        raider = GetComponent<IRaider>();
-        raider.Heal(heal);
-        if (jumps > 0)
-        {
-            raiderDict = RaiderDB.GetInstance().GetAllRaidersSortedByHealth();
-            raiderDict.Remove(raider);
-            IRaider target;
-            int anzahlRaider = raiderDict.Count;
-            for (int i = 0; i < anzahlRaider; i ++)
-            {
-                target = raiderDict.First();
-                if(!target.GetGameObject().GetComponent<PrayerBuff>())
-                {
-                    target = raiderDict.First();
-                    PrayerBuff buff = target.GetGameObject().AddComponent<PrayerBuff>();
-                    target.GetGameObject().GetComponent<PrayerBuff>().jumps = jumps - 1;
-                    target.GetGameObject().GetComponent<BuffManager>().RegisterBuff(buff);
-                    break;
-                }
-                raiderDict.Remove(target);
-            }
-        }
-        Destroy();
     }
 
     public float GetDuration()
@@ -94,13 +66,25 @@ public class PrayerBuff : MonoBehaviour, IBuff {
 
     public float DamageTaken(float amount)
     {
-        jump();
         return amount;
     }
 
     public float FatalDamage(float amount)
     {
-        return amount;
+        raider.HealSimple(300, false);
+        Destroy();
+        if (GameControl.control.talente[8])
+        {
+            raiderDict = RaiderDB.GetInstance().GetAllRaidersSortedByHealth();
+            raiderDict.Remove(raider);
+            foreach (IRaider target in raiderDict)
+            {
+                ISchutzgeist buff = target.GetGameObject().GetComponent<ISchutzgeist>();
+                target.GetGameObject().GetComponent<BuffManager>().DeregisterBuff(buff);
+                buff.Destroy();
+            }
+        }
+        return 0;
     }
 
     public bool IsBuff()

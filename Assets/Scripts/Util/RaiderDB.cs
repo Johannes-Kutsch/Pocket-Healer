@@ -144,9 +144,27 @@ public class RaiderDB {
     /// Gets all raiders sorted by health. (ascending, lowest health first)
     /// </summary>
     /// <returns>a list containing all raiders sorted by health</returns>
-    public List<IRaider> GetAllRaiderSortedByHealth()
+    public List<IRaider> GetAllRaidersSortedByHealth()
     {
         return raiderDict.OrderBy(o => o.GetHealth()).ToList();
+    }
+
+    /// <summary>
+    /// Gets all raiders sorted by health. (ascending, lowest health first)
+    /// </summary>
+    /// <returns>a list containing all raiders sorted by health</returns>
+    public List<IRaider> GetAllDDsSortedByHealth()
+    {
+        return ddDict.OrderBy(o => o.GetHealth()).ToList();
+    }
+
+    /// <summary>
+    /// Gets all raiders sorted by health. (ascending, lowest health first)
+    /// </summary>
+    /// <returns>a list containing all raiders sorted by health</returns>
+    public List<IRaider> GetAllTanksSortedByHealth()
+    {
+        return tankDict.OrderBy(o => o.GetHealth()).ToList();
     }
 
 

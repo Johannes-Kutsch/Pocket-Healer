@@ -78,7 +78,7 @@ public class BindingHeal : MonoBehaviour, ISpell
         source.Stop();
         source.PlayOneShot(impactSound, GameControl.control.soundMultiplyer);
         target.Heal(HealAmount);
-        raiderDict = RaiderDB.GetInstance().GetAllRaiderSortedByHealth();
+        raiderDict = RaiderDB.GetInstance().GetAllRaidersSortedByHealth();
         for (int i = 0; i < numberJumps && i < raiderDict.Count(); i++)
         {
             raiderDict.Remove(target);

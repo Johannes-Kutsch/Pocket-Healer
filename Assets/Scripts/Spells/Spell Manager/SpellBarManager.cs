@@ -237,7 +237,7 @@ public class SpellBarManager : MonoBehaviour {
     {
         button.SetActive(true);
         button.GetComponent<MeshRenderer>().material = Resources.Load("Schutzgeist", typeof(Material)) as Material;
-        button.AddComponent<Schutzgeist>();
+        button.AddComponent<GuardianSpirit>();
     }
 
     /// <summary>

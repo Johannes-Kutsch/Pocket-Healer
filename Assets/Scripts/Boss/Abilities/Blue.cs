@@ -16,7 +16,7 @@ public class Blue : MonoBehaviour, IRaider
     private float scaleX;
     private bool canSwing = true;
     private Color32 targetColor = new Color32(102, 255, 255, 255);
-    private Color32 keinTargetColor = new Color32(160, 160, 160, 255);
+    private Color32 notTargetColor = new Color32(160, 160, 160, 255);
     private Color32 deadColor = new Color32(191, 90, 90, 255);
     private float currentHealth;
     public float healMultiplyer = 1f;
@@ -36,7 +36,7 @@ public class Blue : MonoBehaviour, IRaider
         currentHealth = startHealth;
         UpdateHpBar();
         gamestate = Gamestate.gamestate;
-        background.color = keinTargetColor;
+        background.color = notTargetColor;
         if (GameControl.control.talente[18])
             healMultiplyer *= 1.05f;
         gameObject.SetActive(false);
@@ -170,7 +170,7 @@ public class Blue : MonoBehaviour, IRaider
     {
         if (gamestate.HasTarget() && gamestate.GetTarget().IsAlive())
         {
-            gamestate.GetTarget().ChangeBackgroundColor(keinTargetColor);
+            gamestate.GetTarget().ChangeBackgroundColor(notTargetColor);
         }
         else if (gamestate.HasTarget() && !gamestate.GetTarget().IsAlive())
         {
@@ -218,7 +218,7 @@ public class Blue : MonoBehaviour, IRaider
         {
             currentHealth = startHealth;
             alive = true;
-            background.color = keinTargetColor;
+            background.color = notTargetColor;
             UpdateHpBar();
             gameObject.SetActive(true);
         }
@@ -241,9 +241,19 @@ public class Blue : MonoBehaviour, IRaider
         return targetColor;
     }
 
+    public void SetTargetColor(Color32 color)
+    {
+        targetColor = color;
+    }
+
     public Color32 GetNotTargetColor()
     {
-        return keinTargetColor;
+        return notTargetColor;
+    }
+
+    public void SetNotTargetColor(Color32 color)
+    {
+        notTargetColor = color;
     }
 
     public void ChangeHealmultiplyer(float multiplyer)
