@@ -25,12 +25,12 @@ public class Settings{
     public float timedAOESwingTimer;
     public float timedAOEAttackDmg;
 
-    public float pulsingAOEswingTimer;
-    public float pulsingAOEdmgRock;
-    public int pulsingAOEnumberTargetsRock;
-    public int pulsingAOErocksBetweenAoe;
-    public float pulsingAOEdmgAoe;
-    public int pulsingAOEticksAoe;
+    public float pulsingAOESwingTimer;
+    public float pulsingAOEDmgRock;
+    public int pulsingAOENumberTargetsRock;
+    public int pulsingAOERocksBetweenAoe;
+    public float pulsingAOEDmgAoe;
+    public int pulsingAOETicksAoe;
 
     public float applyKillDebuffTimer;
     public float applyKillDebuffTimerStart = 0f;
@@ -49,6 +49,13 @@ public class Settings{
     public float applyStoneDebuffTimerStart = 0f;
     public float applyStoneDmg1;
     public float applyStoneDmg2;
+
+    public float mushroomSwingTimer;
+    public float mushroomSwingTimerStart = 0f;
+
+    public float permanentAoeSwingTimer;
+    public float permanentAoeDmg;
+    public float permanentAoeMultiplier;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="Settings"/> class.
@@ -180,12 +187,12 @@ public class Settings{
         rangeAutoAttackMultiplier = 0.1f;
 
         //PulsingAOE
-        pulsingAOEswingTimer = 6f;
-        pulsingAOEdmgRock = 40f;
-        pulsingAOEnumberTargetsRock = 3;
-        pulsingAOErocksBetweenAoe = 3;
-        pulsingAOEdmgAoe = 10f;
-        pulsingAOEticksAoe = 7;
+        pulsingAOESwingTimer = 6f;
+        pulsingAOEDmgRock = 40f;
+        pulsingAOENumberTargetsRock = 3;
+        pulsingAOERocksBetweenAoe = 3;
+        pulsingAOEDmgAoe = 10f;
+        pulsingAOETicksAoe = 7;
     }
 
     /// <summary>
@@ -206,12 +213,12 @@ public class Settings{
         rangeAutoAttackMultiplier = 0.1f;
 
         //PulsingAOE
-        pulsingAOEswingTimer = 6f;
-        pulsingAOEdmgRock = 35f;
-        pulsingAOEnumberTargetsRock = 3;
-        pulsingAOErocksBetweenAoe = 4;
-        pulsingAOEdmgAoe = 10f;
-        pulsingAOEticksAoe = 7;
+        pulsingAOESwingTimer = 6f;
+        pulsingAOEDmgRock = 35f;
+        pulsingAOENumberTargetsRock = 3;
+        pulsingAOERocksBetweenAoe = 4;
+        pulsingAOEDmgAoe = 10f;
+        pulsingAOETicksAoe = 7;
 
         //kill debuff
         applyKillDebuffTimer = 13f;
@@ -299,17 +306,23 @@ public class Settings{
         //Scene eight
         //AutoAttack
         autoAttackSwingTimer = 2f;
-        autoAttackDmg = 20f;
+        autoAttackDmg = 30f;
         autoAttackChangeTargetTimer = 10f;
         autoAttackMultiplier = 0.1f;
 
         //PulsingAOE
-        pulsingAOEswingTimer = 11f;
-        pulsingAOEdmgRock = 0f;
-        pulsingAOEnumberTargetsRock = 0;
-        pulsingAOErocksBetweenAoe = 0;
-        pulsingAOEdmgAoe = 15f;
-        pulsingAOEticksAoe = 10;
+        pulsingAOESwingTimer = 11f;
+        pulsingAOEDmgAoe = 20f;
+        pulsingAOETicksAoe = 10;
+
+        //Mushroom
+        mushroomSwingTimer = 30f;
+        mushroomSwingTimerStart = 25f;
+
+        //Permanent Aoe
+        permanentAoeSwingTimer = 2f;
+        permanentAoeDmg = 5f;
+        permanentAoeMultiplier = 0.1f;
     }
 
     /// <summary>
@@ -363,6 +376,11 @@ public class Settings{
         fixateCleaveHitsFixate = 5;
         fixateCleaveDmgFixate = 50f;
         fixateCleaveMultiplierFixate = 1.2f;
+
+        //Permanent Aoe
+        permanentAoeSwingTimer = 2f;
+        permanentAoeDmg = 10f;
+        permanentAoeMultiplier = 1f;
     }
 
 

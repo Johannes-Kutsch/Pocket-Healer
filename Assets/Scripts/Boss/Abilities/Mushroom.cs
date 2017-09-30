@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine.UI;
 
-public class Pilz : MonoBehaviour, IRaider
+public class Mushroom : MonoBehaviour, IRaider
 {
     private Gamestate gamestate;
     private Boss currentBoss;

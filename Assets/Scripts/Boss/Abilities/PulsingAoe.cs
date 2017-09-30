@@ -39,15 +39,14 @@ public class PulsingAoe : MonoBehaviour {
     /// </summary>
     void Start()
     {
-
         Settings settings = new Settings(levelIndex);
 
-        swingTimer = settings.pulsingAOEswingTimer;
-        dmgRock = settings.pulsingAOEdmgRock;
-        numberTargetsRock = settings.pulsingAOEnumberTargetsRock;
-        rocksBetweenAoe = settings.pulsingAOErocksBetweenAoe;
-        dmgAoe = settings.pulsingAOEdmgAoe;
-        ticksAoe = settings.pulsingAOEticksAoe;
+        swingTimer = settings.pulsingAOESwingTimer;
+        dmgRock = settings.pulsingAOEDmgRock;
+        numberTargetsRock = settings.pulsingAOENumberTargetsRock;
+        rocksBetweenAoe = settings.pulsingAOERocksBetweenAoe;
+        dmgAoe = settings.pulsingAOEDmgAoe;
+        ticksAoe = settings.pulsingAOETicksAoe;
 
         swingTimerRock = swingTimer;
         swingTimerPulsing = swingTimer * (rocksBetweenAoe + 1);
@@ -86,6 +85,9 @@ public class PulsingAoe : MonoBehaviour {
         rocksBetweenAoeRemaining = rocksBetweenAoe;
     }
 
+    /// <summary>
+    /// Called once every fixed update.
+    /// </summary>
     void FixedUpdate()
     {
         swingTimerRockCurrent += 0.02f;

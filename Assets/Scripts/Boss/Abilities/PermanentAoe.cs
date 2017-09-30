@@ -2,36 +2,49 @@
 using System.Collections;
 using System.Collections.Generic;
 
+/// <summary>
+/// Script used to damage every raider in a fixed intervall.
+/// </summary>
 public class PermanentAoe : MonoBehaviour {
-    //private IRaider target = null;
-    private List<IRaider> targetDict = new List<IRaider>();
+    public int levelIndex;
     private Coroutine timer;
-    //private bool canAttack = false;
     private float swingTimerCurrent;
-    public float swingTimer;
-    public float dmgAoe;
-    public float multiplyer;
+    private float swingTimer;
+    private float dmgAoe;
+    private float multiplier;
 
+    /// <summary>
+    /// Called on start.
+    /// </summary>
     void Start()
     {
+        Settings settings = new Settings(levelIndex);
+
+        swingTimer = settings.permanentAoeSwingTimer;
+        dmgAoe = settings.permanentAoeDmg;
+        multiplier = settings.permanentAoeMultiplier;
+
         if (GameControl.control.difficulty == 0)
         {
             dmgAoe *= GameControl.control.easyMultiplyer;
         }
     }
 
+    /// <summary>
+    /// Called on every fixed update.
+    /// </summary>
     void FixedUpdate()
     {
         swingTimerCurrent += 0.02f;
         if (swingTimerCurrent >= swingTimer)
         {
-            targetDict = new List<IRaider>(RaiderDB.GetInstance().GetAllRaiders());
+            List<IRaider> targetDict = new List<IRaider>(RaiderDB.GetInstance().GetAllRaiders());
             foreach (IRaider raider in targetDict)
             {
                 raider.Damage(dmgAoe);
             }
             swingTimerCurrent = 0;
-            dmgAoe += multiplyer;
+            dmgAoe += multiplier;
         }
     }
 }
