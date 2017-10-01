@@ -57,6 +57,15 @@ public class Settings{
     public float permanentAoeDmg;
     public float permanentAoeMultiplier;
 
+    public float applyDotHealDebuffSwingTimer;
+    public float applyDotHealDebuffSwingTimerStart = 0f;
+
+    public float alakirFrostTimer;
+    public float alakirFrostDmg;
+    public float alakirFireDotTimer;
+    public float alakirFirDotTimerStart;
+    public float alakirPhaseduration;
+
     /// <summary>
     /// Initializes a new instance of the <see cref="Settings"/> class.
     /// </summary>
@@ -312,7 +321,7 @@ public class Settings{
 
         //PulsingAOE
         pulsingAOESwingTimer = 11f;
-        pulsingAOEDmgAoe = 20f;
+        pulsingAOEDmgAoe = 13f;
         pulsingAOETicksAoe = 10;
 
         //Mushroom
@@ -321,8 +330,8 @@ public class Settings{
 
         //Permanent Aoe
         permanentAoeSwingTimer = 2f;
-        permanentAoeDmg = 5f;
-        permanentAoeMultiplier = 0.1f;
+        permanentAoeDmg = 13f;
+        permanentAoeMultiplier = 0f;
     }
 
     /// <summary>
@@ -343,6 +352,10 @@ public class Settings{
         fixateCleaveHitsFixate = 5;
         fixateCleaveDmgFixate = 35f;
         fixateCleaveMultiplierFixate = 1.2f;
+
+        //ApplyDotHealDebuff
+        applyDotHealDebuffSwingTimer = 8f;
+        applyDotHealDebuffSwingTimerStart = 5f;
     }
 
     /// <summary>
@@ -356,6 +369,17 @@ public class Settings{
         autoAttackDmg = 20f;
         autoAttackChangeTargetTimer = 20f;
         autoAttackMultiplier = 0.1f;
+
+        //RangeAutoAttack
+        rangeAutoAttackSwingTimer = 3f;
+        rangeAutoAttackDmg = 20f;
+
+        //Alakir Script
+        alakirFrostTimer = 1.5f;
+        alakirFrostDmg = 10f;
+        alakirFireDotTimer = 1.5f;
+        alakirFirDotTimerStart = 1f;
+        alakirPhaseduration = 15f;
     }
 
     /// <summary>
