@@ -1,30 +1,86 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
+using System.Linq;
 
+/// <summary>
+/// Script used for the multi phase fight in Scene 10.
+/// There are 3 Phases which constantly rotate.
+/// P1: Fire Phase - applys simple nondipeallable dots
+/// P2: Wind Phase - Applys a debuff that reduces healing taking. The debuff gets stronger over time.
+/// P3: Water Phase - Removes all debuffs and damages every raider in a fixed intervall.
+/// </summary>
 public class Alakir : MonoBehaviour {
+    private IRaider rangeTarget = null;
+
+    public int levelIndex;
+    public Image BossModImagePhase;
+    private Image cooldownOverlayPhase;
+    public Image BossModImageDebuff;
+    private Image cooldownOverlayDebuff;
+    public Text BossModTextDebuff;
+
     private int phaseID = 1;
     private float timeInPhase;
     private float fireDotTimerCurrent;
     private float frostTimerCurrent;
     private float rangeAttackTimerCurrent;
-    private IRaider rangeTarget = null;
-    private IRaider feuerTarget = null;
 
-    public float rangeAttackTimer;
-    public float rangeAttackDamage;
-    public float frostTimer;
-    public float frostDamage;
-    public float fireDotTimer;
-    public float fireDotTimerStart;
-    public float phaseduration;
-    public string emotePhaseOne = "nimmt seine Luftgestalt an. Deine verursachte Heilung nimmt langsam ab.";
-    public string emotePhaseTwo = "nimmt seine Wassergestalt an. Ein Blizzard zieht auf.";
-    public string emotePhaseThree = "nimmt seine Feuergestalt an.";
+    public string emotePhaseOne = "transforms into his air form. The healing you do decreases slowly.";
+    public string emotePhaseTwo = "transforms into his water form. A blizzard appears.";
+    public string emotePhaseThree = "transforms into his fire form.";
 
+    private float phaseduration;
+    private float rangeAttackTimer;
+    private float rangeAttackDamage;
+    private float frostTimer;
+    private float frostDamage;
+    private float fireDotTimer;
+    private float fireDotTimerStart;
+
+    /// <summary>
+    /// Called on start.
+    /// </summary>
     void Start()
     {
+        Settings settings = new Settings(levelIndex);
+
+        rangeAttackTimer = settings.rangeAutoAttackSwingTimer;
+        rangeAttackDamage = settings.rangeAutoAttackDmg;
+        frostTimer = settings.alakirFrostTimer;
+        frostDamage = settings.alakirFrostDmg;
+        fireDotTimer = settings.alakirFireDotTimer;
+        fireDotTimerStart = settings.alakirFirDotTimerStart;
+        phaseduration = settings.alakirPhaseduration;
+
         fireDotTimerCurrent = fireDotTimerStart;
+
+        Image[] cooldownOverlays = BossModImagePhase.GetComponentsInChildren<Image>();
+
+        foreach (Image image in cooldownOverlays)
+        {
+            if (image.transform != BossModImagePhase.transform)
+            {
+                cooldownOverlayPhase = image;
+            }
+        }
+
+        BossModImagePhase.enabled = true;
+        cooldownOverlayPhase.enabled = true;
+
+        cooldownOverlays = BossModImageDebuff.GetComponentsInChildren<Image>();
+
+        foreach (Image image in cooldownOverlays)
+        {
+            if (image.transform != BossModImageDebuff.transform)
+            {
+                cooldownOverlayDebuff = image;
+            }
+        }
+
+        BossModImageDebuff.enabled = true;
+        cooldownOverlayDebuff.enabled = true;
 
         if (GameControl.control.difficulty == 0)
         {
@@ -33,9 +89,15 @@ public class Alakir : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Called with every fixed update.
+    /// </summary>
     void FixedUpdate()
     {
         timeInPhase += 0.02f;
+
+        cooldownOverlayPhase.fillAmount = timeInPhase / phaseduration;
+
         switch (phaseID)
         {
             case 1:
@@ -52,41 +114,47 @@ public class Alakir : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Fire Phase logic.
+    /// </summary>
     private void FirePhase()
     {
         fireDotTimerCurrent += 0.02f;
         rangeAttackTimerCurrent += 0.02f;
 
+        cooldownOverlayDebuff.fillAmount = fireDotTimerCurrent / fireDotTimer;
+
         if (fireDotTimerCurrent >= fireDotTimer) //apply a new Fire Dot
         {
             fireDotTimerCurrent = 0f;
-            List<IRaider> targetDict = new List<IRaider>(RaiderDB.GetInstance().GetAllDDs());
 
-            foreach (IRaider raider in targetDict)
+            List<IRaider> targetDict = new List<IRaider>();
+
+            foreach (IRaider raider in new List<IRaider>(RaiderDB.GetInstance().GetAllDDs()))
             {
                 if (!raider.GetGameObject().GetComponent<AlakirFeuerDebuff>())
                 {
-                    feuerTarget = raider;
+                    targetDict.Add(raider);
                 }
             }
 
-            if (feuerTarget == null)
+            if (targetDict.Count == 0)
             {
-                targetDict = new List<IRaider>(RaiderDB.GetInstance().GetAllRaiders());
-                foreach (IRaider raider in targetDict)
+                foreach (IRaider raider in new List<IRaider>(RaiderDB.GetInstance().GetAllRaiders()))
                 {
                     if (!raider.GetGameObject().GetComponent<AlakirFeuerDebuff>())
                     {
-                        feuerTarget = raider;
+                        targetDict.Add(raider);
                     }
                 }
             }
 
-            if (feuerTarget != null)
+            if (targetDict.Count != 0)
             {
-                AlakirFeuerDebuff debuff = feuerTarget.GetGameObject().AddComponent<AlakirFeuerDebuff>();
-                feuerTarget.GetGameObject().GetComponent<BuffManager>().RegisterBuff(debuff);
-                feuerTarget = null;
+                IRaider fireTarget = targetDict[Random.Range(0, targetDict.Count)];
+                AlakirFeuerDebuff debuff = fireTarget.GetGameObject().AddComponent<AlakirFeuerDebuff>();
+                fireTarget.GetGameObject().GetComponent<BuffManager>().RegisterBuff(debuff);
+                fireTarget = null;
             }
         }
 
@@ -96,7 +164,7 @@ public class Alakir : MonoBehaviour {
 
             List<IRaider> targetDict = new List<IRaider>(RaiderDB.GetInstance().GetAllDDs());
 
-            if (rangeTarget != null && targetDict.Count > 1)
+            if (rangeTarget != null && targetDict.Count > 1 && targetDict.Contains(rangeTarget))
             {
                 targetDict.Remove(rangeTarget);
             }
@@ -118,20 +186,40 @@ public class Alakir : MonoBehaviour {
                 target.GetGameObject().GetComponent<BuffManager>().RegisterBuff(debuff);
             }
 
+            BossModImagePhase.sprite = Resources.Load("Blizzard", typeof(Sprite)) as Sprite;
+            BossModImageDebuff.sprite = Resources.Load("Luft", typeof(Sprite)) as Sprite;
+            cooldownOverlayDebuff.enabled = false;
+
             fireDotTimerCurrent = 0f;
             phaseID = 2;
             timeInPhase = 0;
         }
     }
 
+    /// <summary>
+    /// Air phase logic.
+    /// </summary>
     private void AirPhase()
     {
         if (timeInPhase > phaseduration - 2.05f && timeInPhase < phaseduration - 1.95f) //emote for water phase
             GetComponent<Boss>().SetEmoteText(" " + emotePhaseTwo);
 
-        else if (timeInPhase > phaseduration) //switch to water phase
+        List<IRaider> targetDict = new List<IRaider>(RaiderDB.GetInstance().GetAllRaiders());
+
+        foreach (IRaider target in targetDict) //set bossmod text for air debuff strength
         {
-            List<IRaider> targetDict = new List<IRaider>(RaiderDB.GetInstance().GetAllRaiders());
+            AlakirWasserDebuff wasserBuff = target.GetGameObject().GetComponent<AlakirWasserDebuff>();
+            if (wasserBuff != null)
+            {
+                string text = "" + (100 - (wasserBuff.getHealMultiplier() * 100));
+                BossModTextDebuff.text = text.Split('.')[0];
+                break;
+            }
+        }
+
+        if (timeInPhase > phaseduration) //switch to water phase
+        {
+            targetDict = new List<IRaider>(RaiderDB.GetInstance().GetAllRaiders());
 
             foreach (IRaider target in targetDict)
             {
@@ -140,6 +228,7 @@ public class Alakir : MonoBehaviour {
                 {
                     feuerBuff.Destroy();
                 }
+
                 AlakirWasserDebuff wasserBuff = target.GetGameObject().GetComponent<AlakirWasserDebuff>();
                 if (wasserBuff != null)
                 {
@@ -147,16 +236,26 @@ public class Alakir : MonoBehaviour {
                 }
             }
 
+            BossModImagePhase.sprite = Resources.Load("Feuer_Debuff", typeof(Sprite)) as Sprite;
+            BossModImageDebuff.sprite = Resources.Load("Blizzard", typeof(Sprite)) as Sprite;
+            BossModTextDebuff.text = "";
+            cooldownOverlayDebuff.enabled = true;
+
             phaseID = 3;
             timeInPhase = 0;
         }
     }
 
+    /// <summary>
+    /// Water Phase logic
+    /// </summary>
     private void WaterPhase()
     {
         frostTimerCurrent += 0.02f;
 
-        if (frostTimerCurrent >= frostTimer)
+        cooldownOverlayDebuff.fillAmount = frostTimerCurrent / frostTimer;
+
+        if (frostTimerCurrent >= frostTimer) //deal raidwide damage
         {
             frostTimerCurrent = 0f;
 
@@ -176,6 +275,8 @@ public class Alakir : MonoBehaviour {
             phaseID = 1;
             timeInPhase = 0;
             fireDotTimerCurrent = fireDotTimerStart;
+
+            BossModImagePhase.sprite = Resources.Load("Luft", typeof(Sprite)) as Sprite;
         }
     }
 }

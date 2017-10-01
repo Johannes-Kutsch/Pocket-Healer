@@ -19,7 +19,7 @@ public class Mushroom : MonoBehaviour, IRaider
     private Color32 deadColor = new Color32(191, 90, 90, 255);
     private float actualDmg;
     private float currentHealth;
-    public float healMultiplyer = 1f;
+    public float healMultiplier = 1f;
     public bool alive;
     public bool activated;
     public float maxHealth = 200;
@@ -37,7 +37,7 @@ public class Mushroom : MonoBehaviour, IRaider
         endPos = new Vector3(hpBar.position.x - hpBar.rect.width * scaleX, hpBar.position.y, hpBar.position.z);
         gamestate = Gamestate.gamestate;
         if (GameControl.control.talente[18])
-            healMultiplyer *= 1.05f;
+            healMultiplier *= 1.05f;
         gameObject.SetActive(false);
     }
 
@@ -78,7 +78,7 @@ public class Mushroom : MonoBehaviour, IRaider
         {
             if (GameControl.control.talente[20] && currentHealth / maxHealth <= 0.3)
                 heilung *= 1.1f;
-            heilung *= healMultiplyer;
+            heilung *= healMultiplier;
             foreach (IBuff buff in GetComponent<BuffManager>().GetAllBuffsSortetByDuration())
             {
                 heilung = buff.HealingTaken(heilung);
@@ -134,7 +134,7 @@ public class Mushroom : MonoBehaviour, IRaider
         {
             if (GameControl.control.talente[20] && currentHealth / maxHealth <= 0.3)
                 heilung *= 1.1f;
-            heilung *= healMultiplyer;
+            heilung *= healMultiplier;
             if (heilung > maxHealth - currentHealth)
             {
                 currentHealth = maxHealth;
@@ -258,12 +258,20 @@ public class Mushroom : MonoBehaviour, IRaider
         notTargetColor = color;
     }
 
-    public void ChangeHealmultiplyer(float multiplyer)
+    /// <summary>
+    /// Multiplies the Healmultiplier with the a value.
+    /// </summary>
+    /// <param name="multiplier">The value.</param>
+    public void ChangeHealmultiplier(float value)
     {
-        healMultiplyer *= multiplyer;
+        healMultiplier *= value;
     }
 
-    public void GetMaxHealth(float health)
+    /// <summary>
+    /// Increases the maximum health.
+    /// </summary>
+    /// <param name="health">The amount the health is increased by.</param>
+    public void IncreaseMaxHealth(float health)
     {
         maxHealth += health;
     }

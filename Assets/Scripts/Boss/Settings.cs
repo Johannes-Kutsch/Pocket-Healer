@@ -66,6 +66,10 @@ public class Settings{
     public float alakirFirDotTimerStart;
     public float alakirPhaseduration;
 
+    public float dragonSummonSwingTimerRed;
+    public float dragonSummonSwingTimerBlue;
+    public float dragonSummonSwingTimerGreen;
+
     /// <summary>
     /// Initializes a new instance of the <see cref="Settings"/> class.
     /// </summary>
@@ -405,6 +409,11 @@ public class Settings{
         permanentAoeSwingTimer = 2f;
         permanentAoeDmg = 10f;
         permanentAoeMultiplier = 1f;
+
+        //Dragon Summon
+        dragonSummonSwingTimerRed = 20f;
+        dragonSummonSwingTimerBlue = 20f;
+        dragonSummonSwingTimerGreen = 40f;
     }
 
 

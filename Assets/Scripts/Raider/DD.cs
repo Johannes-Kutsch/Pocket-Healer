@@ -24,7 +24,7 @@ public class DD : MonoBehaviour, IRaider
     public float maxHealth;
     public float currentHealth;
     private bool alive;
-    public float healMultiplyer = 1f; //A global heal multiplyer i.e. used by talents that increase flat healing
+    public float healMultiplier = 1f; //A global heal multiplyer i.e. used by talents that increase flat healing
 
     private float dmg = 10f; //dmg with each hit
     private float swingTimerTop = 0.8f; //time between each hit
@@ -47,7 +47,7 @@ public class DD : MonoBehaviour, IRaider
         background.color = notTargetColor;
         RaiderDB.GetInstance().RegisterDD(this);
         if (GameControl.control.talente[18])
-            healMultiplyer *= 1.05f;
+            healMultiplier *= 1.05f;
     }
 
     /// <summary>
@@ -94,7 +94,7 @@ public class DD : MonoBehaviour, IRaider
             if (GameControl.control.talente[20] && currentHealth / maxHealth <= 0.3) //increase healing by 25% if health is <= 30% and talent is choosen
                 amount *= 1.25f;
 
-            amount *= healMultiplyer; //increase Healing by a heal multiplyer (i.e. flat 5% Heal talent)
+            amount *= healMultiplier; //increase Healing by a heal multiplyer (i.e. flat 5% Heal talent)
 
             foreach (IBuff buff in GetComponent<BuffManager>().GetAllBuffsSortetByDuration())
             {
@@ -172,7 +172,7 @@ public class DD : MonoBehaviour, IRaider
             if (GameControl.control.talente[20] && currentHealth / maxHealth <= 0.3)  //increase healing by 25% if health is <= 30% and talent is choosen
                 amount *= 1.1f;
 
-            amount *= healMultiplyer; //increase Healing by a heal multiplyer (i.e. flat 5% Heal talent)
+            amount *= healMultiplier; //increase Healing by a heal multiplyer (i.e. flat 5% Heal talent)
 
             if (amount > maxHealth - currentHealth)
             {
@@ -357,19 +357,19 @@ public class DD : MonoBehaviour, IRaider
     }
 
     /// <summary>
-    /// Changes the healmultiplyer.
+    /// Multiplies the Healmultiplier with the a value.
     /// </summary>
-    /// <param name="multiplyer">The multiplyer.</param>
-    public void ChangeHealmultiplyer(float multiplyer)
+    /// <param name="multiplier">The value.</param>
+    public void ChangeHealmultiplier(float value)
     {
-        healMultiplyer *= multiplyer;
+        healMultiplier *= value;
     }
 
     /// <summary>
-    /// Gets the maximum health.
+    /// Increases the maximum health.
     /// </summary>
-    /// <param name="health">The health.</param>
-    public void GetMaxHealth(float health)
+    /// <param name="health">The amount the health is increased by.</param>
+    public void IncreaseMaxHealth(float health)
     {
         maxHealth += health;
     }

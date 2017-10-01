@@ -83,16 +83,16 @@ public interface IRaider {
     void SetBossTarget(bool isTarget);
 
     /// <summary>
-    /// Changes the healmultiplyer.
+    /// Multiplies the Healmultiplier with the a value.
     /// </summary>
-    /// <param name="multiplyer">The multiplyer.</param>
-    void ChangeHealmultiplyer(float multiplyer);
+    /// <param name="multiplier">The value.</param>
+    void ChangeHealmultiplier(float value);
 
     /// <summary>
-    /// Gets the maximum health.
+    /// Increases the maximum health.
     /// </summary>
-    /// <param name="health">The health.</param>
-    void GetMaxHealth(float health);
+    /// <param name="health">The amount the health is increased by.</param>
+    void IncreaseMaxHealth(float health);
 
     /// <summary>
     /// Gets the color that is used if the instance is not the target.
