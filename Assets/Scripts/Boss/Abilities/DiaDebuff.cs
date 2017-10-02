@@ -4,6 +4,9 @@ using System;
 using System.Collections.Generic;
 
 
+/// <summary>
+/// Debuff used in Scene 12 (currently not finished)
+/// </summary>
 public class DiaDebuff : MonoBehaviour, IBuff
 {
     private Color32 debuffColor = new Color32(170, 0, 255, 255);

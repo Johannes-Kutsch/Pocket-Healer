@@ -4,23 +4,29 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 
+/// <summary>
+/// Script that controlls the boss, including the hp bar, name, emotes and health.
+/// </summary>
 public class Boss : MonoBehaviour{
     private Gamestate gamestate;
-    public string name;
-    public Text nameText;
-    public Text emoteText;
     private Vector3 startPos;
     private Vector3 endPos;
-    private float emoteMaxTime = 2f;
-    private float emoteCurrentTime;
-    public Canvas UI;
     private float scaleX;
+
+    public Text nameText;
+    public Text emoteText;
     public RectTransform hpTransform;
-
-
+    public Canvas UI;
+    public string name;
     public float maxHealth;
     public float currentHealth;
 
+    private float emoteMaxTime = 2f;
+    private float emoteCurrentTime;
+
+    /// <summary>
+    /// Called on start.
+    /// </summary>
     void Start()
     {
         gamestate = Gamestate.gamestate;
@@ -33,47 +39,70 @@ public class Boss : MonoBehaviour{
         nameText.text = name;
     }
 
+    /// <summary>
+    /// Called with every fixed update.
+    /// </summary>
     void FixedUpdate()
     {
         if (emoteCurrentTime < emoteMaxTime)
         {
             emoteCurrentTime += 0.02f;
         }
-        else
+        else //hide the emote text.
         {
             emoteText.color = new Color32(0, 0, 0, 0);
         }
     }
 
-    public void TakeDamage(float schaden)
+    /// <summary>
+    /// Takes damage.
+    /// </summary>
+    /// <param name="amount">The amount.</param>
+    public void TakeDamage(float amount)
     {
-        currentHealth = currentHealth - schaden;
-        SetzeHpBar();
+        currentHealth = currentHealth - amount;
+        SetHpBar();
     }
 
-    public void ErhalteHeilung(float heilung)
+    /// <summary>
+    /// Takes healing.
+    /// </summary>
+    /// <param name="amount">The amount.</param>
+    public void TakeHealing(float amount)
     {
-        if (heilung > maxHealth - currentHealth)
+        if (amount > maxHealth - currentHealth)
         {
             currentHealth = maxHealth;
         }
         else
         {
-            currentHealth += heilung;
+            currentHealth += amount;
         }
-        SetzeHpBar();
+
+        SetHpBar();
     }
 
-    public void SetzeHpBar()
+    /// <summary>
+    /// Sets the hp bar.
+    /// </summary>
+    public void SetHpBar()
     {
         hpTransform.position = Vector3.Lerp(endPos, startPos, currentHealth / maxHealth);
     }
 
+    /// <summary>
+    /// Gets the current hp.
+    /// </summary>
+    /// <returns></returns>
     public float GetCurrentHp()
     {
         return currentHealth;
     }
 
+    /// <summary>
+    /// Sets the emote text.
+    /// </summary>
+    /// <param name="emote">The emote.</param>
     public void SetEmoteText(string emote)
     {
         emoteText.text = name + emote;

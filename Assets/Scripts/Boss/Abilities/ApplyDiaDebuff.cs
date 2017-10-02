@@ -2,6 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 
+/// <summary>
+/// Script used in Scene 12 (currently not finished)
+/// </summary>
 public class ApplyDiaDebuff : MonoBehaviour
 {
     private IRaider target = null;
