@@ -23,7 +23,7 @@ public interface IBuff { //ToDo: change to an abstract class and implement defau
     /// Gets the remaining duration.
     /// </summary>
     /// <returns></returns>
-    string GetRemainingDuration();
+    string GetTimeLeft();
 
 
     /// <summary>

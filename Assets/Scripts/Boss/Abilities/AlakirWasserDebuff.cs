@@ -69,7 +69,7 @@ public class AlakirWasserDebuff : MonoBehaviour, IBuff
     /// Gets the remaining duration.
     /// </summary>
     /// <returns></returns>
-    public string GetRemainingDuration()
+    public string GetTimeLeft()
     {
         return (" ");
     }

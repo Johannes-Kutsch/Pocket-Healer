@@ -5,6 +5,17 @@ using System.Linq;
 using UnityEngine.UI;
 using System;
 
+/// <summary>
+/// Abstract class spell which implements the basic functionality of most spells.
+/// It triggers the virtual methods OnCastStart() and OnCastSucess(). (When a cast is started and when a cast is sucessfully finished)
+/// Overwrite the following variables during awake: 
+///     castSound; //The Audioclip used for the cast sound. Can be null if the spell has no casttime
+///     impactSound; //The Audioclip used for the impact sound.
+///     cooldown; //The cooldown of the spell in seconds.
+///     manaCost; //The manacost of the spell.
+///     castTime; //The casttime of the spell, 0 when instant.
+///     spellName; //The name of the spell.
+/// </summary>
 public abstract class Spell : MonoBehaviour
 {
     private Gamestate gamestate;

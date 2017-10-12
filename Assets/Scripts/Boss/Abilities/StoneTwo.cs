@@ -91,7 +91,7 @@ public class StoneTwo : MonoBehaviour, IBuff
     /// Gets the remaining duration.
     /// </summary>
     /// <returns></returns>
-    public string GetRemainingDuration()
+    public string GetTimeLeft()
     {
         return " ";
     }

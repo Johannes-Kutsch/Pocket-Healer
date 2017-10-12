@@ -78,7 +78,7 @@ public class HealDebuff : MonoBehaviour, IBuff
     /// Gets the remaining duration.
     /// </summary>
     /// <returns></returns>
-    public string GetRemainingDuration()
+    public string GetTimeLeft()
     {
         return (duration - runtime).ToString("F0");
     }

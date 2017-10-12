@@ -3,101 +3,79 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-public class ShieldBuff : MonoBehaviour, IBuff
+/// <summary>
+/// Applies a Buff that absorbs damage.
+/// </summary>
+public class ShieldBuff : Buff
 {
-    private List<IRaider> raiderDict;
-    public Material image;
-    public float absorb = 80f;
-    public float duration = 15f;
-    public float runtime;
-    public float timeLeft;
+    private readonly float Duration = 15f;
 
-    private IRaider raider;
+    private float absorbAmount = 80f;
 
-    void Start()
+    /// <summary>
+    /// Called on awake.
+    /// Set variables in base class.
+    /// </summary>
+    void Awake()
     {
-        image = Resources.Load("Shield_Buff", typeof(Material)) as Material;
+        base.image = Resources.Load("Shield_Buff", typeof(Material)) as Material;
+        base.resetable = true;
+
+        base.duration = Duration;
     }
 
-    void FixedUpdate()
+    /// <summary>
+    /// Called when the Reset Method is executet, independetly from the resetable variable.
+    /// </summary>
+    public override void OnReset()
     {
-        runtime = runtime + (float)0.02;
-        timeLeft = duration - runtime;
-        if (timeLeft <= 0 || absorb <= 0)
+        absorbAmount = 80f;
+    }
+
+    /// <summary>
+    /// Gets called when the raider the buff is attached to takes damage.
+    /// The amount can be modivied here, i.e. if the buff decrases the damage taken by 20% we just return amount * 0.8.
+    /// If the damage amount should not be modified we just return the original value.
+    /// </summary>
+    /// <param name="amount">the amount.</param>
+    /// <returns>
+    /// the new damage taken amount
+    /// </returns>
+    public override float OnDamageTaken(float amount)
+    {
+        absorbAmount -= amount;
+
+        if (absorbAmount <= 0)
         {
             Destroy();
-        }
-    }
-
-    public void Reset()
-    {
-        runtime = 0;
-        absorb = 80;
-    }
-
-    public float GetDuration()
-    {
-        return duration;
-    }
-
-    public Material GetMaterial()
-    {
-        return image;
-    }
-
-    public string GetRemainingDuration()
-    {
-        return (duration - runtime).ToString("F0");
-    }
-
-    public float OnGlobalDamageTaken(float amount)
-    {
-        return amount;
-    }
-
-    public float OnGlobalHealingTaken(float amount)
-    {
-        return amount;
-    }
-
-    public float OnHealingTaken(float amount)
-    {
-        return amount;
-    }
-
-    public float OnDamageTaken(float amount)
-    {
-        if (absorb >= amount)
-        {
-            absorb -= amount;
-            return 0;
+            return absorbAmount * -1;
         }
         else
         {
-            absorb -= amount;
-            return absorb*-1;
+            return 0;
         }
     }
 
-    public float OnFatalDamage(float amount)
-    {
-        return amount;
-    }
-
-    public bool IsBuff()
+    /// <summary>
+    /// Determines whether this instance is a buff or a debuff.
+    /// </summary>
+    /// <returns>
+    ///   <c>true</c> if this instance is a buff; if this instances is a debuff, <c>false</c>.
+    /// </returns>
+    public override bool IsBuff()
     {
         return true;
     }
 
-    public bool IsDispellable()
+    /// <summary>
+    /// Determines whether this instance is dispellable.
+    /// </summary>
+    /// <returns>
+    ///   <c>true</c> if this instance is dispellable; otherwise, <c>false</c>.
+    /// </returns>
+    public override bool IsDispellable()
     {
         return false;
-    }
-
-    public void Destroy()
-    {
-        GetComponent<BuffManager>().DeregisterBuff(this);
-        Destroy(this);
     }
 
 }

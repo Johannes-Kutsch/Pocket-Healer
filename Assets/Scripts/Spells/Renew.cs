@@ -35,8 +35,7 @@ public class Renew : Spell
 
         if (!target.GetGameObject().GetComponent<RenewHot>())
         {
-            RenewHot hot = target.GetGameObject().AddComponent<RenewHot>();
-            target.GetGameObject().GetComponent<BuffManager>().RegisterBuff(hot);
+            target.GetGameObject().AddComponent<RenewHot>();
         }
         else
         {

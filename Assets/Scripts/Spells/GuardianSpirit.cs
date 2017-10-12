@@ -40,7 +40,6 @@ public class GuardianSpirit : Spell
         if (!target.GetGameObject().GetComponent<GuardianSpiritBuff>()) //check if target allready has the buff
         {
             GuardianSpiritBuff buff = target.GetGameObject().AddComponent<GuardianSpiritBuff>(); //apply new buff
-            target.GetGameObject().GetComponent<BuffManager>().RegisterBuff(buff);
         }
         else
         {
@@ -56,7 +55,6 @@ public class GuardianSpirit : Spell
             foreach (IRaider raider in raiderDict)
             {
                 GuardianSpiritBuffInvis buff = raider.GetGameObject().AddComponent<GuardianSpiritBuffInvis>();
-                raider.GetGameObject().GetComponent<BuffManager>().RegisterBuff(buff);
             }
         }
     }

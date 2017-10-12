@@ -2,134 +2,97 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 
-public class RenewHot : MonoBehaviour, IBuff {
-    private List<IRaider> raiderDict;
-    public Material image;
-    public float healPerTick = 10f;
-    public float tickLength = 2f;
-    public float duration = 10f;
-    public float runtime;
-    public float timeLeft;
-    public int ticksSinceLastEffect = 0;
-    public int jumps = 1;
+/// <summary>
+/// A buff that heals the raider with every tick.
+/// </summary>
+public class RenewHot : Buff {
+    private readonly float Duration = 10f;
+    private readonly int TICKS = 5;
 
-    private IRaider raider;
+    private float healPerTick = 10f;
+    public float jumpsLeft = 1;
 
-    void Start()
+    /// <summary>
+    /// Called on awake.
+    /// Set variables in base class.
+    /// </summary>
+    void Awake()
     {
-        image = Resources.Load("Renew_Buff", typeof(Material)) as Material;
-        raider = GetComponent<IRaider>();
-        StartCoroutine(ApplyHeal());
+        base.image = Resources.Load("Renew_Buff", typeof(Material)) as Material;
+        base.resetable = true;
+
+        base.duration = Duration;
+        base.ticks = TICKS;
     }
 
-    void FixedUpdate()
+    /// <summary>
+    /// Called when the Reset Method is executet, independetly from the resetable variable.
+    /// </summary>
+    public override void OnReset()
     {
-        runtime = runtime + 0.02f;
-        timeLeft = duration - runtime;
+        jumpsLeft = 1;
     }
 
-    public void Reset()
+    /// <summary>
+    /// Called with every tick of the buff. Only used when ticks is greater than 1.
+    /// </summary>
+    public override void OnTick()
     {
-        ticksSinceLastEffect = 0;
-        runtime = 0;
-        jumps = 1;
+        GetRaider().Heal(healPerTick);
     }
 
-    IEnumerator ApplyHeal()
+    /// <summary>
+    /// Called when the buff is destroyed.
+    /// </summary>
+    public override void OnDestroy()
     {
-        float ticks = (duration / tickLength);
-        for (ticksSinceLastEffect = 0; ticksSinceLastEffect < ticks; ticksSinceLastEffect++)
-        {
-            yield return new WaitForSeconds(tickLength);
-            if (raider != null)
-                raider.Heal(healPerTick);
-        }
         if (GameControl.control.talente[3])
-            jump();
-        Destroy();
-    }
-
-    public void jump()
-    {
-        if (jumps > 0)
         {
-            raiderDict = RaiderDB.GetInstance().GetAllRaidersSortedByHealth();
-            raiderDict.Remove(raider);
-            IRaider target;
-            int anzahlRaider = raiderDict.Count;
-            for (int i = 0; i < anzahlRaider; i++)
+            if (jumpsLeft > 0)
             {
-                target = raiderDict.First();
-                if (!target.GetGameObject().GetComponent<RenewHot>())
+                List<IRaider> raiderDict = RaiderDB.GetInstance().GetAllRaidersSortedByHealth();
+                raiderDict.Remove(GetRaider());
+                
+                int countRaider = raiderDict.Count;
+                for (int i = 0; i < countRaider; i++)
                 {
-                    target = raiderDict.First();
-                    RenewHot buff = target.GetGameObject().AddComponent<RenewHot>();
-                    target.GetGameObject().GetComponent<RenewHot>().jumps = jumps - 1;
-                    target.GetGameObject().GetComponent<BuffManager>().RegisterBuff(buff);
-                    break;
+                    IRaider target = raiderDict.First();
+
+                    if (!target.GetGameObject().GetComponent<RenewHot>())
+                    {
+                        target = raiderDict.First();
+                        RenewHot buff = target.GetGameObject().AddComponent<RenewHot>();
+                        buff.jumpsLeft = jumpsLeft - 1;
+                        break;
+                    }
+
+                    raiderDict.Remove(target);
                 }
-                raiderDict.Remove(target);
             }
         }
-        Destroy();
     }
 
-
-    public float GetDuration()
-    {
-        return duration;
-    }
-
-    public Material GetMaterial()
-    {
-        return image;
-    }
-
-    public string GetRemainingDuration()
-    {
-        return (duration- runtime).ToString("F0");
-    }
-
-    public float OnGlobalDamageTaken(float amount)
-    {
-        return amount;
-    }
-
-    public float OnGlobalHealingTaken(float amount)
-    {
-        return amount;
-    }
-
-    public float OnHealingTaken(float amount)
-    {
-        return amount;
-    }
-
-    public float OnDamageTaken(float amount)
-    {
-        return amount;
-    }
-
-    public float OnFatalDamage(float amount)
-    {
-        return amount;
-    }
-
-    public bool IsBuff()
+    /// <summary>
+    /// Determines whether this instance is a buff or a debuff.
+    /// </summary>
+    /// <returns>
+    ///   <c>true</c> if this instance is a buff; if this instances is a debuff, <c>false</c>.
+    /// </returns>
+    public override bool IsBuff()
     {
         return true;
     }
 
-    public bool IsDispellable()
+    /// <summary>
+    /// Determines whether this instance is dispellable.
+    /// </summary>
+    /// <returns>
+    ///   <c>true</c> if this instance is dispellable; otherwise, <c>false</c>.
+    /// </returns>
+    public override bool IsDispellable()
     {
         return false;
     }
-
-    public void Destroy()
-    {
-        GetComponent<BuffManager>().DeregisterBuff(this);
-        Destroy(this);
-    }
-
 }

@@ -106,7 +106,7 @@ public class FixateCleave : MonoBehaviour {
     /// </summary>
     void FixedUpdate()
     {
-        if (target == null && canAttack || target != null && !target.IsAlive() && canAttack) //Change target if has no target or target is dead
+        if (target == null || target != null && !target.IsAlive()) //Change target if has no target or target is dead
         {
             ChangeTarget();
         }
@@ -186,7 +186,7 @@ public class FixateCleave : MonoBehaviour {
         {
             targetDict = new List<IRaider>(RaiderDB.GetInstance().GetAllRaiders());
             numberTargets = targetDict.Count;
-            dmgAutoAttack *= 4;
+            dmgAutoAttack *= 2f;
         }
 
         if (numberTargets > 1)
@@ -205,7 +205,6 @@ public class FixateCleave : MonoBehaviour {
         }
         else if (numberTargets == 1)
         {
-            numberTargets--;
             if (target != null)
             {
                 target.SetBossTarget(false);

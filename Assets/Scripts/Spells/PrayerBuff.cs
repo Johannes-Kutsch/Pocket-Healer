@@ -3,120 +3,97 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-public class PrayerBuff : MonoBehaviour, IBuff {
-    private List<IRaider> raiderDict;
-    public Material image;
-    public float heal = 40f;
-    public float duration = 15f;
-    public float runtime;
-    public float timeLeft;
-    public int jumps = 6;
+public class PrayerBuff : Buff {
+    private readonly float Duration = 10f;
 
-    private IRaider raider;
+    private float healAmount = 50f;
+    private float jumpsLeft = 6;
 
-    void Start()
+    /// <summary>
+    /// Called on awake.
+    /// Set variables in base class.
+    /// </summary>
+    void Awake()
     {
-        image = Resources.Load("PrayerOfMending_Buff", typeof(Material)) as Material;
+        base.image = Resources.Load("PrayerOfMending_Buff", typeof(Material)) as Material;
+        base.resetable = true;
+
+        base.duration = Duration;
     }
 
-    void FixedUpdate()
+    /// <summary>
+    /// Called when the Reset Method is executet, independetly from the resetable variable.
+    /// </summary>
+    public override void OnReset()
     {
-        runtime = runtime + (float)0.02;
-        timeLeft = duration - runtime;
-        if(timeLeft <= 0)
+        jumpsLeft = 6;
+    }
+
+    /// <summary>
+    /// Gets called when the raider the buff is attached to takes damage.
+    /// The amount can be modivied here, i.e. if the buff decrases the damage taken by 20% we just return amount * 0.8.
+    /// If the damage amount should not be modified we just return the original value.
+    /// </summary>
+    /// <param name="amount">the amount.</param>
+    /// <returns>
+    /// the new damage taken amount
+    /// </returns>
+    public override float OnDamageTaken(float amount)
+    {
+        Destroy();
+        Jump();
+        return amount;
+    }
+
+    /// <summary>
+    /// Called when the buff is destroyed.
+    /// Decreases jumps by 1 and applies the buff to another raider.
+    /// </summary>
+    public void Jump()
+    {
+        GetRaider().Heal(healAmount);
+        if (jumpsLeft > 0)
         {
-            Destroy();
-        }
-    }
+            List<IRaider> raiderDict = RaiderDB.GetInstance().GetAllRaidersSortedByHealth();
+            raiderDict.Remove(GetRaider());
 
-    public void Reset()
-    {
-        runtime = 0;
-        jumps = 6;
-    }
-
-    public void jump()
-    {
-        raider = GetComponent<IRaider>();
-        raider.Heal(heal);
-        if (jumps > 0)
-        {
-            raiderDict = RaiderDB.GetInstance().GetAllRaidersSortedByHealth();
-            raiderDict.Remove(raider);
-            IRaider target;
-            int anzahlRaider = raiderDict.Count;
-            for (int i = 0; i < anzahlRaider; i ++)
+            int countRaider = raiderDict.Count;
+            for (int i = 0; i < countRaider; i++)
             {
-                target = raiderDict.First();
-                if(!target.GetGameObject().GetComponent<PrayerBuff>())
+                IRaider target = raiderDict.First();
+
+                if (!target.GetGameObject().GetComponent<PrayerBuff>())
                 {
                     target = raiderDict.First();
                     PrayerBuff buff = target.GetGameObject().AddComponent<PrayerBuff>();
-                    target.GetGameObject().GetComponent<PrayerBuff>().jumps = jumps - 1;
-                    target.GetGameObject().GetComponent<BuffManager>().RegisterBuff(buff);
+                    buff.jumpsLeft = jumpsLeft - 1;
                     break;
                 }
+
                 raiderDict.Remove(target);
             }
         }
-        Destroy();
     }
 
-    public float GetDuration()
-    {
-        return duration;
-    }
-
-    public Material GetMaterial()
-    {
-        return image;
-    }
-
-    public string GetRemainingDuration()
-    {
-        return (duration - runtime).ToString("F0");
-    }
-
-    public float OnGlobalDamageTaken(float amount)
-    {
-        return amount;
-    }
-
-    public float OnGlobalHealingTaken(float amount)
-    {
-        return amount;
-    }
-
-    public float OnHealingTaken(float amount)
-    {
-        return amount;
-    }
-
-    public float OnDamageTaken(float amount)
-    {
-        jump();
-        return amount;
-    }
-
-    public float OnFatalDamage(float amount)
-    {
-        return amount;
-    }
-
-    public bool IsBuff()
+    /// <summary>
+    /// Determines whether this instance is a buff or a debuff.
+    /// </summary>
+    /// <returns>
+    ///   <c>true</c> if this instance is a buff; if this instances is a debuff, <c>false</c>.
+    /// </returns>
+    public override bool IsBuff()
     {
         return true;
     }
 
-    public bool IsDispellable()
+    /// <summary>
+    /// Determines whether this instance is dispellable.
+    /// </summary>
+    /// <returns>
+    ///   <c>true</c> if this instance is dispellable; otherwise, <c>false</c>.
+    /// </returns>
+    public override bool IsDispellable()
     {
         return false;
     }
-
-    public void Destroy()
-    {
-        GetComponent<BuffManager>().DeregisterBuff(this);
-        Destroy(this);
-    }
-
 }

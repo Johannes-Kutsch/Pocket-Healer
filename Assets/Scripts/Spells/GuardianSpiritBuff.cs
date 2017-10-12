@@ -6,132 +6,20 @@ using System.Linq;
 /// <summary>
 /// Buff used by the fuardian spirit spell. Heals the target to full if he takes fatal damage.
 /// </summary>
-public class GuardianSpiritBuff : MonoBehaviour, IBuff, IGuardianSpirit
+public class GuardianSpiritBuff : Buff, IGuardianSpirit
 {
-    private List<IRaider> raiderDict;
-    public Material image;
-    public float duration = 14f;
-    public float runtime;
-    public float timeLeft;
-
-    private IRaider raider;
+    private readonly float Duration = 14f;
 
     /// <summary>
-    /// Called on start.
+    /// Called on awake.
+    /// Set variables in base class.
     /// </summary>
-    void Start()
+    void Awake()
     {
-        image = Resources.Load("Schutzgeist_Buff", typeof(Material)) as Material;
-        raider = GetComponent<IRaider>();
-    }
+        base.image = Resources.Load("Schutzgeist_Buff", typeof(Material)) as Material;
+        base.resetable = true;
 
-    /// <summary>
-    /// Called with every fixed update.
-    /// </summary>
-    void FixedUpdate()
-    {
-        runtime = runtime + (float)0.02;
-        timeLeft = duration - runtime;
-        if (timeLeft <= 0)
-        {
-            Destroy();
-        }
-    }
-
-    /// <summary>
-    /// Resets this buff as if it was freshly applied. This is used for the reset debuffs on dispell talent.
-    /// </summary>
-    public void Reset()
-    {
-        runtime = 0;
-    }
-
-    /// <summary>
-    /// Gets the duration.
-    /// </summary>
-    /// <returns>
-    /// the duration, -1 if endless
-    /// </returns>
-    public float GetDuration()
-    {
-        return duration;
-    }
-
-    /// <summary>
-    /// Gets the material used to display the buff.
-    /// </summary>
-    /// <returns>
-    /// the material
-    /// </returns>
-    public Material GetMaterial()
-    {
-        return image;
-    }
-
-    /// <summary>
-    /// Gets the remaining duration.
-    /// </summary>
-    /// <returns></returns>
-    public string GetRemainingDuration()
-    {
-        return (duration - runtime).ToString("F0");
-    }
-
-    /// <summary>
-    /// Gets called when any raider takes damage.
-    /// The amount can be modivied here, i.e. if the buff decrases the damage taken by 20% we just return amount * 0.8.
-    /// If the damage amount should not be modified we just return the original value.
-    /// </summary>
-    /// <param name="amount">The amount.</param>
-    /// <returns>
-    /// the new healamount
-    /// </returns>
-    public float OnGlobalDamageTaken(float amount)
-    {
-        return amount;
-    }
-
-    /// <summary>
-    /// Gets called when any raider takes healing.
-    /// The amount can be modivied here, i.e. if the buff increses the healing taken by 20% we just return amount * 1.2.
-    /// If the heal amount should not be modified we just return the original value.
-    /// This is i.e. used for the flame talent.
-    /// </summary>
-    /// <param name="amount">The amount.</param>
-    /// <returns>
-    /// the new healamount
-    /// </returns>
-    public float OnGlobalHealingTaken(float amount)
-    {
-        return amount;
-    }
-
-    /// <summary>
-    /// Gets called when the raider the buff is attached to takes healing.
-    /// The amount can be modivied here, i.e. if the buff increses the healing taken by 20% we just return amount * 1.2.
-    /// If the heal amount should not be modified we just return the original value.
-    /// </summary>
-    /// <param name="amount">The amount.</param>
-    /// <returns>
-    /// the new healamount
-    /// </returns>
-    public float OnHealingTaken(float amount)
-    {
-        return amount;
-    }
-
-    /// <summary>
-    /// Gets called when the raider the buff is attached to takes damage.
-    /// The amount can be modivied here, i.e. if the buff decrases the damage taken by 20% we just return amount * 0.8.
-    /// If the damage amount should not be modified we just return the original value.
-    /// </summary>
-    /// <param name="amount">the amount.</param>
-    /// <returns>
-    /// the new damage taken amount
-    /// </returns>
-    public float OnDamageTaken(float amount)
-    {
-        return amount;
+        base.duration = Duration;
     }
 
     /// <summary>
@@ -142,23 +30,22 @@ public class GuardianSpiritBuff : MonoBehaviour, IBuff, IGuardianSpirit
     /// <returns>
     /// the new damage taken amount
     /// </returns>
-    public float OnFatalDamage(float amount)
+    public override float OnFatalDamage(float amount)
     {
-        raider.HealSimple(300, false);
+        GetRaider().HealSimple(300, false);
         Destroy();
+
         if (GameControl.control.talente[8])
         {
-            raiderDict = RaiderDB.GetInstance().GetAllRaidersSortedByHealth();
-            raiderDict.Remove(raider);
-            foreach (IRaider target in raiderDict)
+            List<IRaider> raiderDict = RaiderDB.GetInstance().GetAllRaidersSortedByHealth();
+            raiderDict.Remove(GetRaider());
+
+            foreach (IRaider raider in raiderDict)
             {
-                IGuardianSpirit buff = target.GetGameObject().GetComponent<IGuardianSpirit>();
-                if (buff != null)
-                {
-                    buff.Destroy();
-                }
+                raider.GetGameObject().GetComponent<IGuardianSpirit>().Destroy();
             }
         }
+
         return 0;
     }
 
@@ -168,7 +55,7 @@ public class GuardianSpiritBuff : MonoBehaviour, IBuff, IGuardianSpirit
     /// <returns>
     ///   <c>true</c> if this instance is a buff; if this instances is a debuff, <c>false</c>.
     /// </returns>
-    public bool IsBuff()
+    public override bool IsBuff()
     {
         return true;
     }
@@ -179,18 +66,8 @@ public class GuardianSpiritBuff : MonoBehaviour, IBuff, IGuardianSpirit
     /// <returns>
     ///   <c>true</c> if this instance is dispellable; otherwise, <c>false</c>.
     /// </returns>
-    public bool IsDispellable()
+    public override bool IsDispellable()
     {
         return false;
     }
-
-    /// <summary>
-    /// Destroys this buff.
-    /// </summary>
-    public void Destroy()
-    {
-        GetComponent<BuffManager>().DeregisterBuff(this);
-        Destroy(this);
-    }
-
 }

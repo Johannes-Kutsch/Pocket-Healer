@@ -11,7 +11,7 @@ public class Shield : Spell
     private readonly string SPELLNAME = "Shield";
     private readonly float MANACOST = 25f;
     private readonly float CASTTIME = 0f;
-    private readonly float COOLDOWN = 0f;
+    private readonly float COOLDOWN = 3.5f;
 
     /// <summary>
     /// Called on awake.
@@ -35,8 +35,7 @@ public class Shield : Spell
 
         if (!target.GetGameObject().GetComponent<ShieldBuff>())
         {
-            ShieldBuff buff = target.GetGameObject().AddComponent<ShieldBuff>();
-            target.GetGameObject().GetComponent<BuffManager>().RegisterBuff(buff);
+            target.GetGameObject().AddComponent<ShieldBuff>();
         }
         else
         {

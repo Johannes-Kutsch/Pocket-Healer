@@ -39,7 +39,7 @@ public class BuffManager : MonoBehaviour {
         for (int i = 0; i < amountOfBuffs && i < imageArray.Length; i++) //we can currently only disply 3 buffs
         {
             imageArray[i].material = currentBuffDict.First().GetMaterial();
-            imageArray[i].GetComponentInChildren<Text>().text = currentBuffDict.First().GetRemainingDuration();
+            imageArray[i].GetComponentInChildren<Text>().text = currentBuffDict.First().GetTimeLeft();
             imageArray[i].GetComponentInChildren<Text>().color = new Color32(0, 0, 0, 255);
             currentBuffDict.Remove(currentBuffDict.First());
         }

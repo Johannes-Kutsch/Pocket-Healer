@@ -34,8 +34,7 @@ public class Prayer : Spell {
 
         if (!target.GetGameObject().GetComponent<PrayerBuff>())
         {
-            PrayerBuff buff = target.GetGameObject().AddComponent<PrayerBuff>();
-            target.GetGameObject().GetComponent<BuffManager>().RegisterBuff(buff);
+            target.GetGameObject().AddComponent<PrayerBuff>();
         }
         else
         {

@@ -35,7 +35,7 @@ public class Hymn : Spell {
     }
 
     /// <summary>
-    /// Heals every raider every "castTime / (ticks - 1) - 0.05f" seconds. If the corresponding talent is chosen a hot is applied to every raider subsequently.
+    /// Heals every raider every "castTime / (ticks - 1)" seconds. If the corresponding talent is chosen a hot is applied to every raider subsequently.
     /// </summary>
     /// <returns></returns>
     IEnumerator HymnChannel()
@@ -47,33 +47,18 @@ public class Hymn : Spell {
                 raider.Heal(healAmount);
             }
 
-            yield return new WaitForSeconds(castTime / (ticks - 1) - 0.05f);
+            if (i < ticks - 1)
+            {
+                yield return new WaitForSeconds(castTime / (ticks - 1));
+            }
         }
 
         foreach (IRaider raider in RaiderDB.GetInstance().GetAllRaiders())
         {
-            raider.Heal(healAmount);
             if (GameControl.control.talente[5])
             {
-                GenerateHot(raider);
+                raider.GetGameObject().AddComponent<HymnBuff>();
             }
-        }
-    }
-
-    /// <summary>
-    /// Method used to generate the hot for a target.
-    /// </summary>
-    /// <param name="target">The target.</param>
-    private void GenerateHot(IRaider target)
-    {
-        if (!target.GetGameObject().GetComponent<HymneBuff>())
-        {
-            HymneBuff hot = target.GetGameObject().AddComponent<HymneBuff>();
-            target.GetGameObject().GetComponent<BuffManager>().RegisterBuff(hot);
-        }
-        else
-        {
-            target.GetGameObject().GetComponent<HymneBuff>().Reset();
         }
     }
 }
