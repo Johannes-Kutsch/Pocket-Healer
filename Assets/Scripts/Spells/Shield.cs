@@ -15,7 +15,7 @@ public class Shield : Spell
 
     /// <summary>
     /// Called on awake.
-    /// Set variables in base class.
+    /// Set variables in base class. 
     /// </summary>
     void Awake()
     {
