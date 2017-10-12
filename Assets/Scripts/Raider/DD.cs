@@ -98,14 +98,14 @@ public class DD : MonoBehaviour, IRaider
 
             foreach (IBuff buff in GetComponent<BuffManager>().GetAllBuffsSortetByDuration())
             {
-                amount = buff.HealingTaken(amount); //call the HealingTaken method in every buff
+                amount = buff.OnHealingTaken(amount); //call the HealingTaken method in every buff
             }
 
             foreach (IRaider raider in RaiderDB.GetInstance().GetAllRaiders())
             {
                 foreach (IBuff buff in raider.GetGameObject().GetComponent<BuffManager>().GetAllBuffsSortetByDuration())
                 {
-                    amount = buff.GlobalHealingTaken(amount); //call the GlobalHealingTaken method in every buff for every raider
+                    amount = buff.OnGlobalHealingTaken(amount); //call the GlobalHealingTaken method in every buff for every raider
                 }
             }
 
@@ -137,20 +137,20 @@ public class DD : MonoBehaviour, IRaider
         {
             foreach (IBuff buff in GetComponent<BuffManager>().GetAllBuffsSortetByDuration())
             {
-                amount = buff.DamageTaken(amount); //call the DamageTaken method in every buff
+                amount = buff.OnDamageTaken(amount); //call the DamageTaken method in every buff
             }
             foreach (IBuff buff in GetComponent<BuffManager>().GetAllBuffsSortetByDuration())
             {
                 if (currentHealth - amount <= 0)
                 {
-                    amount = buff.FatalDamage(amount); //if the damage would kill the raider call the FatalDamage method in every buff
+                    amount = buff.OnFatalDamage(amount); //if the damage would kill the raider call the FatalDamage method in every buff
                 }
             }
             foreach (IRaider raider in RaiderDB.GetInstance().GetAllRaiders())
             {
                 foreach (IBuff buff in raider.GetGameObject().GetComponent<BuffManager>().GetAllBuffsSortetByDuration())
                 {
-                    amount = buff.GlobalDamageTaken(amount); //call the GlobalDamageTaken method in every buff for every raider
+                    amount = buff.OnGlobalDamageTaken(amount); //call the GlobalDamageTaken method in every buff for every raider
                 }
             }
 

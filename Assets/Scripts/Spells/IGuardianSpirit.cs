@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public interface ISchutzgeist : IBuff
+public interface IGuardianSpirit : IBuff
 {
 
 }

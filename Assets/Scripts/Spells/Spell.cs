@@ -1,51 +1,43 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 using System.Linq;
 using UnityEngine.UI;
+using System;
 
-/// <summary>
-/// A Heal that heals the 5 lowest raiders.
-/// </summary>
-public class CircleOfHealing : MonoBehaviour, ISpell {
-    public Gamestate gamestate;
-    private IRaider target;
-    public Image cooldownOverlay;
+public abstract class Spell : MonoBehaviour, ISpell
+{
+    private Gamestate gamestate;
+    private Image cooldownOverlay;
     private Coroutine timer;
-    private List<IRaider> raiderDict = new List<IRaider>();
-    public float cooldownTimer;
-    public float cooldownMax;
-    public bool onCooldown = false;
-    private string spellName = "Circle of Healing";
-
-    public float cooldown = 8f;
-    private float healAmount = 50f;
-    private float manaCost = 80f;
-    private float numberTargets = 5f;
-    private float castTime = 0f;
-
+    private float cooldownTimer;
+    private float cooldownMax;
+    private bool onCooldown = false;
     private AudioSource source;
+
     private AudioClip castSound;
     private AudioClip impactSound;
+    private float cooldown;
+    private float manaCost;
+    private float castTime;
+    private string spellName;
 
     /// <summary>
-    /// Called on start. Set some sounds and find the gamestate, the cooldownoverlay and the audiosource.
-    /// Checks if talents are picked that modify the skill.
+    /// Called on start. Check if some variables are assigned and find the gamestate, the cooldownoverlay and the audiosource.
     /// </summary>
-    void Start()
+    public void Start()
     {
-        castSound = Resources.Load("GreaterHealCast", typeof(AudioClip)) as AudioClip;
-        impactSound = Resources.Load("CircleCast", typeof(AudioClip)) as AudioClip;
-
-        if (GameControl.control.talente[2]) //7 targets talent
+        if(castSound == null) //check if all variables are assigned
         {
-            numberTargets += 2;
+            throw new Exception("castSound is null, please assign a castSound in the Awake() method");
         }
-
-        if (GameControl.control.talente[7]) //no cooldown but casttime talent
+        if (impactSound == null)
         {
-            cooldown = 0f;
-            castTime = 2f;
+            throw new Exception("impactSound is null, please assign a impactSound in the Awake() method");
+        }
+        if (spellName == null)
+        {
+            throw new Exception("spellName is null, please assign a spellName in the Awake() method");
         }
 
         gamestate = Gamestate.gamestate;
@@ -77,7 +69,7 @@ public class CircleOfHealing : MonoBehaviour, ISpell {
     /// </summary>
     void OnMouseDown()
     {
-        if (!GameControl.control.talente[7])
+        if (castTime == 0)
             CastInstant();
         else
             Cast();
@@ -94,28 +86,20 @@ public class CircleOfHealing : MonoBehaviour, ISpell {
                 //play the impactSound
                 source.PlayOneShot(impactSound, GameControl.control.soundMultiplyer);
 
-                raiderDict = RaiderDB.GetInstance().GetAllRaidersSortedByHealth();
+                //call OnCastStart() and OnCastSucess()
+                OnCastStart();
+                OnCastSucess();
 
-                if(raiderDict.Count() < numberTargets) //if less raiders are alive than we can target, decrease number of targets
+                //check if the spell has a cooldown
+                if (cooldown > 0)
                 {
-                    numberTargets = raiderDict.Count();
+                    cooldownTimer = 0f;
+                    cooldownMax = cooldown;
+                    onCooldown = true;
+                    cooldownOverlay.color = new Color32(160, 160, 160, 160);
                 }
 
-                for (int i = 0; i < numberTargets; i++) //heal numberTargets raider
-                {
-                    target = raiderDict.First();
-                    if (target.IsAlive())
-                    {
-                        target.Heal(healAmount);
-                    }
-                    raiderDict.Remove(target);
-                }
-
-                // start the cooldown
-                cooldownTimer = 0f;
-                cooldownMax = cooldown;
-                onCooldown = true;
-                cooldownOverlay.color = new Color32(160, 160, 160, 160);
+                //start the gcd
                 gamestate.GetGcdBar().StartGcd();
             }
     }
@@ -142,8 +126,24 @@ public class CircleOfHealing : MonoBehaviour, ISpell {
     {
         //start the cast
         gamestate.GetCastBar().Cast(castTime, spellName);
+
+        //check if the spell has a cooldown
+        if (cooldown > 0)
+        {
+            cooldownTimer = 0f;
+            cooldownMax = cooldown;
+            onCooldown = true;
+            cooldownOverlay.color = new Color32(160, 160, 160, 160);
+        }
+
+        //start the gcd
         gamestate.GetGcdBar().StartGcd();
+
+        //play the cast sound
         source.PlayOneShot(castSound, GameControl.control.soundMultiplyer);
+
+        //call OnCastStart()
+        OnCastStart();
 
         //wait till the cast is finished
         yield return new WaitForSeconds(castTime);
@@ -152,22 +152,8 @@ public class CircleOfHealing : MonoBehaviour, ISpell {
         source.Stop();
         source.PlayOneShot(impactSound, GameControl.control.soundMultiplyer);
 
-        raiderDict = RaiderDB.GetInstance().GetAllRaidersSortedByHealth();
-
-        if (raiderDict.Count() < numberTargets) //if less raiders are alive than we can target, decrease number of targets
-        {
-            numberTargets = raiderDict.Count();
-        }
-
-        for (int i = 0; i < numberTargets; i++) //heal numberTargets raider
-        {
-            target = raiderDict.First();
-            if (target.IsAlive())
-            {
-                target.Heal(healAmount);
-            }
-            raiderDict.Remove(target);
-        }
+        //call OnCastSucess()
+        OnCastSucess();
     }
 
     /// <summary>
@@ -192,4 +178,8 @@ public class CircleOfHealing : MonoBehaviour, ISpell {
         GetComponent<MeshRenderer>().material = null;
         Destroy(this);
     }
+
+    public abstract void OnCastStart();
+
+    public abstract void OnCastSucess();
 }

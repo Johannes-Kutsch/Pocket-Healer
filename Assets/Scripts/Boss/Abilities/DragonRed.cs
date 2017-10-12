@@ -96,13 +96,13 @@ public class DragonRed : MonoBehaviour, IRaider
             amount *= healMultiplier;
             foreach (IBuff buff in GetComponent<BuffManager>().GetAllBuffsSortetByDuration())
             {
-                amount = buff.HealingTaken(amount);
+                amount = buff.OnHealingTaken(amount);
             }
             foreach (IRaider raider in RaiderDB.GetInstance().GetAllRaiders())
             {
                 foreach (IBuff buff in raider.GetGameObject().GetComponent<BuffManager>().GetAllBuffsSortetByDuration())
                 {
-                    amount = buff.GlobalHealingTaken(amount);
+                    amount = buff.OnGlobalHealingTaken(amount);
                 }
             }
             if (amount > maxHealth - currentHealth)
@@ -130,17 +130,17 @@ public class DragonRed : MonoBehaviour, IRaider
         {
             foreach (IBuff buff in GetComponent<BuffManager>().GetAllBuffsSortetByDuration())
             {
-                amount = buff.DamageTaken(amount);
+                amount = buff.OnDamageTaken(amount);
                 if (currentHealth - amount <= 0)
                 {
-                    amount = buff.FatalDamage(amount);
+                    amount = buff.OnFatalDamage(amount);
                 }
             }
             foreach (IRaider raider in RaiderDB.GetInstance().GetAllRaiders())
             {
                 foreach (IBuff buff in raider.GetGameObject().GetComponent<BuffManager>().GetAllBuffsSortetByDuration())
                 {
-                    amount = buff.GlobalDamageTaken(amount);
+                    amount = buff.OnGlobalDamageTaken(amount);
                 }
             }
             currentHealth = currentHealth - amount;

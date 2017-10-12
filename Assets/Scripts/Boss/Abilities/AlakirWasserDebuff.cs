@@ -103,7 +103,7 @@ public class AlakirWasserDebuff : MonoBehaviour, IBuff
     /// <returns>
     /// the new healamount
     /// </returns>
-    public float GlobalDamageTaken(float amount)
+    public float OnGlobalDamageTaken(float amount)
     {
         return amount;
     }
@@ -118,7 +118,7 @@ public class AlakirWasserDebuff : MonoBehaviour, IBuff
     /// <returns>
     /// the new healamount
     /// </returns>
-    public float GlobalHealingTaken(float amount)
+    public float OnGlobalHealingTaken(float amount)
     {
         return amount;
     }
@@ -132,7 +132,7 @@ public class AlakirWasserDebuff : MonoBehaviour, IBuff
     /// <returns>
     /// the new healamount
     /// </returns>
-    public float HealingTaken(float amount)
+    public float OnHealingTaken(float amount)
     {
         return amount * healMultiplier;
     }
@@ -146,7 +146,7 @@ public class AlakirWasserDebuff : MonoBehaviour, IBuff
     /// <returns>
     /// the new damage taken amount
     /// </returns>
-    public float DamageTaken(float amount)
+    public float OnDamageTaken(float amount)
     {
         return amount;
     }
@@ -159,7 +159,7 @@ public class AlakirWasserDebuff : MonoBehaviour, IBuff
     /// <returns>
     /// the new damage taken amount
     /// </returns>
-    public float FatalDamage(float amount)
+    public float OnFatalDamage(float amount)
     {
         return amount;
     }

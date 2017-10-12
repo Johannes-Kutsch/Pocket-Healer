@@ -4,7 +4,7 @@ using UnityEngine;
 /// <summary>
 /// Interface for Buffs/Debuffs.
 /// </summary>
-public interface IBuff {
+public interface IBuff { //ToDo: change to an abstract class and implement default methods for most functunality (runtime and onDamageTaken...)
 
     /// <summary>
     /// Gets the duration.
@@ -33,7 +33,7 @@ public interface IBuff {
     /// </summary>
     /// <param name="amount">the amount.</param>
     /// <returns>the new damage taken amount</returns>
-    float DamageTaken(float amount);
+    float OnDamageTaken(float amount);
 
 
     /// <summary>
@@ -42,7 +42,7 @@ public interface IBuff {
     /// </summary>
     /// <param name="amount">The amount.</param>
     /// <returns>the new damage taken amount</returns>
-    float FatalDamage(float amount);
+    float OnFatalDamage(float amount);
 
 
     /// <summary>
@@ -52,7 +52,7 @@ public interface IBuff {
     /// </summary>
     /// <param name="amount">The amount.</param>
     /// <returns>the new healamount</returns>
-    float HealingTaken(float amount);
+    float OnHealingTaken(float amount);
 
 
     /// <summary>
@@ -63,7 +63,7 @@ public interface IBuff {
     /// </summary>
     /// <param name="amount">The amount.</param>
     /// <returns>the new healamount</returns>
-    float GlobalHealingTaken(float amount);
+    float OnGlobalHealingTaken(float amount);
 
     /// <summary>
     /// Gets called when any raider takes damage.
@@ -72,7 +72,7 @@ public interface IBuff {
     /// </summary>
     /// <param name="amount">The amount.</param>
     /// <returns>the new healamount</returns>
-    float GlobalDamageTaken(float amount);
+    float OnGlobalDamageTaken(float amount);
 
 
     /// <summary>

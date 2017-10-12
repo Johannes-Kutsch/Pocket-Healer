@@ -149,13 +149,16 @@ public class Alakir : MonoBehaviour {
                 }
             }
 
-            if (targetDict.Count != 0)
+            if (targetDict.Count == 0)
             {
-                IRaider fireTarget = targetDict[Random.Range(0, targetDict.Count)];
-                AlakirFeuerDebuff debuff = fireTarget.GetGameObject().AddComponent<AlakirFeuerDebuff>();
-                fireTarget.GetGameObject().GetComponent<BuffManager>().RegisterBuff(debuff);
-                fireTarget = null;
+                targetDict = RaiderDB.GetInstance().GetAllRaiders();
             }
+
+            IRaider fireTarget = targetDict[Random.Range(0, targetDict.Count)];
+            AlakirFeuerDebuff debuff = fireTarget.GetGameObject().AddComponent<AlakirFeuerDebuff>();
+            fireTarget.GetGameObject().GetComponent<BuffManager>().RegisterBuff(debuff);
+            fireTarget = null;
+
         }
 
         else if (rangeAttackTimerCurrent >= rangeAttackTimer) //Range AutoAttack

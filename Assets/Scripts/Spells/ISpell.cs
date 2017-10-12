@@ -1,8 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public interface ISpell {
-
+/// <summary>
+/// Interface for a Spell.
+/// </summary>
+public interface ISpell { 
     void StartGcd();
     void RemoveSpellFromButton();
 }

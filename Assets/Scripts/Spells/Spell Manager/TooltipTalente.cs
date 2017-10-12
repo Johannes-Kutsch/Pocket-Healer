@@ -37,7 +37,7 @@ public class TooltipTalente : MonoBehaviour
         beschreibung[5] = "Die Heilung von Hymne der Hoffnung klingt nach und heilt die Gruppe um 25 Leben im verlauf von 10 Sekunden.";
         beschreibung[6] = "Dispell setzt alle Verstärkungszauber auf eurem Ziel zurück.";
         beschreibung[7] = "Kreis der Heilung hat keine Abklingzeit mehr, dafür eine kurze Zauberzeit.";
-        beschreibung[8] = "Euer Schutzgeist beschützt jetzt jedes Gruppenmitglied.";
+        beschreibung[8] = "Wenn ein anderes Gruppenmitglied sterben würde, wird der Schutzgeist nun ebenfalls aktiviert. Anschliesend werden beide Ziele vollgeheilt.";
         beschreibung[9] = "Eine Flamme brennt in euren Tanks. 20% aller Heilung wird dupliziert und auf sie geleitet.";
         beschreibung[10] = "Du stellst zum Beginn des Kampfes ein Totem welches alle Überheilung speichert und nach 10 Sekunden gleichmäßig auf den Raid verteilt.";
         beschreibung[11] = "Du stellst zum Beginn des Kampges einen Brunnen welcher jede Sekunde das am schwersten verletzte Gruppenmitglied heilt.";

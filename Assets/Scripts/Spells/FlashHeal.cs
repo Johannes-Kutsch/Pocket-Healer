@@ -3,25 +3,32 @@ using System.Collections;
 using UnityEngine.UI;
 using System;
 
+/// <summary>
+/// A Heal that heals the current target.
+/// </summary>
 public class FlashHeal : MonoBehaviour, ISpell
 {
     public Gamestate gamestate;
     private IRaider target;
     public Image cooldownOverlay;
-    private float cooldown = 0f;
     private float cooldownTimer;
     private float cooldownMax;
     private Coroutine timer;
-    private float healAmount = 50f;
-    private float manaKosten = 20f;
-    private float castTime = 1f;
     private bool onCooldown = false;
-    private string spellName = "Blitzheilung";
+    private string spellName = "Flash Heal";
+
+    private float cooldown = 0f;
+    private float healAmount = 50f;
+    private float manaCost = 20f;
+    private float castTime = 1f;
 
     private AudioSource source;
     private AudioClip castSound;
     private AudioClip impactSound;
 
+    /// <summary>
+    /// Called on start. Set some sounds and find the gamestate, the cooldownoverlay and the audiosource.
+    /// </summary>
     void Start()
     {
         castSound = Resources.Load("GreaterHealCast", typeof(AudioClip)) as AudioClip;
@@ -33,6 +40,9 @@ public class FlashHeal : MonoBehaviour, ISpell
         source = GetComponent<AudioSource>();
     }
 
+    /// <summary>
+    /// Called with every fixed update. Advance the cooldown and draw the cooldownoverlay.
+    /// </summary>
     void FixedUpdate()
     {
         if (cooldownTimer >= cooldownMax)
@@ -47,19 +57,25 @@ public class FlashHeal : MonoBehaviour, ISpell
         }
     }
 
+    /// <summary>
+    /// Called when [mouse down].
+    /// </summary>
     void OnMouseDown()
     {
         Cast();
     }
 
+    /// <summary>
+    /// Check if we can cast the spell and start the cast procedure.
+    /// </summary>
     public void Cast()
     {
         if (!gamestate.GetCastBar().IsCasting() && !gamestate.GetGcdBar().GetIsInGcd() && !onCooldown && gamestate.HasTarget())
         {
-            target = gamestate.GetTarget();
+            target = gamestate.GetTarget(); //save the current target
             if (target.IsAlive())
             {
-                if (gamestate.DecreaseMana(manaKosten))
+                if (gamestate.DecreaseMana(manaCost))
                 {
                     timer = StartCoroutine(Timer());
                 }
@@ -67,17 +83,31 @@ public class FlashHeal : MonoBehaviour, ISpell
         }
     }
 
+    /// <summary>
+    /// The cast procedure.
+    /// </summary>
+    /// <returns></returns>
     IEnumerator Timer()
     {
+        //start the cast
         gamestate.GetCastBar().Cast(castTime, spellName);
         gamestate.GetGcdBar().StartGcd();
         source.PlayOneShot(castSound, GameControl.control.soundMultiplyer);
+
+        //wait till the cast is finished
         yield return new WaitForSeconds(castTime);
+
+        //stop the cast sound and play the impactSound
         source.Stop();
         source.PlayOneShot(impactSound, GameControl.control.soundMultiplyer);
+
+        //heal the target
         target.Heal(healAmount);
     }
 
+    /// <summary>
+    /// Starts a GCD.
+    /// </summary>
     public void StartGcd()
     {
         if (!onCooldown || cooldownMax - cooldownTimer < gamestate.GetGcdBar().GetGcdTime())
@@ -89,6 +119,9 @@ public class FlashHeal : MonoBehaviour, ISpell
         }
     }
 
+    /// <summary>
+    /// Removes the spell from the button.
+    /// </summary>
     public void RemoveSpellFromButton()
     {
         GetComponent<MeshRenderer>().material = null;

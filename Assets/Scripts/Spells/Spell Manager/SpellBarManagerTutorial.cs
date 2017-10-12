@@ -128,7 +128,7 @@ public class SpellBarManagerTutorial : MonoBehaviour
     {
         button.SetActive(true);
         button.GetComponent<MeshRenderer>().material = Resources.Load("GreaterHeal", typeof(Material)) as Material;
-        button.AddComponent<GroßeHeilung>();
+        button.AddComponent<GreaterHeal>();
     }
 
     /// <summary>
