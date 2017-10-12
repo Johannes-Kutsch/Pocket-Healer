@@ -19,7 +19,7 @@ public class Gamestate : MonoBehaviour {
     private ManaBar manaBar;
     private GcdBar gcdBar;
     private Boss Boss;
-    private List<ISpell> spellDict = new List<ISpell>(); //List containing all currently used Spells
+    private List<Spell> spellDict = new List<Spell>(); //List containing all currently used Spells
     private bool finished = false; //true if the current boss is dead
     private bool paused; //Stops boss autoattacks and raider autoattacks, does currently not stop boss abilitys
     private float maxMana = 1000f;
@@ -302,7 +302,7 @@ public class Gamestate : MonoBehaviour {
     /// Adds a spell to the spellDict.
     /// </summary>
     /// <param name="spell">The spell.</param>
-    public void AddSpell(ISpell spell)
+    public void AddSpell(Spell spell)
     {
         spellDict.Add(spell);
     }
@@ -311,7 +311,7 @@ public class Gamestate : MonoBehaviour {
     /// Get the spellDict.
     /// </summary>
     /// <returns>the spellDict</returns>
-    public List<ISpell> GetSpells()
+    public List<Spell> GetSpells()
     {
         return spellDict;
     }

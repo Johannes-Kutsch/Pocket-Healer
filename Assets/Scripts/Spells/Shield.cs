@@ -3,70 +3,36 @@ using System.Collections;
 using UnityEngine.UI;
 using System;
 
-public class Shield : MonoBehaviour, ISpell
+/// <summary>
+/// Applies a buff that absorbs damage.
+/// </summary>
+public class Shield : Spell
 {
-    public Gamestate gamestate;
-    public Image cooldownOverlay;
-    private IRaider target;
-    private float manaKosten = 25f;
-    private float castTime = 0f;
-    private float cooldown = 3.5f;
-    private float cooldownTimer;
-    private float cooldownMax;
-    private bool onCooldown = false;
-    private string spellName = "Machtwort: Schild";
+    private readonly string SPELLNAME = "Shield";
+    private readonly float MANACOST = 25f;
+    private readonly float CASTTIME = 0f;
+    private readonly float COOLDOWN = 0f;
 
-    private AudioSource source;
-    private AudioClip impactSound;
-
-    void Start()
+    /// <summary>
+    /// Called on awake.
+    /// Set variables in base class.
+    /// </summary>
+    void Awake()
     {
-        impactSound = Resources.Load("ShieldImpact", typeof(AudioClip)) as AudioClip;
-        gamestate = Gamestate.gamestate;
-        cooldownOverlay = GetComponentInChildren<Image>();
-        gamestate.AddSpell(this);
-        cooldownTimer = cooldown;
-        source = GetComponent<AudioSource>();
+        base.impactSound = Resources.Load("ShieldImpact", typeof(AudioClip)) as AudioClip;
+        base.cooldown = COOLDOWN;
+        base.manaCost = MANACOST;
+        base.castTime = CASTTIME;
+        base.spellName = SPELLNAME;
     }
 
-    void FixedUpdate()
+    /// <summary>
+    /// Called when a cast is sucesfully finished. Applies the ShieldBuff to the target.
+    /// </summary>
+    public override void OnCastSucess()
     {
-        if (cooldownTimer >= cooldownMax)
-        {
-            onCooldown = false;
-            cooldownOverlay.color = new Color32(160, 160, 160, 0);
-        }
-        else
-        {
-            cooldownTimer += 0.02f;
-            cooldownOverlay.fillAmount = cooldownTimer / cooldownMax;
-        }
-    }
+        IRaider target = GetTarget();
 
-    void OnMouseDown()
-    {
-        Cast();
-    }
-
-    public void Cast()
-    {
-        target = gamestate.GetTarget();
-        if (gamestate.HasTarget() && !gamestate.GetCastBar().IsCasting() && !gamestate.GetGcdBar().GetIsInGcd() && !onCooldown && target.IsAlive())
-            if (gamestate.DecreaseMana(manaKosten))
-            {
-                cooldownTimer = 0f;
-                cooldownMax = cooldown;
-                onCooldown = true;
-                cooldownOverlay.color = new Color32(160, 160, 160, 160);
-                source.PlayOneShot(impactSound, GameControl.control.soundMultiplyer);
-                GenerateBuff();
-                gamestate.GetGcdBar().StartGcd();
-            }
-    }
-
-
-    private void GenerateBuff()
-    {
         if (!target.GetGameObject().GetComponent<ShieldBuff>())
         {
             ShieldBuff buff = target.GetGameObject().AddComponent<ShieldBuff>();
@@ -77,22 +43,4 @@ public class Shield : MonoBehaviour, ISpell
             target.GetGameObject().GetComponent<ShieldBuff>().Reset();
         }
     }
-
-    public void StartGcd()
-    {
-        if (!onCooldown || cooldownMax - cooldownTimer < gamestate.GetGcdBar().GetGcdTime())
-        {
-            cooldownMax = gamestate.GetGcdBar().GetGcdTime();
-            onCooldown = true;
-            cooldownTimer = 0;
-            cooldownOverlay.color = new Color32(160, 160, 160, 160);
-        }
-    }
-
-    public void RemoveSpellFromButton()
-    {
-        GetComponent<MeshRenderer>().material = null;
-        Destroy(this);
-    }
-
 }

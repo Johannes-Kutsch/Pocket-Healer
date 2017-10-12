@@ -15,7 +15,7 @@ public class GcdBar : MonoBehaviour {
     private Vector3 endPos;
     private float scaleX;
     private RectTransform castTransform;
-    private List<ISpell> spellDict = new List<ISpell>();
+    private List<Spell> spellDict;
 
     private float gcdDuration = 1f; //duration of gcd in seconds
     private float gcdProgress; //1 if gcd is over, 0 if gcd has just startet
@@ -86,7 +86,7 @@ public class GcdBar : MonoBehaviour {
         StartCoroutine("FadeIn");
         gcdProgress = 0f;
 
-        foreach (ISpell spell in spellDict)
+        foreach (Spell spell in spellDict)
         {
             spell.StartGcd();
         }

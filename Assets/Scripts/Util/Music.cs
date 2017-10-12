@@ -42,7 +42,8 @@ public class Music : MonoBehaviour {
     /// </summary>
     void Update()
     {
-        if (!source.isPlaying) //ToDo this is really sloppy and should be changed to a system that knows when an audioclip is finished.
+        if (source.isPlaying) //ToDo this is really sloppy and should be changed to a system that knows when an audioclip is finished.
+            //ToDo option to disable music. change to !source.isPlaying
         {
             switch (trackNumber) {
                 case 1:

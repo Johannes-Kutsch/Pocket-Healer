@@ -183,7 +183,7 @@ public class SpellBarManagerTutorial : MonoBehaviour
     {
         button.SetActive(true);
         button.GetComponent<MeshRenderer>().material = Resources.Load("Hymne", typeof(Material)) as Material;
-        button.AddComponent<Hymne>();
+        button.AddComponent<Hymn>();
     }
 
     /// <summary>

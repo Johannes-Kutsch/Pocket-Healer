@@ -7,10 +7,10 @@ public class PrayerBuff : MonoBehaviour, IBuff {
     private List<IRaider> raiderDict;
     public Material image;
     public float heal = 40f;
-    public float duration = 10f;
+    public float duration = 15f;
     public float runtime;
     public float timeLeft;
-    public int jumps = 4;
+    public int jumps = 6;
 
     private IRaider raider;
 
@@ -32,7 +32,7 @@ public class PrayerBuff : MonoBehaviour, IBuff {
     public void Reset()
     {
         runtime = 0;
-        jumps = 4;
+        jumps = 6;
     }
 
     public void jump()

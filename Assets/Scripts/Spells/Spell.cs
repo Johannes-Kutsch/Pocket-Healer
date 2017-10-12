@@ -5,7 +5,7 @@ using System.Linq;
 using UnityEngine.UI;
 using System;
 
-public abstract class Spell : MonoBehaviour, ISpell
+public abstract class Spell : MonoBehaviour
 {
     private Gamestate gamestate;
     private Image cooldownOverlay;
@@ -14,28 +14,21 @@ public abstract class Spell : MonoBehaviour, ISpell
     private float cooldownMax;
     private bool onCooldown = false;
     private AudioSource source;
+    private IRaider target;
 
-    private AudioClip castSound;
-    private AudioClip impactSound;
-    private float cooldown;
-    private float manaCost;
-    private float castTime;
-    private string spellName;
+    public AudioClip castSound;
+    public AudioClip impactSound;
+    public float cooldown;
+    public float manaCost;
+    public float castTime;
+    public string spellName;
 
     /// <summary>
     /// Called on start. Check if some variables are assigned and find the gamestate, the cooldownoverlay and the audiosource.
     /// </summary>
     public void Start()
-    {
-        if(castSound == null) //check if all variables are assigned
-        {
-            throw new Exception("castSound is null, please assign a castSound in the Awake() method");
-        }
-        if (impactSound == null)
-        {
-            throw new Exception("impactSound is null, please assign a impactSound in the Awake() method");
-        }
-        if (spellName == null)
+    { 
+        if (spellName == null) //check if a impact sound and a name is assigned
         {
             throw new Exception("spellName is null, please assign a spellName in the Awake() method");
         }
@@ -66,63 +59,60 @@ public abstract class Spell : MonoBehaviour, ISpell
 
     /// <summary>
     /// Called when [mouse down].
+    /// Checks if we can cast the spell and starts the cast prozedure.
     /// </summary>
     void OnMouseDown()
     {
-        if (castTime == 0)
-            CastInstant();
-        else
-            Cast();
-    }
-
-    /// <summary>
-    /// Check if we can cast the spell and cast it. This is used when the spell has no casttime.
-    /// </summary>
-    public void CastInstant()
-    {
-        if (!gamestate.GetCastBar().IsCasting() && !gamestate.GetGcdBar().GetIsInGcd() && !onCooldown)
-            if (gamestate.DecreaseMana(manaCost))
-            {
-                //play the impactSound
-                source.PlayOneShot(impactSound, GameControl.control.soundMultiplyer);
-
-                //call OnCastStart() and OnCastSucess()
-                OnCastStart();
-                OnCastSucess();
-
-                //check if the spell has a cooldown
-                if (cooldown > 0)
-                {
-                    cooldownTimer = 0f;
-                    cooldownMax = cooldown;
-                    onCooldown = true;
-                    cooldownOverlay.color = new Color32(160, 160, 160, 160);
-                }
-
-                //start the gcd
-                gamestate.GetGcdBar().StartGcd();
-            }
-    }
-
-    /// <summary>
-    /// Check if we can cast the spell and start the cast procedure. This is used when the spell has a casttime.
-    /// </summary>
-    public void Cast()
-    {
         if (!gamestate.GetCastBar().IsCasting() && !gamestate.GetGcdBar().GetIsInGcd() && !onCooldown)
         {
-            if (gamestate.DecreaseMana(manaCost))
+            target = gamestate.GetTarget();
+            if (target != null && target.IsAlive())
             {
-                timer = StartCoroutine(Timer());
+                if (gamestate.DecreaseMana(manaCost))
+                {
+                    if (castTime == 0)
+                        CastInstant(); //spell with no casttime
+                    else
+                        StartCoroutine(Cast()); //spell with casttime
+                }
             }
         }
     }
 
     /// <summary>
-    /// The cast procedure.
+    /// The cast procedure for a spell without cast time.
+    /// </summary>
+    public void CastInstant()
+    {
+        //play the impactSound
+        if (impactSound != null)
+        {
+            source.PlayOneShot(impactSound, GameControl.control.soundMultiplyer);
+        }
+
+        //call OnCastStart() and OnCastSucess()
+        OnCastStart();
+        OnCastSucess();
+
+        //check if the spell has a cooldown
+        if (cooldown > 0)
+        {
+            cooldownTimer = 0f;
+            cooldownMax = cooldown;
+            onCooldown = true;
+            cooldownOverlay.color = new Color32(160, 160, 160, 160);
+        }
+
+        //start the gcd
+        gamestate.GetGcdBar().StartGcd();
+
+    }
+
+    /// <summary>
+    /// The cast procedure for a spell with cast time.
     /// </summary>
     /// <returns></returns>
-    IEnumerator Timer()
+    IEnumerator Cast()
     {
         //start the cast
         gamestate.GetCastBar().Cast(castTime, spellName);
@@ -140,7 +130,10 @@ public abstract class Spell : MonoBehaviour, ISpell
         gamestate.GetGcdBar().StartGcd();
 
         //play the cast sound
-        source.PlayOneShot(castSound, GameControl.control.soundMultiplyer);
+        if (castSound != null)
+        {
+            source.PlayOneShot(castSound, GameControl.control.soundMultiplyer);
+        }
 
         //call OnCastStart()
         OnCastStart();
@@ -149,8 +142,15 @@ public abstract class Spell : MonoBehaviour, ISpell
         yield return new WaitForSeconds(castTime);
 
         //stop the cast sound and play the impactSound
-        source.Stop();
-        source.PlayOneShot(impactSound, GameControl.control.soundMultiplyer);
+        if (source.isPlaying)
+        {
+            source.Stop();
+        }
+
+        if (impactSound != null)
+        {
+            source.PlayOneShot(impactSound, GameControl.control.soundMultiplyer);
+        }
 
         //call OnCastSucess()
         OnCastSucess();
@@ -179,7 +179,28 @@ public abstract class Spell : MonoBehaviour, ISpell
         Destroy(this);
     }
 
-    public abstract void OnCastStart();
+    /// <summary>
+    /// Gets the target .
+    /// </summary>
+    /// <returns></returns>
+    public IRaider GetTarget()
+    {
+        return target;
+    }
 
-    public abstract void OnCastSucess();
+    /// <summary>
+    /// Called when a cast is started.
+    /// </summary>
+    public virtual void OnCastStart()
+    {
+
+    }
+
+    /// <summary>
+    /// Called when a cast is sucesfully finished.
+    /// </summary>
+    public virtual void OnCastSucess()
+    {
+
+    }
 }

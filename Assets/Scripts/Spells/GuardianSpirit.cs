@@ -6,136 +6,58 @@ using System.Collections.Generic;
 /// <summary>
 /// Applys a Buff that heals the raider to full if he would die.
 /// </summary>
-public class GuardianSpirit : MonoBehaviour, ISpell
+public class GuardianSpirit : Spell
 {
-    public Gamestate gamestate;
-    public Image cooldownOverlay;
-    private IRaider target;
-    private List<IRaider> raiderDict;
-    private float manaCost = 20f;
-    private float castTime = 0f;
-    private float cooldown = 15f;
-    private float cooldownTimer;
-    private float cooldownMax;
-    private bool onCooldown = false;
-    private string spellName = "Guardian Spirit";
-
-    private AudioSource source;
-    private AudioClip impactSound;
+    private readonly string SPELLNAME = "Guardian Spirit";
+    private readonly float MANACOST = 20f;
+    private readonly float CASTTIME = 0f;
+    private readonly float COOLDOWN = 15f;
+    
 
     /// <summary>
-    /// Called on start. Set some sounds and find the gamestate, the cooldownoverlay and the audiosource.
+    /// Called on awake.
+    /// Checks if talents are picked that modify the skill.
+    /// Set variables in base class.
     /// </summary>
-    void Start()
+    void Awake()
     {
-        impactSound = Resources.Load("SchutzgeistCast", typeof(AudioClip)) as AudioClip;
-        gamestate = Gamestate.gamestate;
-        cooldownOverlay = GetComponentInChildren<Image>();
-        gamestate.AddSpell(this);
-        cooldownTimer = cooldown;
-        source = GetComponent<AudioSource>();
+        base.impactSound = Resources.Load("SchutzgeistCast", typeof(AudioClip)) as AudioClip;
+        base.cooldown = COOLDOWN;
+        base.manaCost = MANACOST;
+        base.castTime = CASTTIME;
+        base.spellName = SPELLNAME;
     }
 
     /// <summary>
-    /// Called with every fixed update. Advance the cooldown and draw the cooldownoverlay.
-    /// </summary>
-    void FixedUpdate()
-    {
-        if (cooldownTimer >= cooldownMax)
-        {
-            onCooldown = false;
-            cooldownOverlay.color = new Color32(160, 160, 160, 0);
-        }
-        else
-        {
-            cooldownTimer += 0.02f;
-            cooldownOverlay.fillAmount = cooldownTimer / cooldownMax;
-        }
-    }
-
-    /// <summary>
-    /// Called when [mouse down].
-    /// </summary>
-    void OnMouseDown()
-    {
-        Cast();
-    }
-
-    /// <summary>
-    /// Check if we can cast the spell and cast it.
-    /// </summary>
-    public void Cast()
-    {
-        target = gamestate.GetTarget();
-
-        if (gamestate.HasTarget() && !gamestate.GetCastBar().IsCasting() && !gamestate.GetGcdBar().GetIsInGcd() && !onCooldown && target.IsAlive())
-        {
-            if (gamestate.DecreaseMana(manaCost))
-            {
-                source.PlayOneShot(impactSound, GameControl.control.soundMultiplyer); //play the impact sound
-
-                //apply the buff
-                GenerateBuff();
-
-                // start the cooldown
-                cooldownTimer = 0f;
-                cooldownMax = cooldown;
-                onCooldown = true;
-                cooldownOverlay.color = new Color32(160, 160, 160, 160);
-                gamestate.GetGcdBar().StartGcd();
-            }
-        }
-    }
-
-    /// <summary>
+    /// Called when a cast is sucesfully finished.
     /// Applys the guardian spirit buff to the current target.
     /// Applys the guardian spirit invis buff to every other raider if the talent is selected.
     /// </summary>
-    private void GenerateBuff()
+    public override void OnCastSucess()
     {
-        if (!target.GetGameObject().GetComponent<GuardianSpiritBuff>())
+        IRaider target = GetTarget();
+        
+        if (!target.GetGameObject().GetComponent<GuardianSpiritBuff>()) //check if target allready has the buff
         {
-            GuardianSpiritBuff buff = target.GetGameObject().AddComponent<GuardianSpiritBuff>();
+            GuardianSpiritBuff buff = target.GetGameObject().AddComponent<GuardianSpiritBuff>(); //apply new buff
             target.GetGameObject().GetComponent<BuffManager>().RegisterBuff(buff);
         }
         else
         {
-            target.GetGameObject().GetComponent<GuardianSpiritBuff>().Reset();
+            target.GetGameObject().GetComponent<GuardianSpiritBuff>().Reset(); //refresh old buff
         }
 
-        if(GameControl.control.talente[8])
+        if (GameControl.control.talente[8]) //apply invis buff to every other raider if talent is picked
         {
-            raiderDict = RaiderDB.GetInstance().GetAllRaidersSortedByHealth();
+            List<IRaider> raiderDict = RaiderDB.GetInstance().GetAllRaidersSortedByHealth();
+
             raiderDict.Remove(target);
-            foreach(IRaider raider in raiderDict)
+
+            foreach (IRaider raider in raiderDict)
             {
                 GuardianSpiritBuffInvis buff = raider.GetGameObject().AddComponent<GuardianSpiritBuffInvis>();
                 raider.GetGameObject().GetComponent<BuffManager>().RegisterBuff(buff);
             }
         }
     }
-
-    /// <summary>
-    /// Starts a GCD.
-    /// </summary>
-    public void StartGcd()
-    {
-        if (!onCooldown || cooldownMax - cooldownTimer < gamestate.GetGcdBar().GetGcdTime())
-        {
-            cooldownMax = gamestate.GetGcdBar().GetGcdTime();
-            onCooldown = true;
-            cooldownTimer = 0;
-            cooldownOverlay.color = new Color32(160, 160, 160, 160);
-        }
-    }
-
-    /// <summary>
-    /// Removes the spell from the button.
-    /// </summary>
-    public void RemoveSpellFromButton()
-    {
-        GetComponent<MeshRenderer>().material = null;
-        Destroy(this);
-    }
-
 }
