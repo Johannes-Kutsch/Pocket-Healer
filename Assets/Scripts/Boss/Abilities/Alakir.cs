@@ -155,8 +155,7 @@ public class Alakir : MonoBehaviour {
             }
 
             IRaider fireTarget = targetDict[Random.Range(0, targetDict.Count)];
-            AlakirFeuerDebuff debuff = fireTarget.GetGameObject().AddComponent<AlakirFeuerDebuff>();
-            fireTarget.GetGameObject().GetComponent<BuffManager>().RegisterBuff(debuff);
+            fireTarget.GetGameObject().AddComponent<AlakirFeuerDebuff>();
             fireTarget = null;
 
         }
@@ -185,8 +184,7 @@ public class Alakir : MonoBehaviour {
 
             foreach (IRaider target in targetDict)
             {
-                AlakirWasserDebuff debuff = target.GetGameObject().AddComponent<AlakirWasserDebuff>();
-                target.GetGameObject().GetComponent<BuffManager>().RegisterBuff(debuff);
+                target.GetGameObject().AddComponent<AlakirWasserDebuff>();
             }
 
             BossModImagePhase.sprite = Resources.Load("Blizzard", typeof(Sprite)) as Sprite;
@@ -280,6 +278,7 @@ public class Alakir : MonoBehaviour {
             fireDotTimerCurrent = fireDotTimerStart;
 
             BossModImagePhase.sprite = Resources.Load("Luft", typeof(Sprite)) as Sprite;
+            BossModImageDebuff.sprite = Resources.Load("Feuer_Debuff", typeof(Sprite)) as Sprite;
         }
     }
 }

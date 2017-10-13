@@ -8,8 +8,7 @@ using UnityEngine;
 /// </summary>
 public abstract class BuffTicking : Buff
 {
-    public int ticks = 0;
-    private float currentTicks = 0f;
+    private float currentTicks = 1f;
     private float tickLength;
 
     /// <summary>
@@ -19,7 +18,6 @@ public abstract class BuffTicking : Buff
     {
         duration = GetRealDuration();
         image = Resources.Load(GetMaterialName(), typeof(Material)) as Material;
-        ticks = GetNumberTicks();
 
         buffManager = GetComponent<BuffManager>();
         buffManager.RegisterBuff(this);
@@ -28,7 +26,7 @@ public abstract class BuffTicking : Buff
 
         timeLeft = duration;
 
-        tickLength = duration / ticks;
+        tickLength = GetIntervallTicks();
 
         OnStart();
     }
@@ -41,11 +39,13 @@ public abstract class BuffTicking : Buff
         runtime = runtime + 0.02f;
         timeLeft = duration - runtime;
 
-        if (ticks > 1 && runtime >= tickLength * (currentTicks + 1))
+        if (runtime >= tickLength * (currentTicks))
         {
             OnTick();
             currentTicks++;
         }
+
+        OnFixedUpdate();
 
         if (runtime > duration)
         {
@@ -68,7 +68,7 @@ public abstract class BuffTicking : Buff
     }
 
     /// <summary>
-    /// Called with every tick of the buff. Only used when ticks is greater than 1.
+    /// Called with every tick of the buff.
     /// </summary>
     public virtual void OnTick()
     {
@@ -76,8 +76,8 @@ public abstract class BuffTicking : Buff
     }
 
     /// <summary>
-    /// Gets the number of ticks.
+    /// Gets the intervall for ticks.
     /// </summary>
     /// <returns></returns>
-    public abstract int GetNumberTicks();
+    public abstract float GetIntervallTicks();
 }

@@ -6,94 +6,44 @@ using System.Collections.Generic;
 /// <summary>
 /// A ticking debuff without duration that expires if the target is healed to full and explodes if the target dies.
 /// </summary>
-public class StoneTwo : MonoBehaviour, IBuff
+public class StoneTwo : BuffTicking
 {
-    public Material image;
-    public float damagePerTick = 30f;
-    public float tickLength = 3f;
-    private IRaider raider;
-    private Color32 debuffColor = new Color32(100, 255, 100, 255);
-    public float exploDmg = 90f;
+    private readonly string MATERIALNAME = "Stein_2";
+    private readonly float DURATION = float.PositiveInfinity;
+    private readonly float INTERVALLTICKS = 3f;
+
+    private float damagePerTick = 30f;
+    private float exploDmg = 90f;
 
     /// <summary>
-    /// Called on start.
+    /// Called on awake.
     /// </summary>
-    void Start()
+    void Awake()
     {
-        image = Resources.Load("Stein_2", typeof(Material)) as Material;
         if (GameControl.control.difficulty == 0)
         {
             damagePerTick *= GameControl.control.easyMultiplyer;
+            exploDmg *= GameControl.control.easyMultiplyer;
         }
-
-        raider = GetComponent<IRaider>();
-        StartCoroutine(ApplyDamage());
-
-        //raider.ChangeBackgroundColor(debuffColor);
     }
 
-    /*void Update()
+    /// <summary>
+    /// Called with every fixed update.
+    /// </summary>
+    public override void OnFixedUpdate()
     {
-        if (!(raider == FindObjectOfType<Gamestate>().GetTarget()))
+        if (GetRaider().GetHealth() >= 1f)
         {
-            raider.ChangeBackgroundColor(debuffColor);
-        }
-    }*/
-
-    /// <summary>
-    /// Called on every fixed update.
-    /// </summary>
-    void FixedUpdate()
-    {
-        if (raider.GetHealth() >= 1f)
-        {
-            GetComponent<BuffManager>().DeregisterBuff(this);
-            Destroy(this);
+            Destroy();
         }
     }
 
     /// <summary>
-    /// Corroutine used to apply the ticking damage.
+    /// Called with every tick of the buff.
     /// </summary>
-    /// <returns></returns>
-    IEnumerator ApplyDamage()
+    public override void OnTick()
     {
-        while (1 == 1)
-        {
-            yield return new WaitForSeconds(tickLength);
-            raider.Damage(damagePerTick);
-        }
-    }
-
-    /// <summary>
-    /// Gets the duration.
-    /// </summary>
-    /// <returns>
-    /// the duration, -1 if endless
-    /// </returns>
-    public float GetDuration()
-    {
-        return -1;
-    }
-
-    /// <summary>
-    /// Gets the material used to display the buff.
-    /// </summary>
-    /// <returns>
-    /// the material
-    /// </returns>
-    public Material GetMaterial()
-    {
-        return image;
-    }
-
-    /// <summary>
-    /// Gets the remaining duration.
-    /// </summary>
-    /// <returns></returns>
-    public string GetTimeLeft()
-    {
-        return " ";
+        GetRaider().Damage(damagePerTick);
     }
 
     /// <summary>
@@ -102,84 +52,9 @@ public class StoneTwo : MonoBehaviour, IBuff
     /// <returns>
     ///   <c>true</c> if this instance is a buff; if this instances is a debuff, <c>false</c>.
     /// </returns>
-    public bool IsBuff()
+    public override bool IsBuff()
     {
         return false;
-    }
-
-    /// <summary>
-    /// Destroys this buff.
-    /// </summary>
-    public void Destroy()
-    {
-       /* if (raider == FindObjectOfType<Gamestate>().GetTarget())
-        {
-            raider.ChangeBackgroundColor(raider.GetTargetColor());
-        }
-        else
-        {
-            raider.ChangeBackgroundColor(raider.GetNotTargetColor());
-        }*/
-
-        GetComponent<BuffManager>().DeregisterBuff(this);
-        Destroy(this);
-    }
-
-    /// <summary>
-    /// Gets called when any raider takes damage.
-    /// The amount can be modivied here, i.e. if the buff decrases the damage taken by 20% we just return amount * 0.8.
-    /// If the damage amount should not be modified we just return the original value.
-    /// </summary>
-    /// <param name="amount">The amount.</param>
-    /// <returns>
-    /// the new healamount
-    /// </returns>
-    public float OnGlobalDamageTaken(float amount)
-    {
-        return amount;
-    }
-
-    /// <summary>
-    /// Gets called when any raider takes healing.
-    /// The amount can be modivied here, i.e. if the buff increses the healing taken by 20% we just return amount * 1.2.
-    /// If the heal amount should not be modified we just return the original value.
-    /// This is i.e. used for the flame talent.
-    /// </summary>
-    /// <param name="amount">The amount.</param>
-    /// <returns>
-    /// the new healamount
-    /// </returns>
-    public float OnGlobalHealingTaken(float amount)
-    {
-        return amount;
-    }
-
-    /// <summary>
-    /// Gets called when the raider the buff is attached to takes healing.
-    /// The amount can be modivied here, i.e. if the buff increses the healing taken by 20% we just return amount * 1.2.
-    /// If the heal amount should not be modified we just return the original value.
-    /// </summary>
-    /// <param name="amount">The amount.</param>
-    /// <returns>
-    /// the new healamount
-    /// </returns>
-    public float OnHealingTaken(float amount)
-    {
-        return amount;
-    }
-
-    /// <summary>
-    /// Gets called when the raider the buff is attached to takes damage.
-    /// The amount can be modivied here, i.e. if the buff decrases the damage taken by 20% we just return amount * 0.8.
-    /// If the damage amount should not be modified we just return the original value.
-    /// </summary>
-    /// <param name="amount">the amount.</param>
-    /// <returns>
-    /// the new damage taken amount
-    /// </returns>
-    public float OnDamageTaken(float amount)
-    {
-        return amount;
     }
 
     /// <summary>
@@ -190,29 +65,33 @@ public class StoneTwo : MonoBehaviour, IBuff
     /// <returns>
     /// the new damage taken amount
     /// </returns>
-    public float OnFatalDamage(float amount)
+    public override float OnFatalDamage(float amount)
     {
         bool hasGuardianSpirit = false;
         foreach (IBuff buff in GetComponent<BuffManager>().GetAllBuffsSortetByDuration())
         {
-            if(buff.GetType() == typeof(GuardianSpiritBuff) || buff.GetType() == typeof(GuardianSpiritBuffInvis))
+            if (buff.GetType() == typeof(GuardianSpiritBuff) || buff.GetType() == typeof(GuardianSpiritBuffInvis))
             {
                 hasGuardianSpirit = true;
             }
         }
 
-        if (!hasGuardianSpirit)
+        if (!hasGuardianSpirit) //only damage when no guardian spirit
         {
+            
             List<IRaider> targetDict = RaiderDB.GetInstance().GetAllRaiders();
-            targetDict.Remove(raider);
+            targetDict.Remove(GetRaider());
+
+            Destroy();
+
             foreach (IRaider target in targetDict)
             {
                 target.Damage(exploDmg);
             }
+
             Debug.Log("StoneTwo Exploded with Fatal Damage.");
-            Destroy();
         }
-        
+
         return amount;
     }
 
@@ -222,16 +101,39 @@ public class StoneTwo : MonoBehaviour, IBuff
     /// <returns>
     ///   <c>true</c> if this instance is dispellable; otherwise, <c>false</c>.
     /// </returns>
-    public bool IsDispellable()
+    public override bool IsDispellable()
     {
         return false;
     }
 
     /// <summary>
-    /// Resets this buff as if it was freshly applied. This is used for the reset debuffs on dispell talent.
+    /// Gets the number of ticks.
     /// </summary>
-    public void Reset()
+    /// <returns></returns>
+    public override float GetIntervallTicks()
     {
+        return INTERVALLTICKS;
+    }
 
+    /// <summary>
+    /// Gets the material name.
+    /// </summary>
+    /// <returns>
+    /// the material name
+    /// </returns>
+    public override string GetMaterialName()
+    {
+        return MATERIALNAME;
+    }
+
+    /// <summary>
+    /// Gets the real duration (the time after which the debuff should be removed).
+    /// </summary>
+    /// <returns>
+    /// the real duration
+    /// </returns>
+    public override float GetRealDuration()
+    {
+        return DURATION;
     }
 }

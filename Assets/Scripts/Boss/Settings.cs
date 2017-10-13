@@ -412,8 +412,8 @@ public class Settings{
 
         //Dragon Summon
         dragonSummonSwingTimerRed = 20f;
-        dragonSummonSwingTimerBlue = 20f;
-        dragonSummonSwingTimerGreen = 40f;
+        dragonSummonSwingTimerBlue = 30f;
+        dragonSummonSwingTimerGreen = 25f;
     }
 
 

@@ -10,8 +10,9 @@ using System.Reflection;
 public class RenewHot : BuffTicking
 {
     private readonly float DURATION = 10f;
-    private readonly int TICKS = 5;
+    private readonly float INTERVALLTICKS = 2;
     private readonly string MATERIALNAME = "Renew_Buff";
+    private readonly string MATERIALNAME_2 = "Renew_Buff_2";
 
     private float healPerTick = 10f;
     public float jumpsLeft = 1;
@@ -113,15 +114,21 @@ public class RenewHot : BuffTicking
     /// </returns>
     public override string GetMaterialName()
     {
-        return MATERIALNAME;
+        if (jumpsLeft == 1)
+        {
+            return MATERIALNAME;
+        } else
+        {
+            return MATERIALNAME_2;
+        }
     }
 
     /// <summary>
     /// Gets the number of ticks.
     /// </summary>
     /// <returns></returns>
-    public override int GetNumberTicks()
+    public override float GetIntervallTicks()
     {
-        return TICKS;
+        return INTERVALLTICKS;
     }
 }

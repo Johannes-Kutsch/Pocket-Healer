@@ -103,8 +103,7 @@ public class ApplyStone : MonoBehaviour {
             if (target != null)
             {
                 target.Damage(dmg1);
-                StoneOne debuff = target.GetGameObject().AddComponent<StoneOne>();
-                target.GetGameObject().GetComponent<BuffManager>().RegisterBuff(debuff);
+                target.GetGameObject().AddComponent<StoneOne>();
                 target = null;
             }
 
@@ -132,8 +131,7 @@ public class ApplyStone : MonoBehaviour {
             if (target != null)
             {
                 target.Damage(dmg2);
-                StoneTwo debuff = target.GetGameObject().AddComponent<StoneTwo>();
-                target.GetGameObject().GetComponent<BuffManager>().RegisterBuff(debuff);
+                target.GetGameObject().AddComponent<StoneTwo>();
                 target = null;
             }
 

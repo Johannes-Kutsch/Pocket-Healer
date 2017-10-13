@@ -27,8 +27,7 @@ public class Dispell : Spell {
         {
             if (buff.IsDispellable())
             {
-                manager.DeregisterBuff(buff); //remove buff if it is dispellable
-                buff.Destroy();
+                buff.Destroy();//remove buff if it is dispellable
             }
             else if (buff.IsBuff() && GameControl.control.talente[6])
             {

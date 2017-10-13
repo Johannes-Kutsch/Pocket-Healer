@@ -10,12 +10,12 @@ public class HymnBuff : BuffTicking
 {
     private readonly float DURATION = 10f;
     private readonly string MATERIALNAME = "Hymne_Buff";
-    private readonly int TICKS = 5;
+    private readonly float INTERVALLTICKS = 2;
 
     private float healPerTick = 5f;
 
     /// <summary>
-    /// Called with every tick of the buff. Only used when ticks is greater than 1.
+    /// Called with every tick of the buff.
     /// </summary>
     public override void OnTick()
     {
@@ -70,8 +70,8 @@ public class HymnBuff : BuffTicking
     /// Gets the number of ticks.
     /// </summary>
     /// <returns></returns>
-    public override int GetNumberTicks()
+    public override float GetIntervallTicks()
     {
-        return TICKS;
+        return INTERVALLTICKS;
     }
 }

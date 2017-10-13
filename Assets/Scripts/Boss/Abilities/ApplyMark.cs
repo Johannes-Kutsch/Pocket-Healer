@@ -66,8 +66,7 @@ public class ApplyMark : MonoBehaviour
                 targetDict = new List<IRaider>(RaiderDB.GetInstance().GetAllRaiders());
             }
             target = targetDict[Random.Range(0, targetDict.Count)];
-            MarkDebuff debuff = target.GetGameObject().AddComponent<MarkDebuff>();
-            target.GetGameObject().GetComponent<BuffManager>().RegisterBuff(debuff);
+            target.GetGameObject().AddComponent<MarkDebuff>();
             swingTimerCurrent = 0f;
         }
     }

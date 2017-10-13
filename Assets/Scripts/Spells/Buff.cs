@@ -5,7 +5,7 @@ using UnityEngine;
 
 /// <summary>
 /// Abstract class buff which implements the basic functionality of most buffs.
-/// It triggers the virtual methods OnStart() and OnDestroy(). (Called when the buff finished initialisation and when the buff is destroyed)
+/// It triggers the virtual methods OnStart(), OnRuntimeOver() and OnDestroy(). (Called when the buff finished initialisation and when the runtime is over and whenn the buff is destroyed)
 /// </summary>
 public abstract class Buff : MonoBehaviour, IBuff
 {
@@ -45,8 +45,11 @@ public abstract class Buff : MonoBehaviour, IBuff
         runtime = runtime + 0.02f;
         timeLeft = duration - runtime;
 
-        if(runtime > duration)
+        OnFixedUpdate();
+
+        if (runtime > duration)
         {
+            OnRuntimeOver();
             Destroy();
         }
     }
@@ -66,16 +69,19 @@ public abstract class Buff : MonoBehaviour, IBuff
     /// Gets the duration.
     /// </summary>
     /// <returns>
-    /// the duration used do sort debuffs by remaining duration, -1 if endless (always stays in front), 99999999999 if invisble (always last debuff)
+    /// the float used do sort debuffs by remaining duration, -1 if endless (always stays in front), float.PositiveInfinity if invisble (always last debuff)
     /// </returns>
     public virtual float GetDuration()
     {
         if(GetMaterialName() == null)
         {
-            return 99999999999;
+            return float.PositiveInfinity;
         }
 
-        //ToDo: implement endless
+        if(float.IsPositiveInfinity(duration))
+        {
+            return -1;
+        }
 
         return duration;
     }
@@ -97,12 +103,10 @@ public abstract class Buff : MonoBehaviour, IBuff
     /// <returns></returns>
     public virtual string GetTimeLeft()
     {
-        if (GetMaterialName() == null)
+        if (GetMaterialName() == null || float.IsPositiveInfinity(duration))
         {
             return " ";
         }
-
-        //ToDo: implement endless
 
         return timeLeft.ToString("F0");
     }
@@ -232,9 +236,25 @@ public abstract class Buff : MonoBehaviour, IBuff
     }
 
     /// <summary>
+    /// Called with every fixed update.
+    /// </summary>
+    public virtual void OnFixedUpdate()
+    {
+
+    }
+
+    /// <summary>
     /// Called when the Reset Method is executet, independetly from the resetable variable.
     /// </summary>
     public virtual void OnReset()
+    {
+
+    }
+
+    /// <summary>
+    /// Called when the duration is greater than the runtime i.e. the buff has timed out.
+    /// </summary>
+    public virtual void OnRuntimeOver()
     {
 
     }

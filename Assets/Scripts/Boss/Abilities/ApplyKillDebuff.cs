@@ -62,8 +62,7 @@ public class ApplyKillDebuff : MonoBehaviour {
             }
 
             target = targetDict[Random.Range(0, targetDict.Count)];
-            KillDebuff debuff = target.GetGameObject().AddComponent<KillDebuff>();
-            target.GetGameObject().GetComponent<BuffManager>().RegisterBuff(debuff);
+            target.GetGameObject().AddComponent<KillDebuff>();
             swingTimerCurrent = 0f;
         }
     }

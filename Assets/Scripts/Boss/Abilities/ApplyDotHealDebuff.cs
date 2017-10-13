@@ -73,16 +73,14 @@ public class ApplyDotHealDebuff : MonoBehaviour
             if (healDebuff)
             {
                 target = targetDict[Random.Range(0, targetDict.Count)];
-                HealDebuff debuff = target.GetGameObject().AddComponent<HealDebuff>();
-                target.GetGameObject().GetComponent<BuffManager>().RegisterBuff(debuff);
+                target.GetGameObject().AddComponent<HealDebuff>();
                 healDebuff = false;
                 BossModImage.sprite = Resources.Load("Dot_Debuff", typeof(Sprite)) as Sprite;
             }
             else if(!healDebuff)
             {
                 target = targetDict[Random.Range(0, targetDict.Count)];
-                DotDebuff debuff = target.GetGameObject().AddComponent<DotDebuff>();
-                target.GetGameObject().GetComponent<BuffManager>().RegisterBuff(debuff);
+                target.GetGameObject().AddComponent<DotDebuff>();
                 healDebuff = true;
                 BossModImage.sprite = Resources.Load("Heal_Debuff", typeof(Sprite)) as Sprite;
             }
