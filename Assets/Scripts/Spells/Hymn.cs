@@ -12,18 +12,16 @@ public class Hymn : Spell {
     private readonly float COOLDOWN = 25f;
     private readonly float MANACOST = 50f;
     private readonly float CASTTIME = 3f;
+    private readonly string CASTSOUNDNAME = "HymneCast";
+    private readonly string IMPACTSOUNDNAME = null;
 
     private float healAmount = 20f;
     private float ticks = 5f;
-    
+    private float secondsPerTick;
 
     void Awake()
     {
-        base.castSound = Resources.Load("HymneCast", typeof(AudioClip)) as AudioClip;
-        base.cooldown = COOLDOWN;
-        base.manaCost = MANACOST;
-        base.castTime = CASTTIME;
-        base.spellName = SPELLNAME;
+        secondsPerTick = CASTTIME / (ticks - 1);
     }
 
     /// <summary>
@@ -49,7 +47,7 @@ public class Hymn : Spell {
 
             if (i < ticks - 1)
             {
-                yield return new WaitForSeconds(castTime / (ticks - 1));
+                yield return new WaitForSeconds(secondsPerTick);
             }
         }
 
@@ -60,5 +58,71 @@ public class Hymn : Spell {
                 raider.GetGameObject().AddComponent<HymnBuff>();
             }
         }
+    }
+
+    /// <summary>
+    /// Gets the spellname.
+    /// </summary>
+    /// <returns>
+    /// the spellname
+    /// </returns>
+    public override string GetSpellname()
+    {
+        return SPELLNAME;
+    }
+
+    /// <summary>
+    /// Gets the cooldown.
+    /// </summary>
+    /// <returns>
+    /// the cooldown
+    /// </returns>
+    public override float GetCooldown()
+    {
+        return COOLDOWN;
+    }
+
+    /// <summary>
+    /// Gets the manacost.
+    /// </summary>
+    /// <returns>
+    /// the manacost
+    /// </returns>
+    public override float GetManacost()
+    {
+        return MANACOST;
+    }
+
+    /// <summary>
+    /// Gets the cast time.
+    /// </summary>
+    /// <returns>
+    /// the cast time
+    /// </returns>
+    public override float GetCastTime()
+    {
+        return CASTTIME;
+    }
+
+    /// <summary>
+    /// Gets the name of the cast sound.
+    /// </summary>
+    /// <returns>
+    /// the name of the cast sound
+    /// </returns>
+    public override string GetCastSoundName()
+    {
+        return CASTSOUNDNAME;
+    }
+
+    /// <summary>
+    /// Gets the name of the impact sound.
+    /// </summary>
+    /// <returns>
+    /// the name of the impact sound
+    /// </returns>
+    public override string GetImpactSoundName()
+    {
+        return IMPACTSOUNDNAME;
     }
 }

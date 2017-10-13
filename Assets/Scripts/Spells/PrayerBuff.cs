@@ -4,7 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 
 public class PrayerBuff : Buff {
-    private readonly float Duration = 10f;
+    private readonly float DURATION = 10f;
+    private readonly string MATERIALNAME = "PrayerOfMending_Buff";
 
     private float healAmount = 50f;
     private float jumpsLeft = 6;
@@ -15,10 +16,7 @@ public class PrayerBuff : Buff {
     /// </summary>
     void Awake()
     {
-        base.image = Resources.Load("PrayerOfMending_Buff", typeof(Material)) as Material;
         base.resetable = true;
-
-        base.duration = Duration;
     }
 
     /// <summary>
@@ -95,5 +93,27 @@ public class PrayerBuff : Buff {
     public override bool IsDispellable()
     {
         return false;
+    }
+
+    /// <summary>
+    /// Gets the real duration (the time after which the debuff should be removed).
+    /// </summary>
+    /// <returns>
+    /// the real duration
+    /// </returns>
+    public override float GetRealDuration()
+    {
+        return DURATION;
+    }
+
+    /// <summary>
+    /// Gets the material name.
+    /// </summary>
+    /// <returns>
+    /// the material name
+    /// </returns>
+    public override string GetMaterialName()
+    {
+        return MATERIALNAME;
     }
 }

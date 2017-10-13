@@ -8,7 +8,8 @@ using System.Linq;
 /// </summary>
 public class ShieldBuff : Buff
 {
-    private readonly float Duration = 15f;
+    private readonly float DURATION = 15f;
+    private readonly string MATERIALNAME = "Shield_Buff";
 
     private float absorbAmount = 80f;
 
@@ -18,10 +19,7 @@ public class ShieldBuff : Buff
     /// </summary>
     void Awake()
     {
-        base.image = Resources.Load("Shield_Buff", typeof(Material)) as Material;
         base.resetable = true;
-
-        base.duration = Duration;
     }
 
     /// <summary>
@@ -76,6 +74,28 @@ public class ShieldBuff : Buff
     public override bool IsDispellable()
     {
         return false;
+    }
+
+    /// <summary>
+    /// Gets the real duration (the time after which the debuff should be removed).
+    /// </summary>
+    /// <returns>
+    /// the real duration
+    /// </returns>
+    public override float GetRealDuration()
+    {
+        return DURATION;
+    }
+
+    /// <summary>
+    /// Gets the material name.
+    /// </summary>
+    /// <returns>
+    /// the material name
+    /// </returns>
+    public override string GetMaterialName()
+    {
+        return MATERIALNAME;
     }
 
 }

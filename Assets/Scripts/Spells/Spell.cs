@@ -27,22 +27,24 @@ public abstract class Spell : MonoBehaviour
     private AudioSource source;
     private IRaider target;
 
-    public AudioClip castSound;
-    public AudioClip impactSound;
-    public float cooldown;
-    public float manaCost;
-    public float castTime;
-    public string spellName;
+    private AudioClip castSound;
+    private AudioClip impactSound;
+    private float cooldown;
+    private float manaCost;
+    private float castTime;
+    private string spellName;
 
     /// <summary>
-    /// Called on start. Check if some variables are assigned and find the gamestate, the cooldownoverlay and the audiosource.
+    /// Called on start. Assign some variables and find the gamestate, the cooldownoverlay and the audiosource.
     /// </summary>
     public void Start()
-    { 
-        if (spellName == null) //check if a impact sound and a name is assigned
-        {
-            throw new Exception("spellName is null, please assign a spellName in the Awake() method");
-        }
+    {
+        spellName = GetSpellname();
+        cooldown = GetCooldown();
+        manaCost = GetManacost();
+        castTime = GetCastTime();
+        castSound = Resources.Load(GetCastSoundName(), typeof(AudioClip)) as AudioClip;
+        impactSound = Resources.Load(GetImpactSoundName(), typeof(AudioClip)) as AudioClip;
 
         gamestate = Gamestate.gamestate;
         cooldownOverlay = GetComponentInChildren<Image>();
@@ -214,4 +216,40 @@ public abstract class Spell : MonoBehaviour
     {
 
     }
+
+    /// <summary>
+    /// Gets the spellname.
+    /// </summary>
+    /// <returns>the spellname</returns>
+    public abstract string GetSpellname();
+
+    /// <summary>
+    /// Gets the cooldown.
+    /// </summary>
+    /// <returns>the cooldown</returns>
+    public abstract float GetCooldown();
+
+    /// <summary>
+    /// Gets the manacost.
+    /// </summary>
+    /// <returns>the manacost</returns>
+    public abstract float GetManacost();
+
+    /// <summary>
+    /// Gets the cast time.
+    /// </summary>
+    /// <returns>the cast time</returns>
+    public abstract float GetCastTime();
+
+    /// <summary>
+    /// Gets the name of the cast sound.
+    /// </summary>
+    /// <returns>the name of the cast sound</returns>
+    public abstract string GetCastSoundName();
+
+    /// <summary>
+    /// Gets the name of the impact sound.
+    /// </summary>
+    /// <returns>the name of the impact sound</returns>
+    public abstract string GetImpactSoundName();    
 }

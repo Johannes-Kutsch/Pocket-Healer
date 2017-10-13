@@ -14,23 +14,11 @@ public class BindingHeal : Spell
     private readonly float COOLDOWN = 0f;
     private readonly float MANACOST = 25f;
     private readonly float CASTTIME = 2f;
+    private readonly string CASTSOUNDNAME = "GreaterHealCast";
+    private readonly string IMPACTSOUNDNAME = "FlashHealImpact";
 
     private float healAmount = 50f;
     private float numberJumps = 1f;
-
-    /// <summary>
-    /// Called on awake.
-    /// Set variables in base class.
-    /// </summary>
-    void Awake()
-    {
-        base.castSound = Resources.Load("GreaterHealCast", typeof(AudioClip)) as AudioClip;
-        base.impactSound = Resources.Load("FlashHealImpact", typeof(AudioClip)) as AudioClip;
-        base.cooldown = COOLDOWN;
-        base.manaCost = MANACOST;
-        base.castTime = CASTTIME;
-        base.spellName = SPELLNAME;
-    }
 
     /// <summary>
     /// Called when a cast is sucesfully finished. Heals the target and another raider.
@@ -48,5 +36,71 @@ public class BindingHeal : Spell
             raiderDict.Remove(GetTarget()); //remove original target
             raiderDict.First().Heal(healAmount); //heal lowest raider
         }
+    }
+
+    /// <summary>
+    /// Gets the spellname.
+    /// </summary>
+    /// <returns>
+    /// the spellname
+    /// </returns>
+    public override string GetSpellname()
+    {
+        return SPELLNAME;
+    }
+
+    /// <summary>
+    /// Gets the cooldown.
+    /// </summary>
+    /// <returns>
+    /// the cooldown
+    /// </returns>
+    public override float GetCooldown()
+    {
+        return COOLDOWN;
+    }
+
+    /// <summary>
+    /// Gets the manacost.
+    /// </summary>
+    /// <returns>
+    /// the manacost
+    /// </returns>
+    public override float GetManacost()
+    {
+        return MANACOST;
+    }
+
+    /// <summary>
+    /// Gets the cast time.
+    /// </summary>
+    /// <returns>
+    /// the cast time
+    /// </returns>
+    public override float GetCastTime()
+    {
+        return CASTTIME;
+    }
+
+    /// <summary>
+    /// Gets the name of the cast sound.
+    /// </summary>
+    /// <returns>
+    /// the name of the cast sound
+    /// </returns>
+    public override string GetCastSoundName()
+    {
+        return CASTSOUNDNAME;
+    }
+
+    /// <summary>
+    /// Gets the name of the impact sound.
+    /// </summary>
+    /// <returns>
+    /// the name of the impact sound
+    /// </returns>
+    public override string GetImpactSoundName()
+    {
+        return IMPACTSOUNDNAME;
     }
 }

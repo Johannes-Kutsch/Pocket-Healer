@@ -4,57 +4,46 @@ using UnityEngine;
 using UnityEngine;
 
 /// <summary>
-/// Abstract class spell which implements the basic functionality of most buffs.
-/// It triggers the virtual methods OnStart() and OnTick() and OnDestroy(). (Called when the buff finished initialisation, with every tick of the buff and when the buff is destroyed)
-/// Overwrite the following variables during awake: 
-///     image; //The Material used for the buff image.
-///     resetable; //True if the buff can be resettet by another application or with the dispell talent.
-///     duration; //The duration of the spell, -1 when the buff lasts infinitive.
-///     ticks; //The number of ticks, 0 if the spell does not have any ticks.
+/// Abstract class buff which implements the basic functionality of most buffs.
+/// It triggers the virtual methods OnStart() and OnDestroy(). (Called when the buff finished initialisation and when the buff is destroyed)
 /// </summary>
 public abstract class Buff : MonoBehaviour, IBuff
 {
-    private BuffManager buffManager;
-    private IRaider raider;
-    private float runtime = 0f;
-    private float currentTicks = 0f;
-    private float timeLeft;
-    private float tickLength;
-
-    public bool resetable = false;
-    public float duration;
-    public int ticks = 0;
+    public BuffManager buffManager;
+    public IRaider raider;
     public Material image;
+    public float runtime = 0f;
+    public float timeLeft;
+    public float duration;
+    
+    public bool resetable = false;    
 
     /// <summary>
     /// Called on start.
     /// </summary>
     void Start()
     {
+        duration = GetRealDuration();
+        image = Resources.Load(GetMaterialName(), typeof(Material)) as Material;
+
+
         buffManager = GetComponent<BuffManager>();
         buffManager.RegisterBuff(this);
 
         raider = GetComponent<IRaider>();
 
-        tickLength = duration / ticks;
         timeLeft = duration;
 
         OnStart();
     }
 
     /// <summary>
-    /// Called with every update. Advances the calculates if the onTick() or Destroy Method should be called.
+    /// Called with every update. Advances the runtime and checks if the buff should be destroyed.
     /// </summary>
     void FixedUpdate()
     {
         runtime = runtime + 0.02f;
         timeLeft = duration - runtime;
-
-        if (ticks > 0 && runtime >= tickLength * (currentTicks + 1))
-        {
-            OnTick();
-            currentTicks++;
-        }
 
         if(runtime > duration)
         {
@@ -77,10 +66,17 @@ public abstract class Buff : MonoBehaviour, IBuff
     /// Gets the duration.
     /// </summary>
     /// <returns>
-    /// the duration, -1 if endless
+    /// the duration used do sort debuffs by remaining duration, -1 if endless (always stays in front), 99999999999 if invisble (always last debuff)
     /// </returns>
     public virtual float GetDuration()
     {
+        if(GetMaterialName() == null)
+        {
+            return 99999999999;
+        }
+
+        //ToDo: implement endless
+
         return duration;
     }
 
@@ -96,11 +92,18 @@ public abstract class Buff : MonoBehaviour, IBuff
     }
 
     /// <summary>
-    /// Gets the remaining time.
+    /// Gets the remaining time as a string. Returns an empty string if invisible.
     /// </summary>
     /// <returns></returns>
     public virtual string GetTimeLeft()
     {
+        if (GetMaterialName() == null)
+        {
+            return " ";
+        }
+
+        //ToDo: implement endless
+
         return timeLeft.ToString("F0");
     }
 
@@ -193,12 +196,11 @@ public abstract class Buff : MonoBehaviour, IBuff
     /// <summary>
     /// Resets this buff as if it was freshly applied. This is used for the reset debuffs on dispell talent and when a buff that should only exists once is reaplied.
     /// </summary>
-    public void Reset()
+    public virtual void Reset()
     {
         if(resetable)
         {
             runtime = 0f;
-            currentTicks = 0f;
         }
 
         OnReset();
@@ -230,18 +232,22 @@ public abstract class Buff : MonoBehaviour, IBuff
     }
 
     /// <summary>
-    /// Called with every tick of the buff. Only used when ticks is greater than 1.
-    /// </summary>
-    public virtual void OnTick()
-    {
-
-    }
-
-    /// <summary>
     /// Called when the Reset Method is executet, independetly from the resetable variable.
     /// </summary>
     public virtual void OnReset()
     {
 
     }
+
+    /// <summary>
+    /// Gets the material name.
+    /// </summary>
+    /// <returns>the material name</returns>
+    public abstract string GetMaterialName();
+
+    /// <summary>
+    /// Gets the real duration (the time after which the debuff should be removed).
+    /// </summary>
+    /// <returns>the real duration</returns>
+    public abstract float GetRealDuration();
 }

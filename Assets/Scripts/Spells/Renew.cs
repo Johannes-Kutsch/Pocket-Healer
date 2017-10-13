@@ -12,19 +12,8 @@ public class Renew : Spell
     private readonly float MANACOST = 10f;
     private readonly float CASTTIME = 0f;
     private readonly float COOLDOWN = 0f;
-
-    /// <summary>
-    /// Called on awake.
-    /// Set variables in base class.
-    /// </summary>
-    void Awake()
-    {
-        base.impactSound = Resources.Load("RenewCast", typeof(AudioClip)) as AudioClip;
-        base.cooldown = COOLDOWN;
-        base.manaCost = MANACOST;
-        base.castTime = CASTTIME;
-        base.spellName = SPELLNAME;
-    }
+    private readonly string CASTSOUNDNAME = null;
+    private readonly string IMPACTSOUNDNAME = "RenewCast";
 
     /// <summary>
     /// Called when a cast is sucesfully finished. Applies the RenewBuff to the target.
@@ -41,5 +30,71 @@ public class Renew : Spell
         {
             target.GetGameObject().GetComponent<RenewHot>().Reset();
         }
+    }
+
+    /// <summary>
+    /// Gets the spellname.
+    /// </summary>
+    /// <returns>
+    /// the spellname
+    /// </returns>
+    public override string GetSpellname()
+    {
+        return SPELLNAME;
+    }
+
+    /// <summary>
+    /// Gets the cooldown.
+    /// </summary>
+    /// <returns>
+    /// the cooldown
+    /// </returns>
+    public override float GetCooldown()
+    {
+        return COOLDOWN;
+    }
+
+    /// <summary>
+    /// Gets the manacost.
+    /// </summary>
+    /// <returns>
+    /// the manacost
+    /// </returns>
+    public override float GetManacost()
+    {
+        return MANACOST;
+    }
+
+    /// <summary>
+    /// Gets the cast time.
+    /// </summary>
+    /// <returns>
+    /// the cast time
+    /// </returns>
+    public override float GetCastTime()
+    {
+        return CASTTIME;
+    }
+
+    /// <summary>
+    /// Gets the name of the cast sound.
+    /// </summary>
+    /// <returns>
+    /// the name of the cast sound
+    /// </returns>
+    public override string GetCastSoundName()
+    {
+        return CASTSOUNDNAME;
+    }
+
+    /// <summary>
+    /// Gets the name of the impact sound.
+    /// </summary>
+    /// <returns>
+    /// the name of the impact sound
+    /// </returns>
+    public override string GetImpactSoundName()
+    {
+        return IMPACTSOUNDNAME;
     }
 }

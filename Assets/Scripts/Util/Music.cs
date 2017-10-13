@@ -47,19 +47,19 @@ public class Music : MonoBehaviour {
         {
             switch (trackNumber) {
                 case 1:
-                    source.PlayOneShot(Resources.Load("Background_1", typeof(AudioClip)) as AudioClip, 0.75f);
+                    source.PlayOneShot(Resources.Load("Background_1", typeof(AudioClip)) as AudioClip, 0.5f);
                     break;
                 case 2:
-                    source.PlayOneShot(Resources.Load("Background_2", typeof(AudioClip)) as AudioClip, 0.75f);
+                    source.PlayOneShot(Resources.Load("Background_2", typeof(AudioClip)) as AudioClip, 0.5f);
                     break;
                 case 3:
-                    source.PlayOneShot(Resources.Load("Background_3", typeof(AudioClip)) as AudioClip, 0.75f);
+                    source.PlayOneShot(Resources.Load("Background_3", typeof(AudioClip)) as AudioClip, 0.5f);
                     break;
                 case 4:
-                    source.PlayOneShot(Resources.Load("Background_4", typeof(AudioClip)) as AudioClip, 0.75f);
+                    source.PlayOneShot(Resources.Load("Background_4", typeof(AudioClip)) as AudioClip, 0.5f);
                     break;
                 case 5:
-                    source.PlayOneShot(Resources.Load("Background_5", typeof(AudioClip)) as AudioClip, 0.75f);
+                    source.PlayOneShot(Resources.Load("Background_5", typeof(AudioClip)) as AudioClip, 0.5f);
                     break;
                 case 6:
                     source.PlayOneShot(Resources.Load("Background_6", typeof(AudioClip)) as AudioClip, 0.75f);

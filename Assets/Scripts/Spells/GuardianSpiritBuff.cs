@@ -8,7 +8,8 @@ using System.Linq;
 /// </summary>
 public class GuardianSpiritBuff : Buff, IGuardianSpirit
 {
-    private readonly float Duration = 14f;
+    private readonly float DURATION = 14f;
+    private readonly string MATERIALNAME = "Schutzgeist_Buff";
 
     /// <summary>
     /// Called on awake.
@@ -16,10 +17,7 @@ public class GuardianSpiritBuff : Buff, IGuardianSpirit
     /// </summary>
     void Awake()
     {
-        base.image = Resources.Load("Schutzgeist_Buff", typeof(Material)) as Material;
         base.resetable = true;
-
-        base.duration = Duration;
     }
 
     /// <summary>
@@ -69,5 +67,27 @@ public class GuardianSpiritBuff : Buff, IGuardianSpirit
     public override bool IsDispellable()
     {
         return false;
+    }
+
+    /// <summary>
+    /// Gets the real duration (the time after which the debuff should be removed).
+    /// </summary>
+    /// <returns>
+    /// the real duration
+    /// </returns>
+    public override float GetRealDuration()
+    {
+        return DURATION;
+    }
+
+    /// <summary>
+    /// Gets the material name.
+    /// </summary>
+    /// <returns>
+    /// the material name
+    /// </returns>
+    public override string GetMaterialName()
+    {
+        return MATERIALNAME;
     }
 }

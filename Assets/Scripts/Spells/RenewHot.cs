@@ -7,9 +7,11 @@ using System.Reflection;
 /// <summary>
 /// A buff that heals the raider with every tick.
 /// </summary>
-public class RenewHot : Buff {
-    private readonly float Duration = 10f;
+public class RenewHot : BuffTicking
+{
+    private readonly float DURATION = 10f;
     private readonly int TICKS = 5;
+    private readonly string MATERIALNAME = "Renew_Buff";
 
     private float healPerTick = 10f;
     public float jumpsLeft = 1;
@@ -20,11 +22,7 @@ public class RenewHot : Buff {
     /// </summary>
     void Awake()
     {
-        base.image = Resources.Load("Renew_Buff", typeof(Material)) as Material;
         base.resetable = true;
-
-        base.duration = Duration;
-        base.ticks = TICKS;
     }
 
     /// <summary>
@@ -94,5 +92,36 @@ public class RenewHot : Buff {
     public override bool IsDispellable()
     {
         return false;
+    }
+
+    /// <summary>
+    /// Gets the real duration (the time after which the debuff should be removed).
+    /// </summary>
+    /// <returns>
+    /// the real duration
+    /// </returns>
+    public override float GetRealDuration()
+    {
+        return DURATION;
+    }
+
+    /// <summary>
+    /// Gets the material name.
+    /// </summary>
+    /// <returns>
+    /// the material name
+    /// </returns>
+    public override string GetMaterialName()
+    {
+        return MATERIALNAME;
+    }
+
+    /// <summary>
+    /// Gets the number of ticks.
+    /// </summary>
+    /// <returns></returns>
+    public override int GetNumberTicks()
+    {
+        return TICKS;
     }
 }

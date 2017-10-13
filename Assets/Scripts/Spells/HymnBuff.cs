@@ -6,24 +6,13 @@ using System.Linq;
 /// <summary>
 /// A buff that heals the raider with every tick.
 /// </summary>
-public class HymnBuff : Buff
+public class HymnBuff : BuffTicking
 {
-    private readonly float Duration = 10f;
+    private readonly float DURATION = 10f;
+    private readonly string MATERIALNAME = "Hymne_Buff";
     private readonly int TICKS = 5;
 
     private float healPerTick = 5f;
-
-    /// <summary>
-    /// Called on awake.
-    /// Set variables in base class.
-    /// </summary>
-    void Awake()
-    {
-        base.image = Resources.Load("Hymne_Buff", typeof(Material)) as Material;
-
-        base.duration = Duration;
-        base.ticks = TICKS;
-    }
 
     /// <summary>
     /// Called with every tick of the buff. Only used when ticks is greater than 1.
@@ -53,5 +42,36 @@ public class HymnBuff : Buff
     public override bool IsDispellable()
     {
         return false;
+    }
+
+    /// <summary>
+    /// Gets the real duration (the time after which the debuff should be removed).
+    /// </summary>
+    /// <returns>
+    /// the real duration
+    /// </returns>
+    public override float GetRealDuration()
+    {
+        return DURATION;
+    }
+
+    /// <summary>
+    /// Gets the material name.
+    /// </summary>
+    /// <returns>
+    /// the material name
+    /// </returns>
+    public override string GetMaterialName()
+    {
+        return MATERIALNAME;
+    }
+
+    /// <summary>
+    /// Gets the number of ticks.
+    /// </summary>
+    /// <returns></returns>
+    public override int GetNumberTicks()
+    {
+        return TICKS;
     }
 }
