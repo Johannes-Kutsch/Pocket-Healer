@@ -7,15 +7,18 @@ using UnityEngine.UI;
 /// </summary>
 public class Mushroom : Raider
 {
+    public readonly float MAXHEALTH = 200;
+    public readonly float swingTimer;
+
     private bool canSwing = true;
     private float currentDmg;
     private float currentHealth;
     public float healMultiplier = 1f;
     public bool activated;
-    public float maxHealth = 200;
+    
     public float startHealth = 100;
     public float healAmount = 25f;
-    public float swingTimer;
+    
     public float startDmg;
     public float multiplier;
 
@@ -25,35 +28,21 @@ public class Mushroom : Raider
     /// </summary>
     public override void OnStart()
     {
+        base.maxHealth = MAXHEALTH;
         gameObject.SetActive(false);
-        base.swingTimer = swingTimer;
+        SetAlive(false);
     }
 
     /// <summary>
     /// Called with every fixed update
     /// </summary>
-    void FixedUpdate()
+    public override void OnFixedUpdate()
     {
-        if (currentHealth <= 0 && IsAlive())
-        {
-            Die();
-        }
-        else if (currentHealth >= maxHealth && IsAlive() && !activated) //activate
+        if (currentHealth >= MAXHEALTH && IsAlive() && !activated) //activate
         {
             activated = true;
             canSwing = true;
         }
-        else if (canSwing && IsAlive() && activated) //heal party and damage self.
-        {
-
-            foreach (IRaider raider in RaiderDB.GetInstance().GetAllRaiders())
-            {
-                raider.HealSimple(healAmount, true);
-            }
-
-            Damage(currentDmg);
-            currentDmg += multiplier;
-        } 
     }
 
     /// <summary>
@@ -70,7 +59,7 @@ public class Mushroom : Raider
     /// </summary>
     public void Summon()
     {
-        if(!IsAlive() && !activated)
+        if(!IsAlive())
         {
             currentHealth = startHealth;
             SetAlive(true);
@@ -79,6 +68,15 @@ public class Mushroom : Raider
             UpdateHpBar();
             gameObject.SetActive(true);
         }
+    }
+
+    /// <summary>
+    /// Gets the swing timer.
+    /// </summary>
+    /// <returns></returns>
+    public override float GetSwingTimer()
+    {
+        return swingTimer;
     }
 }
 

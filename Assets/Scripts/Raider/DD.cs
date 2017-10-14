@@ -41,7 +41,15 @@ public class DD : Raider
     public override void OnSwing()
     {
         gamestate.GetBoss().TakeDamage(dmg);
-        base.swingTimer = UnityEngine.Random.Range(swingTimerBot, swingTimerTop);
+    }
+
+    /// <summary>
+    /// Gets the swing timer.
+    /// </summary>
+    /// <returns></returns>
+    public override float GetSwingTimer()
+    {
+        return UnityEngine.Random.Range(swingTimerBot, swingTimerTop);
     }
 }
 

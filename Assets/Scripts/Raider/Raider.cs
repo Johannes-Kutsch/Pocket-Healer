@@ -25,8 +25,6 @@ public abstract class Raider : MonoBehaviour, IRaider
     private bool alive;
     private float healMultiplier = 1f; //A global heal multiplyer i.e. used by talents that increase flat healing
 
-    
-    public float swingTimer;
     private bool canSwing = true;
     private Coroutine timer;
 
@@ -69,11 +67,14 @@ public abstract class Raider : MonoBehaviour, IRaider
         {
             Die();
         }
+
         if (canSwing && alive && !Gamestate.gamestate.GetPaused())
         {
             OnSwing();
-            StartCoroutine(Wait(swingTimer));
+            StartCoroutine(Wait(GetSwingTimer()));
         }
+
+        OnFixedUpdate();
     }
 
     /// <summary>
@@ -299,6 +300,7 @@ public abstract class Raider : MonoBehaviour, IRaider
         GetComponent<BuffManager>().ClearBuffs();
         hpGroup.alpha = 0;
         background.color = deadColor;
+        OnDie();
     }
 
     /// <summary>
@@ -372,6 +374,12 @@ public abstract class Raider : MonoBehaviour, IRaider
     }
 
     /// <summary>
+    /// Gets the swing timer.
+    /// </summary>
+    /// <returns></returns>
+    public abstract float GetSwingTimer();
+
+    /// <summary>
     /// Called when the Start() method of the base class finished initialisation.
     /// </summary>
     public virtual void OnStart()
@@ -399,6 +407,14 @@ public abstract class Raider : MonoBehaviour, IRaider
     /// Called when the raider triggers a swing.
     /// </summary>
     public virtual void OnSwing()
+    {
+
+    }
+
+    /// <summary>
+    /// Called with every fixed update.
+    /// </summary>
+    public virtual void OnFixedUpdate()
     {
 
     }
