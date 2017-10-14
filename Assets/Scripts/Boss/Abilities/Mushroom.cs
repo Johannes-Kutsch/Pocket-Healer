@@ -7,20 +7,17 @@ using UnityEngine.UI;
 /// </summary>
 public class Mushroom : Raider
 {
-    public readonly float MAXHEALTH = 200;
-    public readonly float swingTimer;
+    public readonly float MAXHEALTH = 200f;
+    public readonly float swingTimer = 1.5f;
 
-    private bool canSwing = true;
-    private float currentDmg;
-    private float currentHealth;
-    public float healMultiplier = 1f;
-    public bool activated;
+    public bool activated = false;
     
     public float startHealth = 100;
     public float healAmount = 25f;
-    
+
+    private float currentDmg;
     public float startDmg;
-    public float multiplier;
+    public float dmgMultiplier;
 
 
     /// <summary>
@@ -41,8 +38,18 @@ public class Mushroom : Raider
         if (currentHealth >= MAXHEALTH && IsAlive() && !activated) //activate
         {
             activated = true;
-            canSwing = true;
         }
+    }
+
+    public override void OnSwing()
+    {
+        foreach (IRaider raider in RaiderDB.GetInstance().GetAllRaiders())
+        {
+            raider.HealSimple(healAmount, true);
+        }
+
+        Damage(currentDmg);
+        currentDmg += dmgMultiplier;
     }
 
     /// <summary>
