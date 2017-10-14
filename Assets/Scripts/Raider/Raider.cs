@@ -9,7 +9,7 @@ public abstract class Raider : MonoBehaviour, IRaider
     public RectTransform hpBar;
     public Image background; //The unit frame background
 
-    private Gamestate gamestate; //A reference to the gamestate
+    public Gamestate gamestate; //A reference to the gamestate
     private Boss currentBoss; //A reference to the current boss
 
     private Vector3 hPBarStartPos;
@@ -25,9 +25,8 @@ public abstract class Raider : MonoBehaviour, IRaider
     private bool alive;
     private float healMultiplier = 1f; //A global heal multiplyer i.e. used by talents that increase flat healing
 
-    private float dmg = 10f; //dmg with each hit
-    private float swingTimerTop = 0.8f; //time between each hit
-    private float swingTimerBot = 0.4f;
+    
+    public float swingTimer;
     private bool canSwing = true;
     private Coroutine timer;
 
@@ -72,10 +71,8 @@ public abstract class Raider : MonoBehaviour, IRaider
         }
         if (canSwing && alive && !Gamestate.gamestate.GetPaused())
         {
-            currentBoss = gamestate.GetBoss();
-            float swingTimer = UnityEngine.Random.Range(swingTimerBot, swingTimerTop);
-            timer = StartCoroutine(Wait(swingTimer));
-            currentBoss.TakeDamage(dmg);
+            OnSwing();
+            StartCoroutine(Wait(swingTimer));
         }
     }
 
@@ -285,6 +282,15 @@ public abstract class Raider : MonoBehaviour, IRaider
     }
 
     /// <summary>
+    /// Sets alive.
+    /// </summary>
+    /// <param name="alive">if set to <c>true</c> [alive].</param>
+    public void SetAlive(bool alive)
+    {
+        this.alive = alive;
+    }
+
+    /// <summary>
     /// Dies this instance.
     /// </summary>
     public void Die()
@@ -385,6 +391,14 @@ public abstract class Raider : MonoBehaviour, IRaider
     /// Called when the object is removed.
     /// </summary>
     public virtual void OnDestroy()
+    {
+
+    }
+
+    /// <summary>
+    /// Called when the raider triggers a swing.
+    /// </summary>
+    public virtual void OnSwing()
     {
 
     }

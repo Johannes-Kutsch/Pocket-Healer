@@ -5,23 +5,12 @@ using UnityEngine.UI;
 /// <summary>
 /// The Mushroom used during Scene 8. Once healed to full he periodically takes damage and heals your party until he dies.
 /// </summary>
-public class Mushroom : MonoBehaviour, IRaider
+public class Mushroom : Raider
 {
-    private Gamestate gamestate;
-    private Boss currentBoss;
-    private Coroutine timer;
-    private Vector3 startPos;
-    private Vector3 endPos;
-    public Image background;
-    public RectTransform hpBar;
-    public CanvasGroup hpGroup;
-    private float scaleX;
-
     private bool canSwing = true;
-    private float actualDmg;
+    private float currentDmg;
     private float currentHealth;
     public float healMultiplier = 1f;
-    public bool alive;
     public bool activated;
     public float maxHealth = 200;
     public float startHealth = 100;
@@ -30,37 +19,14 @@ public class Mushroom : MonoBehaviour, IRaider
     public float startDmg;
     public float multiplier;
 
-    private Color32 targetColor = new Color32(102, 255, 255, 255);
-    private Color32 notTargetColor = new Color32(160, 160, 160, 255);
-    private Color32 deadColor = new Color32(191, 90, 90, 255);
-
 
     /// <summary>
     /// Called on Start.
     /// </summary>
-    void Start()
+    public override void OnStart()
     {
-        currentHealth = maxHealth;
-        startPos = hpBar.position;
-        scaleX = GetComponent<Transform>().localScale.x;
-        endPos = new Vector3(hpBar.position.x - hpBar.rect.width * scaleX, hpBar.position.y, hpBar.position.z);
-        gamestate = Gamestate.gamestate;
-
-        if (GameControl.control.talente[18])
-            healMultiplier *= 1.05f;
-
         gameObject.SetActive(false);
-    }
-
-    /// <summary>
-    /// Called when [mouse down].
-    /// </summary>
-    void OnMouseDown()
-    {
-        if (alive)
-        {
-            SetTarget();
-        }
+        base.swingTimer = swingTimer;
     }
 
     /// <summary>
@@ -68,218 +34,34 @@ public class Mushroom : MonoBehaviour, IRaider
     /// </summary>
     void FixedUpdate()
     {
-        if (currentHealth <= 0 && alive)
+        if (currentHealth <= 0 && IsAlive())
         {
             Die();
         }
-        else if (currentHealth >= maxHealth && alive && !activated) //activate
+        else if (currentHealth >= maxHealth && IsAlive() && !activated) //activate
         {
             activated = true;
             canSwing = true;
         }
-        else if (canSwing && alive && activated) //heal party and damage self.
+        else if (canSwing && IsAlive() && activated) //heal party and damage self.
         {
-            timer = StartCoroutine(Timer(swingTimer));
 
             foreach (IRaider raider in RaiderDB.GetInstance().GetAllRaiders())
             {
                 raider.HealSimple(healAmount, true);
             }
 
-            Damage(actualDmg);
-            actualDmg += multiplier;
+            Damage(currentDmg);
+            currentDmg += multiplier;
         } 
     }
 
     /// <summary>
-    /// Heals the raider by an amount, i.e. increases the currentHealth.
-    /// Triggers HealingTaken events in all buffs.
-    /// The currentHealth can not be bigger than maxHealth.
+    /// Called when the Die() method in the base class is called.
     /// </summary>
-    /// <param name="amount">The amount.</param>
-    public void Heal(float amount)
+    public override void OnDie()
     {
-        if (alive)
-        {
-            if (GameControl.control.talente[20] && currentHealth / maxHealth <= 0.3)
-                amount *= 1.1f;
-            amount *= healMultiplier;
-            foreach (IBuff buff in GetComponent<BuffManager>().GetAllBuffsSortetByDuration())
-            {
-                amount = buff.OnHealingTaken(amount);
-            }
-            foreach (IRaider raider in RaiderDB.GetInstance().GetAllRaiders())
-            {
-                foreach (IBuff buff in raider.GetGameObject().GetComponent<BuffManager>().GetAllBuffsSortetByDuration())
-                {
-                    amount = buff.OnGlobalHealingTaken(amount);
-                }
-            }
-            if (amount > maxHealth - currentHealth)
-            {
-                if (GameControl.control.talente[10])
-                    Cloudburst.cloudburst.AddOverheal(currentHealth + amount - maxHealth);
-                currentHealth = maxHealth;
-            }
-            else
-            {
-                currentHealth += amount;
-            }
-            UpdateHpBar();
-        }
-    }
-
-    /// <summary>
-    /// Damages the raider by an amount, i.e. decreases the currentHealth.
-    /// Triggers DamageTaken events in all buffs.
-    /// </summary>
-    /// <param name="amount">The amount.</param>
-    public void Damage(float amount)
-    {
-        if (alive)
-        {
-            foreach (IBuff buff in GetComponent<BuffManager>().GetAllBuffsSortetByDuration())
-            {
-                amount = buff.OnDamageTaken(amount);
-                if (currentHealth - amount <= 0)
-                {
-                    amount = buff.OnFatalDamage(amount);
-                }
-            }
-            foreach (IRaider raider in RaiderDB.GetInstance().GetAllRaiders())
-            {
-                foreach (IBuff buff in raider.GetGameObject().GetComponent<BuffManager>().GetAllBuffsSortetByDuration())
-                {
-                    amount = buff.OnGlobalDamageTaken(amount);
-                }
-            }
-            currentHealth = currentHealth - amount;
-            UpdateHpBar();
-        }
-    }
-
-    /// <summary>
-    /// Heals the raider by an amount in a simple way (i.e. without triggering the cloudburst talent).
-    /// </summary>
-    /// <param name="amount">The amount.</param>
-    /// <param name="combatText">if set to <c>true</c> a combat text will be displayed.</param>
-    public void HealSimple(float amount, bool combatText)
-    {
-        if (alive)
-        {
-            if (GameControl.control.talente[20] && currentHealth / maxHealth <= 0.3)
-                amount *= 1.1f;
-            amount *= healMultiplier;
-            if (amount > maxHealth - currentHealth)
-            {
-                currentHealth = maxHealth;
-            }
-            else
-            {
-                currentHealth += amount;
-            }
-        }
-    }
-
-    /// <summary>
-    /// Damages the raider by an amount in a simple way (i.e. without triggering the DamageTaken events in buffs).
-    /// </summary>
-    /// <param name="amount">The amount.</param>
-    /// <param name="combatText">if set to <c>true</c> a combat text will be displayed.</param>
-    public void DamageSimple(float amount, bool combatText)
-    {
-        if (alive)
-        {
-            currentHealth = currentHealth - amount;
-            UpdateHpBar();
-        }
-    }
-
-    /// <summary>
-    /// Updates the hp bar.
-    /// </summary>
-    public void UpdateHpBar()
-    {
-        hpBar.position = Vector3.Lerp(endPos, startPos, currentHealth / maxHealth);
-    }
-
-    /// <summary>
-    /// Changes the color of the background.
-    /// </summary>
-    /// <param name="backgroundColor">Color of the background.</param>
-    public void ChangeBackgroundColor(Color32 backgroundColor)
-    {
-        background.color = backgroundColor;
-    }
-
-    /// <summary>
-    /// Sets this as the current target.
-    /// </summary>
-    public void SetTarget()
-    {
-        if (gamestate.HasTarget() && gamestate.GetTarget().IsAlive())
-        {
-            gamestate.GetTarget().ChangeBackgroundColor(notTargetColor);
-        }
-        else if (gamestate.HasTarget() && !gamestate.GetTarget().IsAlive())
-        {
-            gamestate.GetTarget().ChangeBackgroundColor(deadColor);
-        }
-        gamestate.SetTarget(this);
-        ChangeBackgroundColor(targetColor);
-    }
-
-    /// <summary>
-    /// Gets the current health.
-    /// </summary>
-    /// <returns>
-    /// the current health
-    /// </returns>
-    public float GetHealth()
-    {
-        return currentHealth / maxHealth;
-    }
-
-    public GameObject GetGameObject()
-    {
-        return this.gameObject;
-    }
-
-    /// <summary>
-    /// Timer used for the groupheal and selfdamage.
-    /// </summary>
-    /// <param name="timeToWait">The time to wait.</param>
-    /// <returns></returns>
-    IEnumerator Timer(float timeToWait)
-    {
-        canSwing = false;
-        yield return new WaitForSeconds(timeToWait);
-        canSwing = true;
-    }
-
-    /// <summary>
-    /// Determines whether this instance is alive or not.
-    /// </summary>
-    /// <returns>
-    ///   <c>true</c> if this instance is alive; otherwise, <c>false</c>.
-    /// </returns>
-    public bool IsAlive()
-    {
-        return alive;
-    }
-
-    /// <summary>
-    /// Dies this instance.
-    /// </summary>
-    public void Die()
-    {
-
-        actualDmg = startDmg;
         activated = false;
-        currentHealth = 100;
-        UpdateHpBar();
-        alive = false;
-        GetComponent<BuffManager>().ClearBuffs();
         gameObject.SetActive(false);
     }
 
@@ -288,85 +70,15 @@ public class Mushroom : MonoBehaviour, IRaider
     /// </summary>
     public void Summon()
     {
-        if(alive == false && activated == false)
+        if(!IsAlive() && !activated)
         {
             currentHealth = startHealth;
-            alive = true;
-            actualDmg = startDmg;
+            SetAlive(true);
+            currentDmg = startDmg;
             background.color = notTargetColor;
             UpdateHpBar();
             gameObject.SetActive(true);
         }
-    }
-
-    /// <summary>
-    /// Sets this as the current boss target (i.e. the target that is hit by auto attacks).
-    /// </summary>
-    /// <param name="isTarget">if set to <c>true</c> this is the current boss target.</param>
-    public void SetBossTarget(bool isTarget)
-    {
-        if (isTarget == true)
-        {
-            background.rectTransform.sizeDelta = new Vector2(0.955f, 0.925f);
-        }
-        else
-        {
-            background.rectTransform.sizeDelta = new Vector2(1, 1);
-        }
-    }
-
-    /// <summary>
-    /// Gets the color that is used if the instance is the target.
-    /// </summary>
-    /// <returns></returns>
-    public Color32 GetTargetColor()
-    {
-        return targetColor;
-    }
-
-    /// <summary>
-    /// Sets the color that is used if the instance is the target.
-    /// </summary>
-    /// <param name="color"></param>
-    public void SetTargetColor(Color32 color)
-    {
-        targetColor = color;
-    }
-
-    /// <summary>
-    /// Gets the color that is used if the instance is not the target.
-    /// </summary>
-    /// <returns></returns>
-    public Color32 GetNotTargetColor()
-    {
-        return notTargetColor;
-    }
-
-    /// <summary>
-    /// Sets the color that is used if the instance is not the target.
-    /// </summary>
-    /// <param name="color"></param>
-    public void SetNotTargetColor(Color32 color)
-    {
-        notTargetColor = color;
-    }
-
-    /// <summary>
-    /// Multiplies the Healmultiplier with the a value.
-    /// </summary>
-    /// <param name="multiplier">The value.</param>
-    public void ChangeHealmultiplier(float value)
-    {
-        healMultiplier *= value;
-    }
-
-    /// <summary>
-    /// Increases the maximum health.
-    /// </summary>
-    /// <param name="health">The amount the health is increased by.</param>
-    public void IncreaseMaxHealth(float health)
-    {
-        maxHealth += health;
     }
 }
 

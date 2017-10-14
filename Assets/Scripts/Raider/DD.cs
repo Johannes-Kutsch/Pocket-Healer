@@ -7,6 +7,10 @@ using UnityEngine.UI;
 /// </summary>
 public class DD : Raider
 {
+    private float swingTimerTop = 0.8f; //time between each hit
+    private float swingTimerBot = 0.4f;
+    private float dmg = 10f; //dmg with each hit
+
     /// <summary>
     /// Called when the Start() method of the base class finished initialisation.
     /// </summary>
@@ -29,6 +33,15 @@ public class DD : Raider
     public override void OnDestroy()
     {
         RaiderDB.GetInstance().DeRegisterDD(this);
+    }
+
+    /// <summary>
+    /// Called when the raider triggers a swing.
+    /// </summary>
+    public override void OnSwing()
+    {
+        gamestate.GetBoss().TakeDamage(dmg);
+        base.swingTimer = UnityEngine.Random.Range(swingTimerBot, swingTimerTop);
     }
 }
 
