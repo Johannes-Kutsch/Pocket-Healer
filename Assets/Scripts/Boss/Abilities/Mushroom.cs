@@ -7,17 +7,15 @@ using UnityEngine.UI;
 /// </summary>
 public class Mushroom : Raider
 {
-    public readonly float MAXHEALTH = 200f;
-    public readonly float swingTimer = 1.5f;
+    private readonly float MAXHEALTH = 200f;
+    private readonly float swingTimer = 1.5f;
 
-    public bool activated = false;
-    
-    public float startHealth = 100;
-    public float healAmount = 25f;
+    private float startHealth = 100f;
+    private float healAmount = 25f;
 
-    private float currentDmg;
-    public float startDmg;
-    public float dmgMultiplier;
+    private float currentDmg = 20f;
+    private float startDmg = 20f;
+    private float dmgMultiplier = 15f;
 
 
     /// <summary>
@@ -25,9 +23,12 @@ public class Mushroom : Raider
     /// </summary>
     public override void OnStart()
     {
+        base.canSwing = false;
         base.maxHealth = MAXHEALTH;
-        gameObject.SetActive(false);
+        base.currentHealth = startHealth;
         SetAlive(false);
+
+        gameObject.SetActive(false);
     }
 
     /// <summary>
@@ -35,12 +36,15 @@ public class Mushroom : Raider
     /// </summary>
     public override void OnFixedUpdate()
     {
-        if (currentHealth >= MAXHEALTH && IsAlive() && !activated) //activate
+        if (currentHealth >= MAXHEALTH && IsAlive() && !base.canSwing) //activate
         {
-            activated = true;
+            base.canSwing = true;
         }
     }
 
+    /// <summary>
+    /// Called when the raider triggers a swing.
+    /// </summary>
     public override void OnSwing()
     {
         foreach (IRaider raider in RaiderDB.GetInstance().GetAllRaiders())
@@ -57,8 +61,14 @@ public class Mushroom : Raider
     /// </summary>
     public override void OnDie()
     {
-        activated = false;
+        base.canSwing = false;
         gameObject.SetActive(false);
+
+        CombatText[] combatTexts = GetComponentsInChildren<CombatText>();
+        foreach (CombatText combatText in combatTexts)
+        {
+            Destroy(combatText.gameObject);
+        }
     }
 
     /// <summary>
@@ -68,12 +78,13 @@ public class Mushroom : Raider
     {
         if(!IsAlive())
         {
-            currentHealth = startHealth;
+            base.currentHealth = startHealth;
             SetAlive(true);
             currentDmg = startDmg;
-            background.color = notTargetColor;
-            UpdateHpBar();
+            base.background.color = notTargetColor;
+            base.hpGroup.alpha = 1;
             gameObject.SetActive(true);
+            UpdateHpBar();
         }
     }
 

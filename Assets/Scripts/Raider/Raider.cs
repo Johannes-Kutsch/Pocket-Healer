@@ -25,7 +25,7 @@ public abstract class Raider : MonoBehaviour, IRaider
     private bool alive;
     private float healMultiplier = 1f; //A global heal multiplyer i.e. used by talents that increase flat healing
 
-    private bool canSwing = true;
+    public bool canSwing = true;
     private Coroutine timer;
 
     /// <summary>
@@ -43,6 +43,8 @@ public abstract class Raider : MonoBehaviour, IRaider
         
         if (GameControl.control.talente[18])
             healMultiplier *= 1.05f; //+5% falt Healing Talent
+
+        OnStart();
     }
 
     /// <summary>
