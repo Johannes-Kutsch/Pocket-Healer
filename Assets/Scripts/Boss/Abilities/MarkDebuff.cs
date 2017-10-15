@@ -24,8 +24,8 @@ public class MarkDebuff : BuffTicking
     {
         if (GameControl.control.difficulty == 0)
         {
-            damagePerTick *= GameControl.control.easyMultiplyer;
-            maxDamagePerTick *= GameControl.control.easyMultiplyer;
+            damagePerTick *= GameControl.control.easyMultiplier;
+            maxDamagePerTick *= GameControl.control.easyMultiplier;
         }
     }
 

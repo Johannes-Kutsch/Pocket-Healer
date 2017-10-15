@@ -91,9 +91,9 @@ public class FixateCleave : MonoBehaviour {
 
         if (GameControl.control.difficulty == 0)
         {
-            dmgCleave *= GameControl.control.easyMultiplyer;
-            dmgFixate *= GameControl.control.easyMultiplyer;
-            dmgAutoAttack *= GameControl.control.easyMultiplyer;
+            dmgCleave *= GameControl.control.easyMultiplier;
+            dmgFixate *= GameControl.control.easyMultiplier;
+            dmgAutoAttack *= GameControl.control.easyMultiplier;
         }
 
         dmgFixateCurrent = dmgFixate;

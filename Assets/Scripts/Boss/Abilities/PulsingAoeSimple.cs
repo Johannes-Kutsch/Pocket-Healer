@@ -48,7 +48,7 @@ public class PulsingAoeSimple : MonoBehaviour {
 
         if (GameControl.control.difficulty == 0)
         {
-            dmgAoe *= GameControl.control.easyMultiplyer;
+            dmgAoe *= GameControl.control.easyMultiplier;
         }
 
         

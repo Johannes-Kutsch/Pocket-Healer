@@ -21,7 +21,7 @@ public class DotDebuff : BuffTicking
     {
         if (GameControl.control.difficulty == 0)
         {
-            damagePerTick *= GameControl.control.easyMultiplyer;
+            damagePerTick *= GameControl.control.easyMultiplier;
         }
     }
 

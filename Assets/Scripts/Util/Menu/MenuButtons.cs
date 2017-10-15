@@ -18,7 +18,7 @@ public class MenuButtons : MonoBehaviour {
     /// </summary>
     void Start()
     {
-        volume.value = GameControl.control.soundMultiplyer;
+        volume.value = GameControl.control.soundMultiplier;
     }
 
     /// <summary>
@@ -83,7 +83,7 @@ public class MenuButtons : MonoBehaviour {
                 break;
         }
         options.SetActive(true);
-        volume.value = GameControl.control.soundMultiplyer;
+        volume.value = GameControl.control.soundMultiplier;
     }
 
     /// <summary>
@@ -107,7 +107,7 @@ public class MenuButtons : MonoBehaviour {
             GameControl.control.ResetProgress();
             reset = false;
         }
-        GameControl.control.soundMultiplyer = volume.value;
+        GameControl.control.soundMultiplier = volume.value;
         GameControl.control.Save();
     }
 
@@ -117,7 +117,7 @@ public class MenuButtons : MonoBehaviour {
     /// </summary>
     public void OptionsDiscard()
     {
-        volume.value = GameControl.control.soundMultiplyer;
+        volume.value = GameControl.control.soundMultiplier;
         reset = false;
         options.SetActive(false);
     }

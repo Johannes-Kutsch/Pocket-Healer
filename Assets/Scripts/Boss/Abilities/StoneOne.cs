@@ -22,8 +22,8 @@ public class StoneOne : BuffTicking
     {
         if (GameControl.control.difficulty == 0)
         {
-            damagePerTick *= GameControl.control.easyMultiplyer;
-            exploDmg *= GameControl.control.easyMultiplyer;
+            damagePerTick *= GameControl.control.easyMultiplier;
+            exploDmg *= GameControl.control.easyMultiplier;
         }
     }
 

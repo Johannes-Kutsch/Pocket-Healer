@@ -4,7 +4,7 @@ using UnityEngine;
 /// <summary>
 /// Interface for Buffs/Debuffs.
 /// </summary>
-public interface IBuff { //ToDo: change to an abstract class and implement default methods for most functunality (runtime and onDamageTaken...)
+public interface IBuff {
 
     /// <summary>
     /// Gets the duration.

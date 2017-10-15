@@ -147,7 +147,7 @@ public class SpellBarManagerSelect : MonoBehaviour {
     /// <param name="button">The button.</param>
     private void AddSpellSix(GameObject button)
     {
-        button.GetComponent<MeshRenderer>().material = Resources.Load("Flamme", typeof(Material)) as Material; //ToDo: change to english
+        button.GetComponent<MeshRenderer>().material = Resources.Load("Flamme", typeof(Material)) as Material;
     }
 
     /// <summary>
@@ -156,7 +156,7 @@ public class SpellBarManagerSelect : MonoBehaviour {
     /// <param name="button">The button.</param>
     private void AddSpellSeven(GameObject button)
     {
-        button.GetComponent<MeshRenderer>().material = Resources.Load("Hymne", typeof(Material)) as Material; //ToDo: change to english
+        button.GetComponent<MeshRenderer>().material = Resources.Load("Hymne", typeof(Material)) as Material;
     }
 
     /// <summary>
@@ -201,7 +201,7 @@ public class SpellBarManagerSelect : MonoBehaviour {
     /// <param name="button">The button.</param>
     private void AddSpellTwelve(GameObject button)
     {
-        button.GetComponent<MeshRenderer>().material = Resources.Load("Schutzgeist", typeof(Material)) as Material; //ToDo: change to english
+        button.GetComponent<MeshRenderer>().material = Resources.Load("Schutzgeist", typeof(Material)) as Material;
     }
 
     /// <summary>

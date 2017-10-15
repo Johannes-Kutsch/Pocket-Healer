@@ -24,8 +24,8 @@ public abstract class Buff : MonoBehaviour, IBuff
     void Start()
     {
         duration = GetRealDuration();
-        image = Resources.Load(GetMaterialName(), typeof(Material)) as Material;
 
+        LoadMaterialImage();
 
         buffManager = GetComponent<BuffManager>();
         buffManager.RegisterBuff(this);
@@ -84,6 +84,14 @@ public abstract class Buff : MonoBehaviour, IBuff
         }
 
         return duration;
+    }
+
+    /// <summary>
+    /// Loads the material image.
+    /// </summary>
+    public void LoadMaterialImage()
+    {
+        image = Resources.Load(GetMaterialName(), typeof(Material)) as Material;
     }
 
     /// <summary>

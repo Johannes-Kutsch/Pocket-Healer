@@ -79,8 +79,8 @@ public class PulsingAoe : MonoBehaviour {
 
         if (GameControl.control.difficulty == 0)
         {
-            dmgRock *= GameControl.control.easyMultiplyer;
-            dmgAoe *= GameControl.control.easyMultiplyer;
+            dmgRock *= GameControl.control.easyMultiplier;
+            dmgAoe *= GameControl.control.easyMultiplier;
         }
         rocksBetweenAoeRemaining = rocksBetweenAoe;
     }

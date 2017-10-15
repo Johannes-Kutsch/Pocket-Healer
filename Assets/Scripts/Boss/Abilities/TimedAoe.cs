@@ -30,7 +30,7 @@ public class TimedAoe : MonoBehaviour {
 
         if (GameControl.control.difficulty == 0)
         {
-            dmg *= GameControl.control.easyMultiplyer;
+            dmg *= GameControl.control.easyMultiplier;
         }
 
         swingTimerCurrent = -1f;

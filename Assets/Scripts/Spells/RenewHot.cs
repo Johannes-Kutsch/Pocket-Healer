@@ -32,6 +32,7 @@ public class RenewHot : BuffTicking
     public override void OnReset()
     {
         jumpsLeft = 1;
+        LoadMaterialImage();
     }
 
     /// <summary>

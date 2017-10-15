@@ -7,15 +7,17 @@ using UnityEngine.UI;
 /// </summary>
 public class Mushroom : Raider
 {
-    private readonly float MAXHEALTH = 200f;
-    private readonly float swingTimer = 1.5f;
+    private readonly float MAXHEALTH = 300f;
+    private readonly float swingTimer = 1.2f;
 
-    private float startHealth = 100f;
-    private float healAmount = 25f;
+    private float startHealth = 200f;
+    private float healAmount = 30f;
 
     private float currentDmg = 20f;
     private float startDmg = 20f;
     private float dmgMultiplier = 15f;
+
+    private bool activated = false;
 
 
     /// <summary>
@@ -36,8 +38,9 @@ public class Mushroom : Raider
     /// </summary>
     public override void OnFixedUpdate()
     {
-        if (currentHealth >= MAXHEALTH && IsAlive() && !base.canSwing) //activate
+        if (currentHealth >= MAXHEALTH && IsAlive() && !activated) //activate
         {
+            activated = true;
             base.canSwing = true;
         }
     }
@@ -62,6 +65,7 @@ public class Mushroom : Raider
     public override void OnDie()
     {
         base.canSwing = false;
+        activated = false;
         gameObject.SetActive(false);
 
         CombatText[] combatTexts = GetComponentsInChildren<CombatText>();

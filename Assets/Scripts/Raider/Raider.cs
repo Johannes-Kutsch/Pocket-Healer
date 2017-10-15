@@ -22,7 +22,7 @@ public abstract class Raider : MonoBehaviour, IRaider
 
     public float maxHealth;
     public float currentHealth;
-    private bool alive;
+    private bool alive = true;
     private float healMultiplier = 1f; //A global heal multiplyer i.e. used by talents that increase flat healing
 
     public bool canSwing = true;
@@ -34,7 +34,6 @@ public abstract class Raider : MonoBehaviour, IRaider
     /// </summary>
     void Start () {
         gamestate = Gamestate.gamestate;
-        alive = true;
         currentHealth = maxHealth;
         hPBarStartPos = hpBar.position;
         scaleX = GetComponent<Transform>().localScale.x;

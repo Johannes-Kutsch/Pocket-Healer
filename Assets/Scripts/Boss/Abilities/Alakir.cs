@@ -84,8 +84,8 @@ public class Alakir : MonoBehaviour {
 
         if (GameControl.control.difficulty == 0)
         {
-            rangeAttackDamage *= GameControl.control.easyMultiplyer;
-            frostDamage *= GameControl.control.easyMultiplyer;
+            rangeAttackDamage *= GameControl.control.easyMultiplier;
+            frostDamage *= GameControl.control.easyMultiplier;
         }
     }
 

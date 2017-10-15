@@ -24,8 +24,8 @@ public class DiaDebuff : MonoBehaviour, IBuff
         image = Resources.Load("Feuer_Debuff", typeof(Material)) as Material;
         if (GameControl.control.difficulty == 0)
         {
-            damagePerTick *= GameControl.control.easyMultiplyer;
-            damageIncrease *= GameControl.control.easyMultiplyer;
+            damagePerTick *= GameControl.control.easyMultiplier;
+            damageIncrease *= GameControl.control.easyMultiplier;
         }
         raider = GetComponent<IRaider>();
         StartCoroutine(ApplyDamage());

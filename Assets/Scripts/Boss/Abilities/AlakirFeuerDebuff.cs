@@ -20,7 +20,7 @@ public class AlakirFeuerDebuff : BuffTicking
     {
         if (GameControl.control.difficulty == 0)
         {
-            damagePerTick *= GameControl.control.easyMultiplyer;
+            damagePerTick *= GameControl.control.easyMultiplier;
         }
     }
 

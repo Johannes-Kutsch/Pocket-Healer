@@ -29,7 +29,7 @@ public class AutoAttackRange : MonoBehaviour {
 
         if (GameControl.control.difficulty == 0)
         {
-            dmg *= GameControl.control.easyMultiplyer;
+            dmg *= GameControl.control.easyMultiplier;
         }
     }
 
