@@ -21,7 +21,7 @@ public class AlakirWasserDebuff : BuffTicking
     {
         if (GameControl.control.difficulty == 0)
         {
-            healMultiplierIncrease *= GameControl.control.easyMultiplyer;
+            healMultiplierIncrease *= GameControl.control.easyMultiplier;
         }
     }
 

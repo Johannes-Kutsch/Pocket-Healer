@@ -25,7 +25,7 @@ public abstract class Spell : MonoBehaviour
     private float cooldownMax;
     private bool onCooldown = false;
     private AudioSource source;
-    private IRaider target;
+    private Raider target;
 
     private AudioClip castSound;
     private AudioClip impactSound;
@@ -100,7 +100,7 @@ public abstract class Spell : MonoBehaviour
         //play the impactSound
         if (impactSound != null)
         {
-            source.PlayOneShot(impactSound, GameControl.control.soundMultiplyer);
+            source.PlayOneShot(impactSound, GameControl.control.soundMultiplier);
         }
 
         //call OnCastStart() and OnCastSucess()
@@ -145,7 +145,7 @@ public abstract class Spell : MonoBehaviour
         //play the cast sound
         if (castSound != null)
         {
-            source.PlayOneShot(castSound, GameControl.control.soundMultiplyer);
+            source.PlayOneShot(castSound, GameControl.control.soundMultiplier);
         }
 
         //call OnCastStart()
@@ -162,7 +162,7 @@ public abstract class Spell : MonoBehaviour
 
         if (impactSound != null)
         {
-            source.PlayOneShot(impactSound, GameControl.control.soundMultiplyer);
+            source.PlayOneShot(impactSound, GameControl.control.soundMultiplier);
         }
 
         //call OnCastSucess()
@@ -196,7 +196,7 @@ public abstract class Spell : MonoBehaviour
     /// Gets the target .
     /// </summary>
     /// <returns></returns>
-    public IRaider GetTarget()
+    public Raider GetTarget()
     {
         return target;
     }

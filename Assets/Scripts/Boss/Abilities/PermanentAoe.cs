@@ -26,7 +26,7 @@ public class PermanentAoe : MonoBehaviour {
 
         if (GameControl.control.difficulty == 0)
         {
-            dmgAoe *= GameControl.control.easyMultiplyer;
+            dmgAoe *= GameControl.control.easyMultiplier;
         }
     }
 
@@ -38,8 +38,8 @@ public class PermanentAoe : MonoBehaviour {
         swingTimerCurrent += 0.02f;
         if (swingTimerCurrent >= swingTimer)
         {
-            List<IRaider> targetDict = new List<IRaider>(RaiderDB.GetInstance().GetAllRaiders());
-            foreach (IRaider raider in targetDict)
+            List<Raider> targetDict = new List<Raider>(RaiderDB.GetInstance().GetAllRaiders());
+            foreach (Raider raider in targetDict)
             {
                 raider.Damage(dmgAoe);
             }

@@ -12,7 +12,7 @@ public class ApplyDotHealDebuff : MonoBehaviour
     public Image BossModImage;
     private Image cooldownOverlay;
 
-    private IRaider target = null;
+    private Raider target = null;
     private bool healDebuff;
     private bool canAttack = false;
     private float swingTimerCurrent;
@@ -61,10 +61,10 @@ public class ApplyDotHealDebuff : MonoBehaviour
 
         if (swingTimerCurrent >= swingTimer)
         {
-            List<IRaider> targetDict = new List<IRaider>(RaiderDB.GetInstance().GetAllDDs());
+            List<Raider> targetDict = new List<Raider>(RaiderDB.GetInstance().GetAllDDs());
             if(targetDict.Count <= 0)
             {
-                targetDict = new List<IRaider>(RaiderDB.GetInstance().GetAllRaiders());
+                targetDict = new List<Raider>(RaiderDB.GetInstance().GetAllRaiders());
             }
             if (target != null && targetDict.Count > 1)
             {

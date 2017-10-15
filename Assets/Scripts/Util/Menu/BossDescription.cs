@@ -64,7 +64,7 @@ public class BossDescription : MonoBehaviour {
         }
     }
 
-    //ToDo: Translate to English
+    //ToDo: English
 
     /// <summary>
     /// Loads images and texts for level 1 in the description.
@@ -259,14 +259,14 @@ public class BossDescription : MonoBehaviour {
     public void LevelTwelve()
     {
         name.text = "Dia Darkwhisper";
-        description.text = "Dot der immer stärker wird, kann dispellt werden und verdoppelt sich dann. In bestimmten intervalls werden alle Dots gecleared.";
+        description.text = "Dot der immer stärker wird, kann dispellt werden und verdoppelt sich dann. In bestimmten intervalls werden alle Dots gecleared. Ein dispell cleared alle aktiven dots!";
         skillOneImage.sprite = Resources.Load("AUTOATTACK", typeof(Sprite)) as Sprite;
         skillOne.text = "AUTOATTACK";
         skillTwoImage.sprite = Resources.Load("DOTLEICHT", typeof(Sprite)) as Sprite;
-        skillTwo.text = "Al'akir holt zu einem mächtigen Schlag aus der beide Tanks trifft.";
+        skillTwo.text = "PLACEHOLDER";
         skillThreeImage.sprite = Resources.Load("DOTMITTEL", typeof(Sprite)) as Sprite;
-        skillThree.text = "Al'akir fixiert sich auf einen Tank und deckt ihn mit einer Abfolge von mehreren Schlägen ein.";
+        skillThree.text = "PLACEHOLDER";
         skillFourImage.sprite = Resources.Load("DOTSCHWER", typeof(Sprite)) as Sprite;
-        skillFour.text = "Al'akir vergiftet ein Gruppenmitglied. Dieser Debuff kann dispellt werden.";
+        skillFour.text = "PLACEHOLDER";
     }
 }

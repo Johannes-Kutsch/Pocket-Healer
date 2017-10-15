@@ -7,7 +7,7 @@ public class Cloudburst : MonoBehaviour
 {
     public static Cloudburst cloudburst;
     private Image cooldownOverlay;
-    private List<IRaider> targetDict = new List<IRaider>();
+    private List<Raider> targetDict = new List<Raider>();
     private float cooldown = 10f;
     public float cooldownTimer;
     private bool onCooldown = false;
@@ -60,7 +60,7 @@ public class Cloudburst : MonoBehaviour
         onCooldown = true;
         targetDict = RaiderDB.GetInstance().GetAllRaiders();
         float anzTargets = targetDict.Count;
-        foreach (IRaider raider in targetDict) {
+        foreach (Raider raider in targetDict) {
             raider.HealSimple(storedHealth*multiplyer/ anzTargets, true);
         }
         storedHealth = 0;

@@ -48,7 +48,7 @@ public class PulsingAoeSimple : MonoBehaviour {
 
         if (GameControl.control.difficulty == 0)
         {
-            dmgAoe *= GameControl.control.easyMultiplyer;
+            dmgAoe *= GameControl.control.easyMultiplier;
         }
 
         
@@ -67,9 +67,9 @@ public class PulsingAoeSimple : MonoBehaviour {
 
         if (swingTimerCurrent >= swingTimerPulsing)
         {
-            List<IRaider> targetDict = new List<IRaider>(RaiderDB.GetInstance().GetAllRaiders());
+            List<Raider> targetDict = new List<Raider>(RaiderDB.GetInstance().GetAllRaiders());
 
-            foreach (IRaider raider in targetDict)
+            foreach (Raider raider in targetDict)
             {
                 raider.Damage(dmgAoe);
             }

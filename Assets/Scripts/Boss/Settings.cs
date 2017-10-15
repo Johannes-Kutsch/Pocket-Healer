@@ -325,7 +325,7 @@ public class Settings{
 
         //PulsingAOE
         pulsingAOESwingTimer = 11f;
-        pulsingAOEDmgAoe = 13f;
+        pulsingAOEDmgAoe = 10f;
         pulsingAOETicksAoe = 10;
 
         //Mushroom
@@ -333,8 +333,8 @@ public class Settings{
         mushroomSwingTimerStart = 25f;
 
         //Permanent Aoe
-        permanentAoeSwingTimer = 2f;
-        permanentAoeDmg = 13f;
+        permanentAoeSwingTimer = 2.15f;
+        permanentAoeDmg = 15f;
         permanentAoeMultiplier = 0f;
     }
 

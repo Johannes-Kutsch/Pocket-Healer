@@ -16,12 +16,11 @@ public class GameControl : MonoBehaviour {
     private static int maxLevelId = 11;
     public int maxLevelIdUnlocked = 1;
     public int currentLevelId = 1;
-    public float soundMultiplyer = 1;
+    public float soundMultiplier = 1;
     public AudioSource source;
     public int selectedSpellId = 1;
     public int difficulty = 1;
-    public float easyMultiplyer = 0.75f; //damage multiplyer for easy setting
-                                         //ToDo should make the variables private and work with getters/setters
+    public readonly float easyMultiplier = 0.75f; //damage multiplyer for easy setting
 
 
     /// <summary>
@@ -40,7 +39,7 @@ public class GameControl : MonoBehaviour {
         }
 
         source = GetComponent<AudioSource>();
-        source.volume = soundMultiplyer;
+        source.volume = soundMultiplier;
     }
 
     /// <summary>
@@ -160,7 +159,7 @@ public class GameControl : MonoBehaviour {
         data.spellId = spellId;
         data.currentLevel = currentLevel;
         data.currentLevelId = currentLevelId;
-        data.soundMultiplyer = soundMultiplyer;
+        data.soundMultiplyer = soundMultiplier;
         data.maxLevelIdUnlocked = maxLevelIdUnlocked;
         data.talente = talente;
         data.difficulty = difficulty;
@@ -185,10 +184,10 @@ public class GameControl : MonoBehaviour {
             spellId = data.spellId;
             currentLevel = data.currentLevel;
             currentLevelId = data.currentLevelId;
-            soundMultiplyer = data.soundMultiplyer;
+            soundMultiplier = data.soundMultiplyer;
             maxLevelIdUnlocked = data.maxLevelIdUnlocked;
             talente = data.talente;
-            source.volume = soundMultiplyer;
+            source.volume = soundMultiplier;
             difficulty = data.difficulty;
         }
     }

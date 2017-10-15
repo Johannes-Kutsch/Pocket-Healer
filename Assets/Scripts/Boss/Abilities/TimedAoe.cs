@@ -7,7 +7,7 @@ using UnityEngine.UI;
 /// Damages all raider in a fixed intervall.
 /// </summary>
 public class TimedAoe : MonoBehaviour {
-    private List<IRaider> targetDict = new List<IRaider>();
+    private List<Raider> targetDict = new List<Raider>();
 
     public int levelIndex;
     public Image BossModImage;
@@ -30,7 +30,7 @@ public class TimedAoe : MonoBehaviour {
 
         if (GameControl.control.difficulty == 0)
         {
-            dmg *= GameControl.control.easyMultiplyer;
+            dmg *= GameControl.control.easyMultiplier;
         }
 
         swingTimerCurrent = -1f;
@@ -75,8 +75,8 @@ public class TimedAoe : MonoBehaviour {
     /// </summary>
     private void Attack()
     {
-        targetDict = new List<IRaider>(RaiderDB.GetInstance().GetAllRaiders());
-        foreach (IRaider raider in targetDict)
+        targetDict = new List<Raider>(RaiderDB.GetInstance().GetAllRaiders());
+        foreach (Raider raider in targetDict)
         {
             raider.Damage(dmg);
         }

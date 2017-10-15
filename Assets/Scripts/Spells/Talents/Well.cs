@@ -5,9 +5,9 @@ using System.Collections.Generic;
 using System.Linq;
 
 public class Well : MonoBehaviour {
-    private IRaider target;
+    private Raider target;
     public Image cooldownOverlay;
-    private List<IRaider> raiderDict = new List<IRaider>();
+    private List<Raider> raiderDict = new List<Raider>();
     private float cooldown = 1f;
     public float cooldownTimer;
     private float cooldownMax;
@@ -43,7 +43,10 @@ public class Well : MonoBehaviour {
         cooldownOverlay.color = new Color32(160, 160, 160, 160);
         raiderDict = RaiderDB.GetInstance().GetAllRaidersSortedByHealth();
         target = raiderDict.First();
-        target.Heal(healAmount);
+        if (target != null)
+        {
+            target.Heal(healAmount);
+        }
     }
 
     public void RemoveSpellFromButton()

@@ -7,7 +7,7 @@ using UnityEngine.UI;
 /// Alterantes between a dmg nuke to multiple targets and an  pulsing aoe.
 /// </summary>
 public class PulsingAoe : MonoBehaviour {
-    private List<IRaider> lastTargetDict = new List<IRaider>();
+    private List<Raider> lastTargetDict = new List<Raider>();
 
     public int levelIndex;
     public Image BossModImageRock;
@@ -79,8 +79,8 @@ public class PulsingAoe : MonoBehaviour {
 
         if (GameControl.control.difficulty == 0)
         {
-            dmgRock *= GameControl.control.easyMultiplyer;
-            dmgAoe *= GameControl.control.easyMultiplyer;
+            dmgRock *= GameControl.control.easyMultiplier;
+            dmgAoe *= GameControl.control.easyMultiplier;
         }
         rocksBetweenAoeRemaining = rocksBetweenAoe;
     }
@@ -150,13 +150,13 @@ public class PulsingAoe : MonoBehaviour {
     private void AttackRock()
     {
 
-        List<IRaider> targetDict = null;
+        List<Raider> targetDict = null;
         int targetsLeft = numberTargetsRock;
 
         if (targetsLeft > 0) //only hit dds not hit in the last round
         {
-            targetDict = new List<IRaider>(RaiderDB.GetInstance().GetAllDDs());
-            foreach (IRaider raider in lastTargetDict)
+            targetDict = new List<Raider>(RaiderDB.GetInstance().GetAllDDs());
+            foreach (Raider raider in lastTargetDict)
             {
                 if (targetDict.Contains(raider))
                 {
@@ -164,11 +164,11 @@ public class PulsingAoe : MonoBehaviour {
                 }
             }
 
-            lastTargetDict = new List<IRaider>();
+            lastTargetDict = new List<Raider>();
 
             while (targetsLeft > 0 && targetDict.Count > 0)
             {
-                IRaider target = targetDict[Random.Range(0, targetDict.Count)];
+                Raider target = targetDict[Random.Range(0, targetDict.Count)];
                 targetDict.Remove(target);
                 lastTargetDict.Add(target);
                 target.Damage(dmgRock);
@@ -178,8 +178,8 @@ public class PulsingAoe : MonoBehaviour {
 
         if (targetsLeft > 0) //only hit dds not jet hit in this round
         {
-            targetDict = new List<IRaider>(RaiderDB.GetInstance().GetAllDDs());
-            foreach (IRaider raider in lastTargetDict)
+            targetDict = new List<Raider>(RaiderDB.GetInstance().GetAllDDs());
+            foreach (Raider raider in lastTargetDict)
             {
                 if (targetDict.Contains(raider))
                 {
@@ -189,7 +189,7 @@ public class PulsingAoe : MonoBehaviour {
 
             while (targetsLeft > 0 && targetDict.Count > 0)
             {
-                IRaider target = targetDict[Random.Range(0, targetDict.Count)];
+                Raider target = targetDict[Random.Range(0, targetDict.Count)];
                 targetDict.Remove(target);
                 lastTargetDict.Add(target);
                 target.Damage(dmgRock);
@@ -199,10 +199,10 @@ public class PulsingAoe : MonoBehaviour {
 
         if (targetsLeft > 0) //hit tanks
         {
-            targetDict = new List<IRaider>(RaiderDB.GetInstance().GetAllTanks());
+            targetDict = new List<Raider>(RaiderDB.GetInstance().GetAllTanks());
             while (targetsLeft > 0 && targetDict.Count > 0)
             {
-                IRaider target = targetDict[Random.Range(0, targetDict.Count)];
+                Raider target = targetDict[Random.Range(0, targetDict.Count)];
                 targetDict.Remove(target);
                 lastTargetDict.Add(target);
                 target.Damage(dmgRock);
@@ -212,11 +212,11 @@ public class PulsingAoe : MonoBehaviour {
 
         while (targetsLeft > 0) //go wild, hit random raiders until enough are hit
         {
-            targetDict = new List<IRaider>(RaiderDB.GetInstance().GetAllRaiders());
+            targetDict = new List<Raider>(RaiderDB.GetInstance().GetAllRaiders());
 
             while (targetsLeft > 0 && targetDict.Count > 0)
             {
-                IRaider target = targetDict[Random.Range(0, targetDict.Count)];
+                Raider target = targetDict[Random.Range(0, targetDict.Count)];
                 targetDict.Remove(target);
                 target.Damage(dmgRock);
                 targetsLeft--;
@@ -229,9 +229,9 @@ public class PulsingAoe : MonoBehaviour {
     /// </summary>
     private void AttackPulsing()
     {
-        List<IRaider> targetDict = new List<IRaider>(RaiderDB.GetInstance().GetAllRaiders());
+        List<Raider> targetDict = new List<Raider>(RaiderDB.GetInstance().GetAllRaiders());
 
-        foreach (IRaider raider in targetDict)
+        foreach (Raider raider in targetDict)
         {
             raider.Damage(dmgAoe);
         }

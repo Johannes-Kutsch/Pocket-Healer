@@ -52,13 +52,13 @@ public class PrayerBuff : Buff {
         GetRaider().Heal(healAmount);
         if (jumpsLeft > 0)
         {
-            List<IRaider> raiderDict = RaiderDB.GetInstance().GetAllRaidersSortedByHealth();
+            List<Raider> raiderDict = RaiderDB.GetInstance().GetAllRaidersSortedByHealth();
             raiderDict.Remove(GetRaider());
 
             int countRaider = raiderDict.Count;
             for (int i = 0; i < countRaider; i++)
             {
-                IRaider target = raiderDict.First();
+                Raider target = raiderDict.First();
 
                 if (!target.GetGameObject().GetComponent<PrayerBuff>())
                 {

@@ -7,7 +7,7 @@ public class Flamme : MonoBehaviour {
     public Gamestate gamestate;
     public Image cooldownOverlay;
     private string spellName = "Flamme des Glaubens";
-    private List<IRaider> raiderDict;
+    private List<Raider> raiderDict;
     private AudioSource source;
 
     void Start()
@@ -21,13 +21,13 @@ public class Flamme : MonoBehaviour {
     public void Cast()
     {
         raiderDict = RaiderDB.GetInstance().GetAllTanks();
-        foreach (IRaider raider in raiderDict)
+        foreach (Raider raider in raiderDict)
         {
             GenerateBuff(raider);
         }
     }
 
-    private void GenerateBuff(IRaider raider)
+    private void GenerateBuff(Raider raider)
     {
         if (!raider.GetGameObject().GetComponent<FlammeBuff>())
         {

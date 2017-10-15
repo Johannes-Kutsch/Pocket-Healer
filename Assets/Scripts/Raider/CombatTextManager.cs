@@ -30,7 +30,7 @@ public class CombatTextManager : MonoBehaviour {
     /// <param name="position">The position.</param>
     /// <param name="raider">The raider.</param>
     /// <param name="amount">The DMG amount.</param>
-    public void CreateDmgText(Vector3 position, IRaider raider, float amount)
+    public void CreateDmgText(Vector3 position, Raider raider, float amount)
     {
         GameObject text = (GameObject)Instantiate(dmgTextPrefab, position, Quaternion.identity);
         text.transform.SetParent(raider.GetGameObject().GetComponentInChildren<Canvas>().transform);
@@ -44,7 +44,7 @@ public class CombatTextManager : MonoBehaviour {
     /// <param name="position">The position.</param>
     /// <param name="raider">The raider.</param>
     /// <param name="amount">The Heal amount.</param>
-    public void CreateHealText(Vector3 position, IRaider raider, float amount)
+    public void CreateHealText(Vector3 position, Raider raider, float amount)
     {
         GameObject text = (GameObject)Instantiate(dmgTextPrefab, position, Quaternion.identity);
         text.transform.SetParent(raider.GetGameObject().GetComponentInChildren<Canvas>().transform);

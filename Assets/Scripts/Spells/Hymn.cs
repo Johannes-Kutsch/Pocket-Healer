@@ -40,7 +40,7 @@ public class Hymn : Spell {
     {
         for (float i = 0; i < ticks; i++)
         {
-            foreach (IRaider raider in RaiderDB.GetInstance().GetAllRaiders())
+            foreach (Raider raider in RaiderDB.GetInstance().GetAllRaiders())
             {
                 raider.Heal(healAmount);
             }
@@ -51,7 +51,7 @@ public class Hymn : Spell {
             }
         }
 
-        foreach (IRaider raider in RaiderDB.GetInstance().GetAllRaiders())
+        foreach (Raider raider in RaiderDB.GetInstance().GetAllRaiders())
         {
             if (GameControl.control.talente[5])
             {

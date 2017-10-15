@@ -10,9 +10,9 @@ public class HealRaidersToFull : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        List<IRaider>  targetDict = new List<IRaider>(RaiderDB.GetInstance().GetAllRaiders());
+        List<Raider>  targetDict = new List<Raider>(RaiderDB.GetInstance().GetAllRaiders());
 
-        foreach (IRaider raider in targetDict)
+        foreach (Raider raider in targetDict)
         {
             raider.HealSimple(2000, false);
         }

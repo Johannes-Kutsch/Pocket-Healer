@@ -11,16 +11,22 @@ public class Renew : Spell
     private readonly string SPELLNAME = "Renew";
     private readonly float MANACOST = 10f;
     private readonly float CASTTIME = 0f;
-    private readonly float COOLDOWN = 0f;
+    private float cooldown = 3.5f;
     private readonly string CASTSOUNDNAME = null;
     private readonly string IMPACTSOUNDNAME = "RenewCast";
+
+    public void Awake()
+    {
+        if (GameControl.control.talente[0])
+            cooldown = 0f;
+    }
 
     /// <summary>
     /// Called when a cast is sucesfully finished. Applies the RenewBuff to the target.
     /// </summary>
     public override void OnCastSucess()
     {
-        IRaider target = GetTarget();
+        Raider target = GetTarget();
 
         if (!target.GetGameObject().GetComponent<RenewHot>())
         {
@@ -51,7 +57,7 @@ public class Renew : Spell
     /// </returns>
     public override float GetCooldown()
     {
-        return COOLDOWN;
+        return cooldown;
     }
 
     /// <summary>

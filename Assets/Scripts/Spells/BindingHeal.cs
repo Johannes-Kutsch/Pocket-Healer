@@ -29,7 +29,7 @@ public class BindingHeal : Spell
         GetTarget().Heal(healAmount);
 
         //get all raider sorted by health
-        List<IRaider> raiderDict = RaiderDB.GetInstance().GetAllRaidersSortedByHealth();
+        List<Raider> raiderDict = RaiderDB.GetInstance().GetAllRaidersSortedByHealth();
 
         for (int i = 0; i < numberJumps && i < raiderDict.Count(); i++)
         {

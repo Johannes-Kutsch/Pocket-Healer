@@ -10,12 +10,27 @@ public class GreaterHeal : Spell
 {
     private readonly string SPELLNAME = "Greater Heal";
     private readonly float COOLDOWN = 0f;
-    private readonly float MANACOST = 20f;
-    private readonly float CASTTIME = 2f;
+    private float manacost = 10f;
+    private float castTime = 2f;
     private readonly string CASTSOUNDNAME = "GreaterHealCast";
     private readonly string IMPACTSOUNDNAME = "GreaterHealImpact";
 
     private float healAmount = 50f;
+
+    /// <summary>
+    /// Called on Awake
+    /// </summary>
+    private void Awake()
+    {
+        if (GameControl.control.talente[1])
+        {
+            castTime *= 0.75f;
+        }
+        if (GameControl.control.talente[4])
+        {
+            healAmount *= 0.75f;
+        }
+    }
 
     /// <summary>
     /// Called when a cast is sucesfully finished.
@@ -56,7 +71,7 @@ public class GreaterHeal : Spell
     /// </returns>
     public override float GetManacost()
     {
-        return MANACOST;
+        return manacost;
     }
 
     /// <summary>
@@ -67,7 +82,7 @@ public class GreaterHeal : Spell
     /// </returns>
     public override float GetCastTime()
     {
-        return CASTTIME;
+        return castTime;
     }
 
     /// <summary>
