@@ -10,14 +10,14 @@ using System.Collections.Generic;
 public class DiaDebuff : MonoBehaviour, IBuff
 {
     private Color32 debuffColor = new Color32(170, 0, 255, 255);
-    private List<IRaider> targetDict = new List<IRaider>();
-    private IRaider target = null;
+    private List<Raider> targetDict = new List<Raider>();
+    private Raider target = null;
     public Material image;
     public float damagePerTick = 5f;
     public float damageIncrease = 2f;
     public float tickLength = 2f;
     public int numberTargets = 2;
-    private IRaider raider;
+    private Raider raider;
 
     void Start()
     {
@@ -27,7 +27,7 @@ public class DiaDebuff : MonoBehaviour, IBuff
             damagePerTick *= GameControl.control.easyMultiplier;
             damageIncrease *= GameControl.control.easyMultiplier;
         }
-        raider = GetComponent<IRaider>();
+        raider = GetComponent<Raider>();
         StartCoroutine(ApplyDamage());
     }
 
@@ -70,7 +70,7 @@ public class DiaDebuff : MonoBehaviour, IBuff
 
     public void jump()
     {
-        targetDict = new List<IRaider>(RaiderDB.GetInstance().GetAllRaiders());
+        targetDict = new List<Raider>(RaiderDB.GetInstance().GetAllRaiders());
         for (int i = targetDict.Count - 1; i >= 0; i--)
         {
             if (targetDict[i].GetGameObject().GetComponent<DiaDebuff>() != null)

@@ -8,7 +8,7 @@ using UnityEngine.UI;
 /// </summary>
 public class ThrowRock : MonoBehaviour
 {
-    private List<IRaider> lastTargetDict = new List<IRaider>();
+    private List<Raider> lastTargetDict = new List<Raider>();
 
     public int levelIndex;
     public Image BossModImage;
@@ -80,13 +80,13 @@ public class ThrowRock : MonoBehaviour
     private void Attack()
     {
 
-        List<IRaider> targetDict = null;
+        List<Raider> targetDict = null;
         int targetsLeft = numberTargets;
 
         if (targetsLeft > 0) //only hit dds not hit in the last round
         {
-            targetDict = new List<IRaider>(RaiderDB.GetInstance().GetAllDDs());
-            foreach (IRaider raider in lastTargetDict)
+            targetDict = new List<Raider>(RaiderDB.GetInstance().GetAllDDs());
+            foreach (Raider raider in lastTargetDict)
             {
                 if (targetDict.Contains(raider))
                 {
@@ -94,11 +94,11 @@ public class ThrowRock : MonoBehaviour
                 }
             }
 
-            lastTargetDict = new List<IRaider>();
+            lastTargetDict = new List<Raider>();
 
             while (targetsLeft > 0 && targetDict.Count > 0)
             {
-                IRaider target = targetDict[Random.Range(0, targetDict.Count)];
+                Raider target = targetDict[Random.Range(0, targetDict.Count)];
                 targetDict.Remove(target);
                 lastTargetDict.Add(target);
                 target.Damage(dmg);
@@ -108,8 +108,8 @@ public class ThrowRock : MonoBehaviour
 
         if (targetsLeft > 0) //only hit dds not jet hit in this round
         {
-            targetDict = new List<IRaider>(RaiderDB.GetInstance().GetAllDDs());
-            foreach (IRaider raider in lastTargetDict)
+            targetDict = new List<Raider>(RaiderDB.GetInstance().GetAllDDs());
+            foreach (Raider raider in lastTargetDict)
             {
                 if (targetDict.Contains(raider))
                 {
@@ -119,7 +119,7 @@ public class ThrowRock : MonoBehaviour
 
             while (targetsLeft > 0 && targetDict.Count > 0)
             {
-                IRaider target = targetDict[Random.Range(0, targetDict.Count)];
+                Raider target = targetDict[Random.Range(0, targetDict.Count)];
                 targetDict.Remove(target);
                 lastTargetDict.Add(target);
                 target.Damage(dmg);
@@ -129,10 +129,10 @@ public class ThrowRock : MonoBehaviour
 
         if (targetsLeft > 0) //hit tanks
         {
-            targetDict = new List<IRaider>(RaiderDB.GetInstance().GetAllTanks());
+            targetDict = new List<Raider>(RaiderDB.GetInstance().GetAllTanks());
             while (targetsLeft > 0 && targetDict.Count > 0)
             {
-                IRaider target = targetDict[Random.Range(0, targetDict.Count)];
+                Raider target = targetDict[Random.Range(0, targetDict.Count)];
                 targetDict.Remove(target);
                 lastTargetDict.Add(target);
                 target.Damage(dmg);
@@ -142,11 +142,11 @@ public class ThrowRock : MonoBehaviour
 
         while (targetsLeft > 0) //go wild, hit random raiders until enough are hit
         {
-            targetDict = new List<IRaider>(RaiderDB.GetInstance().GetAllRaiders());
+            targetDict = new List<Raider>(RaiderDB.GetInstance().GetAllRaiders());
 
             while (targetsLeft > 0 && targetDict.Count > 0)
             {
-                IRaider target = targetDict[Random.Range(0, targetDict.Count)];
+                Raider target = targetDict[Random.Range(0, targetDict.Count)];
                 targetDict.Remove(target);
                 target.Damage(dmg);
                 targetsLeft--;

@@ -35,10 +35,10 @@ public class GuardianSpiritBuff : Buff, IGuardianSpirit
 
         if (GameControl.control.talente[8])
         {
-            List<IRaider> raiderDict = RaiderDB.GetInstance().GetAllRaidersSortedByHealth();
+            List<Raider> raiderDict = RaiderDB.GetInstance().GetAllRaidersSortedByHealth();
             raiderDict.Remove(GetRaider());
 
-            foreach (IRaider raider in raiderDict)
+            foreach (Raider raider in raiderDict)
             {
                 raider.GetGameObject().GetComponent<IGuardianSpirit>().Destroy();
             }

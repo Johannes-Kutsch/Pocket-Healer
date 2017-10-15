@@ -4,16 +4,16 @@ using System.Collections.Generic;
 using System.Linq;
 
 public class FlammeBuff : MonoBehaviour, IBuff {
-    private List<IRaider> raiderDict;
+    private List<Raider> raiderDict;
     public Material image;
     private float scaler = 0.2f;
 
-    private IRaider raider;
+    private Raider raider;
 
     void Start()
     {
         image = Resources.Load("Flamme_Buff", typeof(Material)) as Material;
-        raider = GetComponent<IRaider>();
+        raider = GetComponent<Raider>();
     }
 
     void FixedUpdate()

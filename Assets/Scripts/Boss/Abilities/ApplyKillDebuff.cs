@@ -7,8 +7,8 @@ using UnityEngine.UI;
 /// Applies a debuff that kills the party member after 10 seconds if not dispelled.
 /// </summary>
 public class ApplyKillDebuff : MonoBehaviour {
-    private IRaider target = null;
-    private List<IRaider> targetDict = new List<IRaider>();
+    private Raider target = null;
+    private List<Raider> targetDict = new List<Raider>();
     public string emoteText = "prepares to curse one of your partymembers.";
 
     public int levelIndex;
@@ -55,7 +55,7 @@ public class ApplyKillDebuff : MonoBehaviour {
 
         if (swingTimerCurrent >= swingTimer)
         {
-            targetDict = new List<IRaider>(RaiderDB.GetInstance().GetAllRaiders());
+            targetDict = new List<Raider>(RaiderDB.GetInstance().GetAllRaiders());
             if (target != null && targetDict.Count > 1) //remove last target if more than 1 potential target
             {
                 targetDict.Remove(target);

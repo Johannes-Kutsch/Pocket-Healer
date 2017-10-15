@@ -22,7 +22,7 @@ public class GuardianSpirit : Spell
     /// </summary>
     public override void OnCastSucess()
     {
-        IRaider target = GetTarget();
+        Raider target = GetTarget();
         
         if (!target.GetGameObject().GetComponent<GuardianSpiritBuff>()) //check if target allready has the buff
         {
@@ -35,11 +35,11 @@ public class GuardianSpirit : Spell
 
         if (GameControl.control.talente[8]) //apply invis buff to every other raider if talent is picked
         {
-            List<IRaider> raiderDict = RaiderDB.GetInstance().GetAllRaidersSortedByHealth();
+            List<Raider> raiderDict = RaiderDB.GetInstance().GetAllRaidersSortedByHealth();
 
             raiderDict.Remove(target);
 
-            foreach (IRaider raider in raiderDict)
+            foreach (Raider raider in raiderDict)
             {
                 GuardianSpiritBuffInvis buff = raider.GetGameObject().AddComponent<GuardianSpiritBuffInvis>();
             }

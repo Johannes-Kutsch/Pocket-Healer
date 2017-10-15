@@ -36,7 +36,7 @@ public class DragonRed : Raider
         {
             activated = true;
 
-            foreach (IRaider raider in RaiderDB.GetInstance().GetAllRaiders()) //increase raider max hp by 50 and increase healmultiplier
+            foreach (Raider raider in RaiderDB.GetInstance().GetAllRaiders()) //increase raider max hp by 50 and increase healmultiplier
             {
                 raider.ChangeHealmultiplier(2);
                 raider.IncreaseMaxHealth(50f);

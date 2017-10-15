@@ -42,7 +42,7 @@ public class CircleOfHealing : Spell {
     /// </summary>
     public override void OnCastSucess()
     {
-        List<IRaider> raiderDict = RaiderDB.GetInstance().GetAllRaidersSortedByHealth();
+        List<Raider> raiderDict = RaiderDB.GetInstance().GetAllRaidersSortedByHealth();
 
         if (raiderDict.Count() < numberTargets) //if less raiders are alive than we can target, decrease number of targets
         {
@@ -51,7 +51,7 @@ public class CircleOfHealing : Spell {
 
         for (int i = 0; i < numberTargets; i++) //heal numberTargets raider
         {
-            IRaider target = raiderDict.First();
+            Raider target = raiderDict.First();
             if (target.IsAlive())
             {
                 target.Heal(healAmount);

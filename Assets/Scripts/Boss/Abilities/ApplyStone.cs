@@ -10,8 +10,8 @@ using UnityEngine.UI;
 /// </summary>
 public class ApplyStone : MonoBehaviour {
 
-    private IRaider target = null;
-    private List<IRaider> targetDict;
+    private Raider target = null;
+    private List<Raider> targetDict;
     public string emote = "lässt zwei Spieler zu stein erstarren.";
 
     public int levelIndex;
@@ -79,8 +79,8 @@ public class ApplyStone : MonoBehaviour {
 
         if (swingTimerCurrent >= swingTimer)
         {
-            targetDict = new List<IRaider>(RaiderDB.GetInstance().GetAllDDsSortedByHealth());
-            foreach (IRaider raider in targetDict)
+            targetDict = new List<Raider>(RaiderDB.GetInstance().GetAllDDsSortedByHealth());
+            foreach (Raider raider in targetDict)
             {
                 if (!raider.GetGameObject().GetComponent<StoneOne>() && !raider.GetGameObject().GetComponent<StoneTwo>())
                 {
@@ -90,8 +90,8 @@ public class ApplyStone : MonoBehaviour {
 
             if (target == null)
             {
-                targetDict = new List<IRaider>(RaiderDB.GetInstance().GetAllRaidersSortedByHealth());
-                foreach (IRaider raider in targetDict)
+                targetDict = new List<Raider>(RaiderDB.GetInstance().GetAllRaidersSortedByHealth());
+                foreach (Raider raider in targetDict)
                 {
                     if (!raider.GetGameObject().GetComponent<StoneOne>() && !raider.GetGameObject().GetComponent<StoneTwo>())
                     {
@@ -107,8 +107,8 @@ public class ApplyStone : MonoBehaviour {
                 target = null;
             }
 
-            targetDict = new List<IRaider>(RaiderDB.GetInstance().GetAllDDsSortedByHealth());
-            foreach (IRaider raider in targetDict)
+            targetDict = new List<Raider>(RaiderDB.GetInstance().GetAllDDsSortedByHealth());
+            foreach (Raider raider in targetDict)
             {
                 if (!raider.GetGameObject().GetComponent<StoneOne>() && !raider.GetGameObject().GetComponent<StoneTwo>())
                 {
@@ -118,8 +118,8 @@ public class ApplyStone : MonoBehaviour {
 
             if (target == null)
             {
-                targetDict = new List<IRaider>(RaiderDB.GetInstance().GetAllRaidersSortedByHealth());
-                foreach (IRaider raider in targetDict)
+                targetDict = new List<Raider>(RaiderDB.GetInstance().GetAllRaidersSortedByHealth());
+                foreach (Raider raider in targetDict)
                 {
                     if (!raider.GetGameObject().GetComponent<StoneOne>() && !raider.GetGameObject().GetComponent<StoneTwo>())
                     {

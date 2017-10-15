@@ -50,7 +50,7 @@ public class Mushroom : Raider
     /// </summary>
     public override void OnSwing()
     {
-        foreach (IRaider raider in RaiderDB.GetInstance().GetAllRaiders())
+        foreach (Raider raider in RaiderDB.GetInstance().GetAllRaiders())
         {
             raider.HealSimple(healAmount, true);
         }

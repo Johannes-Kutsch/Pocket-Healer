@@ -8,8 +8,8 @@ using UnityEngine.UI;
 /// </summary>
 public class ApplyMark : MonoBehaviour
 {
-    private IRaider target = null;
-    private List<IRaider> targetDict = new List<IRaider>();
+    private Raider target = null;
+    private List<Raider> targetDict = new List<Raider>();
     public string emoteText = "markiert einen Spieler deiner Gruppe";
 
     public int levelIndex;
@@ -56,14 +56,14 @@ public class ApplyMark : MonoBehaviour
 
         if (swingTimerCurrent >= swingTimer)
         {
-            targetDict = new List<IRaider>(RaiderDB.GetInstance().GetAllDDs());
+            targetDict = new List<Raider>(RaiderDB.GetInstance().GetAllDDs());
             if (target != null && targetDict.Count > 1)
             {
                 targetDict.Remove(target);
             }
             if(targetDict.Count == 0)
             {
-                targetDict = new List<IRaider>(RaiderDB.GetInstance().GetAllRaiders());
+                targetDict = new List<Raider>(RaiderDB.GetInstance().GetAllRaiders());
             }
             target = targetDict[Random.Range(0, targetDict.Count)];
             target.GetGameObject().AddComponent<MarkDebuff>();

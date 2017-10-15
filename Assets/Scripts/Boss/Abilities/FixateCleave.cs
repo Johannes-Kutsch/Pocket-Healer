@@ -35,7 +35,7 @@ public class FixateCleave : MonoBehaviour {
     private float multiplierFixate;
     private static float DELAYFIXATE = 1f;
 
-    private IRaider target = null;
+    private Raider target = null;
 
     private float swingTimerAutoAttack;
     private float dmgAutoAttack;
@@ -180,11 +180,11 @@ public class FixateCleave : MonoBehaviour {
     /// </summary>
     private void ChangeTarget()
     {
-        List<IRaider> targetDict = new List<IRaider>(RaiderDB.GetInstance().GetAllTanks());
+        List<Raider> targetDict = new List<Raider>(RaiderDB.GetInstance().GetAllTanks());
         int numberTargets = targetDict.Count;
         if (numberTargets <= 0)
         {
-            targetDict = new List<IRaider>(RaiderDB.GetInstance().GetAllRaiders());
+            targetDict = new List<Raider>(RaiderDB.GetInstance().GetAllRaiders());
             numberTargets = targetDict.Count;
             dmgAutoAttack *= 2f;
         }
@@ -223,13 +223,13 @@ public class FixateCleave : MonoBehaviour {
     private void AttackCleave()
     {
         float dmgCleaveActual = dmgCleave;
-        List<IRaider> targetDictCleave = new List<IRaider>(RaiderDB.GetInstance().GetAllTanks());
+        List<Raider> targetDictCleave = new List<Raider>(RaiderDB.GetInstance().GetAllTanks());
         if (targetDictCleave.Count <= 1)
         {
-            targetDictCleave = new List<IRaider>(RaiderDB.GetInstance().GetAllRaiders());
+            targetDictCleave = new List<Raider>(RaiderDB.GetInstance().GetAllRaiders());
             dmgCleaveActual *= 0.5f;
         }
-        foreach (IRaider raider in targetDictCleave)
+        foreach (Raider raider in targetDictCleave)
             raider.Damage(dmgCleaveActual);
     }
 

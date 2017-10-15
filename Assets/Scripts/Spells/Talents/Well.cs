@@ -5,9 +5,9 @@ using System.Collections.Generic;
 using System.Linq;
 
 public class Well : MonoBehaviour {
-    private IRaider target;
+    private Raider target;
     public Image cooldownOverlay;
-    private List<IRaider> raiderDict = new List<IRaider>();
+    private List<Raider> raiderDict = new List<Raider>();
     private float cooldown = 1f;
     public float cooldownTimer;
     private float cooldownMax;

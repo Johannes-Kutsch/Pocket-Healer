@@ -25,7 +25,7 @@ public abstract class Spell : MonoBehaviour
     private float cooldownMax;
     private bool onCooldown = false;
     private AudioSource source;
-    private IRaider target;
+    private Raider target;
 
     private AudioClip castSound;
     private AudioClip impactSound;
@@ -196,7 +196,7 @@ public abstract class Spell : MonoBehaviour
     /// Gets the target .
     /// </summary>
     /// <returns></returns>
-    public IRaider GetTarget()
+    public Raider GetTarget()
     {
         return target;
     }

@@ -11,18 +11,18 @@ public class RaiderDB {
     private GameObject myGO;
     private int n;
     private static RaiderDB self;
-    private List<IRaider> raiderDict;
-    private List<IRaider> tankDict;
-    private List<IRaider> ddDict;
+    private List<Raider> raiderDict;
+    private List<Raider> tankDict;
+    private List<Raider> ddDict;
 
     /// <summary>
     /// Constructor, creates the dictionaries.
     /// </summary>
     private RaiderDB()
     {
-        raiderDict = new List<IRaider>();
-        tankDict = new List<IRaider>();
-        ddDict = new List<IRaider>();
+        raiderDict = new List<Raider>();
+        tankDict = new List<Raider>();
+        ddDict = new List<Raider>();
     }
 
     /// <summary>
@@ -42,7 +42,7 @@ public class RaiderDB {
     /// Registers a raider.
     /// </summary>
     /// <param name="raider">The raider.</param>
-    public void RegisterRaider(IRaider raider)
+    public void RegisterRaider(Raider raider)
     {
         raiderDict.Add(raider);
     }
@@ -51,7 +51,7 @@ public class RaiderDB {
     /// Deregisters a raider.
     /// </summary>
     /// <param name="raider">The raider.</param>
-    public void DeRegisterRaider(IRaider raider)
+    public void DeRegisterRaider(Raider raider)
     {
         if (raiderDict.Contains(raider))
         {
@@ -63,7 +63,7 @@ public class RaiderDB {
     /// Registers a tank.
     /// </summary>
     /// <param name="tank">The tank.</param>
-    public void RegisterTank(IRaider tank)
+    public void RegisterTank(Raider tank)
     {
         raiderDict.Add(tank);
         tankDict.Add(tank);
@@ -73,7 +73,7 @@ public class RaiderDB {
     /// Deregisters a tank.
     /// </summary>
     /// <param name="tank">The tank.</param>
-    public void DeRegisterTank(IRaider tank)
+    public void DeRegisterTank(Raider tank)
     {
         if (raiderDict.Contains(tank))
         {
@@ -90,7 +90,7 @@ public class RaiderDB {
     /// Registers a dd.
     /// </summary>
     /// <param name="dd">The dd.</param>
-    public void RegisterDD(IRaider dd)
+    public void RegisterDD(Raider dd)
     {
         raiderDict.Add(dd);
         ddDict.Add(dd);
@@ -100,7 +100,7 @@ public class RaiderDB {
     /// Deregisters a dd.
     /// </summary>
     /// <param name="dd">The dd.</param>
-    public void DeRegisterDD(IRaider dd)
+    public void DeRegisterDD(Raider dd)
     {
         if (raiderDict.Contains(dd))
         {
@@ -117,7 +117,7 @@ public class RaiderDB {
     /// Gets all raiders in random order.
     /// </summary>
     /// <returns>a list containing all raiders in random order</returns>
-    public List<IRaider> GetAllRaiders()
+    public List<Raider> GetAllRaiders()
     {
         return raiderDict.OrderBy(o => Random.Range(1, 100)).ToList();
     }
@@ -126,7 +126,7 @@ public class RaiderDB {
     /// Gets all tanks in random order.
     /// </summary>
     /// <returns>a list containing all tanks in random order</returns>
-    public List<IRaider> GetAllTanks()
+    public List<Raider> GetAllTanks()
     {
         return tankDict.OrderBy(o => Random.Range(1, 100)).ToList();
     }
@@ -135,7 +135,7 @@ public class RaiderDB {
     /// Gets all dds in random order.
     /// </summary>
     /// <returns>a list containing all dds in random order</returns>
-    public List<IRaider> GetAllDDs()
+    public List<Raider> GetAllDDs()
     {
         return ddDict.OrderBy(o => Random.Range(1, 100)).ToList();
     }
@@ -144,7 +144,7 @@ public class RaiderDB {
     /// Gets all raiders sorted by health. (ascending, lowest health first)
     /// </summary>
     /// <returns>a list containing all raiders sorted by health</returns>
-    public List<IRaider> GetAllRaidersSortedByHealth()
+    public List<Raider> GetAllRaidersSortedByHealth()
     {
         return raiderDict.OrderBy(o => o.GetHealth()).ToList();
     }
@@ -153,7 +153,7 @@ public class RaiderDB {
     /// Gets all raiders sorted by health. (ascending, lowest health first)
     /// </summary>
     /// <returns>a list containing all raiders sorted by health</returns>
-    public List<IRaider> GetAllDDsSortedByHealth()
+    public List<Raider> GetAllDDsSortedByHealth()
     {
         return ddDict.OrderBy(o => o.GetHealth()).ToList();
     }
@@ -162,7 +162,7 @@ public class RaiderDB {
     /// Gets all raiders sorted by health. (ascending, lowest health first)
     /// </summary>
     /// <returns>a list containing all raiders sorted by health</returns>
-    public List<IRaider> GetAllTanksSortedByHealth()
+    public List<Raider> GetAllTanksSortedByHealth()
     {
         return tankDict.OrderBy(o => o.GetHealth()).ToList();
     }

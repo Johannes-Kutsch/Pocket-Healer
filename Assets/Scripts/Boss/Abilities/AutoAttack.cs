@@ -8,8 +8,8 @@ using System.Linq;
 /// </summary>
 public class AutoAttack : MonoBehaviour
 {
-    private List<IRaider> targetDict = new List<IRaider>();
-    private IRaider target = null;
+    private List<Raider> targetDict = new List<Raider>();
+    private Raider target = null;
 
     public int levelIndex;
 
@@ -73,12 +73,12 @@ public class AutoAttack : MonoBehaviour
     /// </summary>
     private void ChangeTarget()
     {
-        targetDict = new List<IRaider>(RaiderDB.GetInstance().GetAllTanks());
+        targetDict = new List<Raider>(RaiderDB.GetInstance().GetAllTanks());
         int numberTargets = targetDict.Count;
 
         if (numberTargets <= 0) //no tank is alive, load all raider
         {
-            targetDict = new List<IRaider>(RaiderDB.GetInstance().GetAllRaiders());
+            targetDict = new List<Raider>(RaiderDB.GetInstance().GetAllRaiders());
             numberTargets = targetDict.Count;
             dmg *= 4;
         }

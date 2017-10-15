@@ -22,10 +22,10 @@ public class GreenBuffInvis : Buff
     /// </returns>
     public override float OnHealingTaken(float amount)
     {
-        List<IRaider> raiderDict = RaiderDB.GetInstance().GetAllRaiders();
+        List<Raider> raiderDict = RaiderDB.GetInstance().GetAllRaiders();
         float healAmount = amount * 0.05f;
 
-        foreach (IRaider target in raiderDict)
+        foreach (Raider target in raiderDict)
         {
             target.HealSimple(healAmount, false);
         }

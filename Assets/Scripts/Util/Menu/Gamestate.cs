@@ -14,7 +14,7 @@ public class Gamestate : MonoBehaviour {
     public static Gamestate gamestate;
     public GameObject Popup;
 
-    private IRaider target;
+    private Raider target;
     private CastBar castBar;
     private ManaBar manaBar;
     private GcdBar gcdBar;
@@ -201,7 +201,7 @@ public class Gamestate : MonoBehaviour {
     /// Sets the target.
     /// </summary>
     /// <param name="target">The target.</param>
-    public void SetTarget(IRaider target)
+    public void SetTarget(Raider target)
     {
         this.target = target;
     }
@@ -210,7 +210,7 @@ public class Gamestate : MonoBehaviour {
     /// Gets the target.
     /// </summary>
     /// <returns>the target</returns>
-    public IRaider GetTarget()
+    public Raider GetTarget()
     {
         return target;
     }

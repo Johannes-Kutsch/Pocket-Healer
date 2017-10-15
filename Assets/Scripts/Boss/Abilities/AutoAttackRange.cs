@@ -5,8 +5,8 @@ using System.Collections.Generic;
 /// Randomly damages a single raider, prefers dds
 /// </summary>
 public class AutoAttackRange : MonoBehaviour {
-    public IRaider target = null;
-    private List<IRaider> targetDict = new List<IRaider>();
+    public Raider target = null;
+    private List<Raider> targetDict = new List<Raider>();
 
     public int levelIndex;
 
@@ -44,12 +44,12 @@ public class AutoAttackRange : MonoBehaviour {
             swingTimerCurrent += 0.02f;
             if (swingTimerCurrent >= swingTimer)
             {
-                targetDict = new List<IRaider>(RaiderDB.GetInstance().GetAllDDs());
+                targetDict = new List<Raider>(RaiderDB.GetInstance().GetAllDDs());
                 int numberTargets = targetDict.Count;
 
                 if (numberTargets <= 0) //no dd is alive, load all raider
                 {
-                    targetDict = new List<IRaider>(RaiderDB.GetInstance().GetAllRaiders());
+                    targetDict = new List<Raider>(RaiderDB.GetInstance().GetAllRaiders());
                     numberTargets = targetDict.Count;
                 }
 

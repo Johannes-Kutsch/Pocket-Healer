@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public abstract class Raider : MonoBehaviour, IRaider
+public abstract class Raider : MonoBehaviour
 {
     public CanvasGroup hpGroup; //The hp bar background and the mask
     public RectTransform hpBar;
@@ -98,7 +98,7 @@ public abstract class Raider : MonoBehaviour, IRaider
                 amount = buff.OnHealingTaken(amount); //call the HealingTaken method in every buff
             }
 
-            foreach (IRaider raider in RaiderDB.GetInstance().GetAllRaiders())
+            foreach (Raider raider in RaiderDB.GetInstance().GetAllRaiders())
             {
                 foreach (IBuff buff in raider.GetGameObject().GetComponent<BuffManager>().GetAllBuffsSortetByDuration())
                 {
@@ -145,7 +145,7 @@ public abstract class Raider : MonoBehaviour, IRaider
                 }
             }
 
-            foreach (IRaider raider in RaiderDB.GetInstance().GetAllRaiders())
+            foreach (Raider raider in RaiderDB.GetInstance().GetAllRaiders())
             {
                 foreach (IBuff buff in raider.GetGameObject().GetComponent<BuffManager>().GetAllBuffsSortetByDuration())
                 {

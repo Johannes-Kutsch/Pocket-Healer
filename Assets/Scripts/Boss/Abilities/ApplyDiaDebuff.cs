@@ -7,8 +7,8 @@ using System.Collections.Generic;
 /// </summary>
 public class ApplyDiaDebuff : MonoBehaviour
 {
-    private IRaider target = null;
-    private List<IRaider> targetDict = new List<IRaider>();
+    private Raider target = null;
+    private List<Raider> targetDict = new List<Raider>();
     private bool dotsApplyed = false;
 
     public string emoteText = "markiert drei Spieler deiner Gruppe";
@@ -25,7 +25,7 @@ public class ApplyDiaDebuff : MonoBehaviour
             GetComponent<Boss>().SetEmoteText(" " + emoteText);
         if (swingTimerCurrent >= swingTimer && !dotsApplyed)
         {
-            targetDict = new List<IRaider>(RaiderDB.GetInstance().GetAllRaiders());
+            targetDict = new List<Raider>(RaiderDB.GetInstance().GetAllRaiders());
             for (int i = 0; i < numberTargets; i++)
             {
                 if (target != null && targetDict.Count > 1)
@@ -40,8 +40,8 @@ public class ApplyDiaDebuff : MonoBehaviour
         }
         if (swingTimerCurrent >= dotDuration)
         {
-            targetDict = new List<IRaider>(RaiderDB.GetInstance().GetAllRaiders());
-            foreach (IRaider target in targetDict)
+            targetDict = new List<Raider>(RaiderDB.GetInstance().GetAllRaiders());
+            foreach (Raider target in targetDict)
             {
                 DiaDebuff debuff = target.GetGameObject().GetComponent<DiaDebuff>();
                 if (debuff != null)

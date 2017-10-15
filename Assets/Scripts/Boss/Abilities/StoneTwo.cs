@@ -79,12 +79,12 @@ public class StoneTwo : BuffTicking
         if (!hasGuardianSpirit) //only damage when no guardian spirit
         {
             
-            List<IRaider> targetDict = RaiderDB.GetInstance().GetAllRaiders();
+            List<Raider> targetDict = RaiderDB.GetInstance().GetAllRaiders();
             targetDict.Remove(GetRaider());
 
             Destroy();
 
-            foreach (IRaider target in targetDict)
+            foreach (Raider target in targetDict)
             {
                 target.Damage(exploDmg);
             }

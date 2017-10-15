@@ -22,7 +22,7 @@ public abstract class BuffTicking : Buff
         buffManager = GetComponent<BuffManager>();
         buffManager.RegisterBuff(this);
 
-        raider = GetComponent<IRaider>();
+        raider = GetComponent<Raider>();
 
         timeLeft = duration;
 

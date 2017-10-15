@@ -34,11 +34,11 @@ public class StoneOne : BuffTicking
     {
         if (raider.GetHealth() >= 1f)
         {
-            List<IRaider> targetDict = RaiderDB.GetInstance().GetAllRaiders();
+            List<Raider> targetDict = RaiderDB.GetInstance().GetAllRaiders();
 
             Destroy();
 
-            foreach (IRaider target in targetDict)
+            foreach (Raider target in targetDict)
             {
                 target.Damage(exploDmg);
             }
@@ -76,12 +76,12 @@ public class StoneOne : BuffTicking
 
         if (!hasGuardianSpirit)
         {
-            List<IRaider> targetDict = RaiderDB.GetInstance().GetAllRaiders();
+            List<Raider> targetDict = RaiderDB.GetInstance().GetAllRaiders();
             targetDict.Remove(raider);
 
             Destroy();
 
-            foreach (IRaider target in targetDict)
+            foreach (Raider target in targetDict)
             {
                 target.Damage(exploDmg);
             }

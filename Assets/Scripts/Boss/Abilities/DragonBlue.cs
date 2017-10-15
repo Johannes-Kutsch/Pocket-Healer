@@ -39,7 +39,7 @@ public class DragonBlue : Raider
             activated = true;
             base.canSwing = true;
 
-            foreach (IRaider raider in RaiderDB.GetInstance().GetAllRaiders()) //increase raider max hp by 50
+            foreach (Raider raider in RaiderDB.GetInstance().GetAllRaiders()) //increase raider max hp by 50
             {
                 raider.IncreaseMaxHealth(50f);
                 raider.Heal(50);

@@ -12,7 +12,7 @@ using System.Linq;
 /// P3: Water Phase - Removes all debuffs and damages every raider in a fixed intervall.
 /// </summary>
 public class Alakir : MonoBehaviour {
-    private IRaider rangeTarget = null;
+    private Raider rangeTarget = null;
 
     public int levelIndex;
     public Image BossModImagePhase;
@@ -128,9 +128,9 @@ public class Alakir : MonoBehaviour {
         {
             fireDotTimerCurrent = 0f;
 
-            List<IRaider> targetDict = new List<IRaider>();
+            List<Raider> targetDict = new List<Raider>();
 
-            foreach (IRaider raider in new List<IRaider>(RaiderDB.GetInstance().GetAllDDs()))
+            foreach (Raider raider in new List<Raider>(RaiderDB.GetInstance().GetAllDDs()))
             {
                 if (!raider.GetGameObject().GetComponent<AlakirFeuerDebuff>())
                 {
@@ -140,7 +140,7 @@ public class Alakir : MonoBehaviour {
 
             if (targetDict.Count == 0)
             {
-                foreach (IRaider raider in new List<IRaider>(RaiderDB.GetInstance().GetAllRaiders()))
+                foreach (Raider raider in new List<Raider>(RaiderDB.GetInstance().GetAllRaiders()))
                 {
                     if (!raider.GetGameObject().GetComponent<AlakirFeuerDebuff>())
                     {
@@ -154,7 +154,7 @@ public class Alakir : MonoBehaviour {
                 targetDict = RaiderDB.GetInstance().GetAllRaiders();
             }
 
-            IRaider fireTarget = targetDict[Random.Range(0, targetDict.Count)];
+            Raider fireTarget = targetDict[Random.Range(0, targetDict.Count)];
             fireTarget.GetGameObject().AddComponent<AlakirFeuerDebuff>();
             fireTarget = null;
 
@@ -164,7 +164,7 @@ public class Alakir : MonoBehaviour {
         {
             rangeAttackTimerCurrent = 0f;
 
-            List<IRaider> targetDict = new List<IRaider>(RaiderDB.GetInstance().GetAllDDs());
+            List<Raider> targetDict = new List<Raider>(RaiderDB.GetInstance().GetAllDDs());
 
             if (rangeTarget != null && targetDict.Count > 1 && targetDict.Contains(rangeTarget))
             {
@@ -180,9 +180,9 @@ public class Alakir : MonoBehaviour {
 
         else if (timeInPhase > phaseduration) //switch to air phase
         {
-            List<IRaider> targetDict = new List<IRaider>(RaiderDB.GetInstance().GetAllRaiders());
+            List<Raider> targetDict = new List<Raider>(RaiderDB.GetInstance().GetAllRaiders());
 
-            foreach (IRaider target in targetDict)
+            foreach (Raider target in targetDict)
             {
                 target.GetGameObject().AddComponent<AlakirWasserDebuff>();
             }
@@ -205,9 +205,9 @@ public class Alakir : MonoBehaviour {
         if (timeInPhase > phaseduration - 2.05f && timeInPhase < phaseduration - 1.95f) //emote for water phase
             GetComponent<Boss>().SetEmoteText(" " + emotePhaseTwo);
 
-        List<IRaider> targetDict = new List<IRaider>(RaiderDB.GetInstance().GetAllRaiders());
+        List<Raider> targetDict = new List<Raider>(RaiderDB.GetInstance().GetAllRaiders());
 
-        foreach (IRaider target in targetDict) //set bossmod text for air debuff strength
+        foreach (Raider target in targetDict) //set bossmod text for air debuff strength
         {
             AlakirWasserDebuff wasserBuff = target.GetGameObject().GetComponent<AlakirWasserDebuff>();
             if (wasserBuff != null)
@@ -220,9 +220,9 @@ public class Alakir : MonoBehaviour {
 
         if (timeInPhase > phaseduration) //switch to water phase
         {
-            targetDict = new List<IRaider>(RaiderDB.GetInstance().GetAllRaiders());
+            targetDict = new List<Raider>(RaiderDB.GetInstance().GetAllRaiders());
 
-            foreach (IRaider target in targetDict)
+            foreach (Raider target in targetDict)
             {
                 AlakirFeuerDebuff feuerBuff = target.GetGameObject().GetComponent<AlakirFeuerDebuff>();
                 if (feuerBuff != null)
@@ -260,9 +260,9 @@ public class Alakir : MonoBehaviour {
         {
             frostTimerCurrent = 0f;
 
-            List<IRaider> targetDict = new List<IRaider>(RaiderDB.GetInstance().GetAllRaiders());
+            List<Raider> targetDict = new List<Raider>(RaiderDB.GetInstance().GetAllRaiders());
 
-            foreach (IRaider raider in targetDict)
+            foreach (Raider raider in targetDict)
             {
                 raider.Damage(frostDamage);
             }

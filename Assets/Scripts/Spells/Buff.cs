@@ -10,7 +10,7 @@ using UnityEngine;
 public abstract class Buff : MonoBehaviour, IBuff
 {
     public BuffManager buffManager;
-    public IRaider raider;
+    public Raider raider;
     public Material image;
     public float runtime = 0f;
     public float timeLeft;
@@ -30,7 +30,7 @@ public abstract class Buff : MonoBehaviour, IBuff
         buffManager = GetComponent<BuffManager>();
         buffManager.RegisterBuff(this);
 
-        raider = GetComponent<IRaider>();
+        raider = GetComponent<Raider>();
 
         timeLeft = duration;
 
@@ -222,7 +222,7 @@ public abstract class Buff : MonoBehaviour, IBuff
     /// Gets the raider the buff is attached to.
     /// </summary>
     /// <returns></returns>
-    public IRaider GetRaider()
+    public Raider GetRaider()
     {
         return raider;
     }

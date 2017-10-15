@@ -19,7 +19,7 @@ public class Prayer : Spell {
     /// </summary>
     public override void OnCastSucess()
     {
-        IRaider target = GetTarget();
+        Raider target = GetTarget();
 
         if (!target.GetGameObject().GetComponent<PrayerBuff>())
         {

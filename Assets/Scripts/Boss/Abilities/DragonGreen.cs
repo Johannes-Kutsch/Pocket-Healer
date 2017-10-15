@@ -35,7 +35,7 @@ public class DragonGreen : Raider
         {
             activated = true;
 
-            foreach (IRaider raider in RaiderDB.GetInstance().GetAllRaiders()) //increase raider max hp by 50 and apply invis buff
+            foreach (Raider raider in RaiderDB.GetInstance().GetAllRaiders()) //increase raider max hp by 50 and apply invis buff
             {
                 raider.GetGameObject().AddComponent<GreenBuffInvis>();
                 raider.IncreaseMaxHealth(50f);

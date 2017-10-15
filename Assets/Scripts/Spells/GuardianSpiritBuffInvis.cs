@@ -24,10 +24,10 @@ public class GuardianSpiritBuffInvis : Buff, IGuardianSpirit
         GetRaider().HealSimple(300, false);
         Destroy();
 
-        List<IRaider> raiderDict = RaiderDB.GetInstance().GetAllRaidersSortedByHealth();
+        List<Raider> raiderDict = RaiderDB.GetInstance().GetAllRaidersSortedByHealth();
         raiderDict.Remove(GetRaider());
 
-        foreach (IRaider target in raiderDict)
+        foreach (Raider target in raiderDict)
         {
             IGuardianSpirit buff = target.GetGameObject().GetComponent<IGuardianSpirit>();
 
