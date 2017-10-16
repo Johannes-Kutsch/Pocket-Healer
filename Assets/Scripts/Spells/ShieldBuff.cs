@@ -8,10 +8,10 @@ using System.Linq;
 /// </summary>
 public class ShieldBuff : Buff
 {
-    private readonly float DURATION = 15f;
+    public readonly float DURATION = 15f;
     private readonly string MATERIALNAME = "Shield_Buff";
 
-    private float absorbAmount = 80f;
+    public float absorbAmount = 80f;
 
     /// <summary>
     /// Called on awake.

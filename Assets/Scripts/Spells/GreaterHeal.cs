@@ -15,12 +15,12 @@ public class GreaterHeal : Spell
     private readonly string CASTSOUNDNAME = "GreaterHealCast";
     private readonly string IMPACTSOUNDNAME = "GreaterHealImpact";
 
-    private float healAmount = 50f;
+    public float healAmount = 50f;
 
     /// <summary>
     /// Called on Awake
     /// </summary>
-    private void Awake()
+    public void Awake()
     {
         if (GameControl.control.talente[1])
         {
@@ -29,6 +29,7 @@ public class GreaterHeal : Spell
         if (GameControl.control.talente[4])
         {
             healAmount *= 0.75f;
+            manacost = -5f;
         }
     }
 

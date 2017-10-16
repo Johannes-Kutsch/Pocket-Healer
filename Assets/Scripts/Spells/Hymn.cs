@@ -11,17 +11,17 @@ public class Hymn : Spell {
     private readonly string SPELLNAME = "Hymn of Hope";
     private readonly float COOLDOWN = 25f;
     private readonly float MANACOST = 50f;
-    private readonly float CASTTIME = 3f;
+    public readonly float CASTTIME = 3f;
     private readonly string CASTSOUNDNAME = "HymneCast";
     private readonly string IMPACTSOUNDNAME = null;
 
-    private float healAmount = 20f;
-    private float ticks = 5f;
+    public readonly float HEALAMOUNT = 20f;
+    public readonly float TICKS = 5f;
     private float secondsPerTick;
 
     void Awake()
     {
-        secondsPerTick = CASTTIME / (ticks - 1);
+        secondsPerTick = CASTTIME / (TICKS - 1);
     }
 
     /// <summary>
@@ -38,14 +38,14 @@ public class Hymn : Spell {
     /// <returns></returns>
     IEnumerator HymnChannel()
     {
-        for (float i = 0; i < ticks; i++)
+        for (float i = 0; i < TICKS; i++)
         {
             foreach (Raider raider in RaiderDB.GetInstance().GetAllRaiders())
             {
-                raider.Heal(healAmount);
+                raider.Heal(HEALAMOUNT);
             }
 
-            if (i < ticks - 1)
+            if (i < TICKS - 1)
             {
                 yield return new WaitForSeconds(secondsPerTick);
             }

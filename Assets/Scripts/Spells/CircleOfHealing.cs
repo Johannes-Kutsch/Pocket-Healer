@@ -9,21 +9,21 @@ using UnityEngine.UI;
 /// </summary>
 public class CircleOfHealing : Spell {
     private readonly string SPELLNAME = "Circle of Healing";
-    private new float cooldown = 8f;
+    private float cooldown = 8f;
     private readonly float MANACOST = 80f;
-    private new float castTime = 0f;
+    private float castTime = 0f;
     private readonly string CASTSOUNDNAME = "GreaterHealCast";
     private readonly string IMPACTSOUNDNAME = "CircleCast";
 
-    private float healAmount = 50f;
-    private float numberTargets = 5f;
+    public float healAmount = 50f;
+    public float numberTargets = 5f;
 
     /// <summary>
     /// Called on awake.
     /// Checks if talents are picked that modify the skill.
     /// Set variables in base class.
     /// </summary>
-    void Awake()
+    public void Awake()
     {
         if (GameControl.control.talente[2]) //7 targets talent
         {

@@ -17,7 +17,7 @@ public class BindingHeal : Spell
     private readonly string CASTSOUNDNAME = "GreaterHealCast";
     private readonly string IMPACTSOUNDNAME = "FlashHealImpact";
 
-    private float healAmount = 50f;
+    public readonly float HEALAMOUNT = 50f;
     private float numberJumps = 1f;
 
     /// <summary>
@@ -26,7 +26,7 @@ public class BindingHeal : Spell
     public override void OnCastSucess()
     {
         //heal target
-        GetTarget().Heal(healAmount);
+        GetTarget().Heal(HEALAMOUNT);
 
         //get all raider sorted by health
         List<Raider> raiderDict = RaiderDB.GetInstance().GetAllRaidersSortedByHealth();
@@ -34,7 +34,7 @@ public class BindingHeal : Spell
         for (int i = 0; i < numberJumps && i < raiderDict.Count(); i++)
         {
             raiderDict.Remove(GetTarget()); //remove original target
-            raiderDict.First().Heal(healAmount); //heal lowest raider
+            raiderDict.First().Heal(HEALAMOUNT); //heal lowest raider
         }
     }
 

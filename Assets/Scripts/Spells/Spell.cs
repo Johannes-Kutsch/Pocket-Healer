@@ -81,8 +81,19 @@ public abstract class Spell : MonoBehaviour
             target = gamestate.GetTarget();
             if (target != null && target.IsAlive())
             {
-                if (gamestate.DecreaseMana(manaCost))
+                if (manaCost >= 0) //Spell costs Mana
                 {
+                    if (gamestate.DecreaseMana(manaCost))
+                    {
+                        if (castTime == 0)
+                            CastInstant(); //spell with no casttime
+                        else
+                            StartCoroutine(Cast()); //spell with casttime
+                    }
+                } else //Spel regenerates Mana
+                {
+                    gamestate.IncreaseMana(manaCost * -1);
+
                     if (castTime == 0)
                         CastInstant(); //spell with no casttime
                     else

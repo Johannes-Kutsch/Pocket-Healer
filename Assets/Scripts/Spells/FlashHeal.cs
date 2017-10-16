@@ -15,7 +15,7 @@ public class FlashHeal : Spell
     private readonly string CASTSOUNDNAME = "GreaterHealCast";
     private readonly string IMPACTSOUNDNAME = "FlashHealImpact";
 
-    private float healAmount = 50f;
+    public readonly float HEALAMOUNT = 50f;
 
     /// <summary>
     /// Called when a cast is sucesfully finished.
@@ -23,7 +23,7 @@ public class FlashHeal : Spell
     /// </summary>
     public override void OnCastSucess()
     {
-        GetTarget().Heal(healAmount);
+        GetTarget().Heal(HEALAMOUNT);
     }
 
     /// <summary>

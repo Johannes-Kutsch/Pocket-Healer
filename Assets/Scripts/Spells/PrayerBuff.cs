@@ -4,11 +4,11 @@ using System.Collections.Generic;
 using System.Linq;
 
 public class PrayerBuff : Buff {
-    private readonly float DURATION = 10f;
+    public readonly float DURATION = 10f;
     private readonly string MATERIALNAME = "PrayerOfMending_Buff";
 
-    private float healAmount = 50f;
-    private float jumpsLeft = 6;
+    public readonly float HEALAMOUNT = 50f;
+    public float jumpsLeft = 6;
 
     /// <summary>
     /// Called on awake.
@@ -49,7 +49,7 @@ public class PrayerBuff : Buff {
     /// </summary>
     public void Jump()
     {
-        GetRaider().Heal(healAmount);
+        GetRaider().Heal(HEALAMOUNT);
         if (jumpsLeft > 0)
         {
             List<Raider> raiderDict = RaiderDB.GetInstance().GetAllRaidersSortedByHealth();

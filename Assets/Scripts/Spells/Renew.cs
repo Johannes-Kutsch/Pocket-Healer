@@ -9,9 +9,9 @@ using System;
 public class Renew : Spell
 {
     private readonly string SPELLNAME = "Renew";
-    private readonly float MANACOST = 10f;
-    private readonly float CASTTIME = 0f;
-    private float cooldown = 3.5f;
+    public readonly float MANACOST = 10f;
+    public readonly float CASTTIME = 0f;
+    public float cooldown = 3.5f;
     private readonly string CASTSOUNDNAME = null;
     private readonly string IMPACTSOUNDNAME = "RenewCast";
 

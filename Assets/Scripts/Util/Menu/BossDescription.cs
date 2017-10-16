@@ -64,21 +64,19 @@ public class BossDescription : MonoBehaviour {
         }
     }
 
-    //ToDo: English
-
     /// <summary>
     /// Loads images and texts for level 1 in the description.
     /// </summary>
     public void LevelOne()
     {
         name.text = "Hogger";
-        description.text = "Hogger ist ein kleiner Gnoll, der das örtliche Farmland unsicher macht. Stelle dich im um den Bauern wieder ein sicheres Leben zu ermöglichen und erste Kampferfahrungen zu sammeln.";
+        description.text = "Hogger is a small Gnoll who terrorizes the surrounding farmland. Fight him to gather first combat experiences and make the peasants life more secure.";
         skillOneImage.sprite = Resources.Load("Klaue", typeof(Sprite)) as Sprite;
-        skillOne.text = "Hoggers schlägt mit seinen starken Klauen nach deinem Tank.";
+        skillOne.text = "Hoggers hits your tank with his strong claws.";
         skillTwoImage.sprite = Resources.Load("Giftwolke", typeof(Sprite)) as Sprite;
-        skillTwo.text = "Hogger wird von einer Giftwolke umgeben welche regelmäßig einzelne Spieler verletzt.";
+        skillTwo.text = "Hogger is surrounded by a cloud of poison, which regularly injures individual partymembers.";
         skillThreeImage.sprite = Resources.Load("ThrowRock", typeof(Sprite)) as Sprite;
-        skillThree.text = "Hogger wirft regelmäßig mit einem Stein nach einem Mitspieler.";
+        skillThree.text = "Hogger regularly throws a stone after fellow partymembers.";
     }
 
     /// <summary>
@@ -87,13 +85,13 @@ public class BossDescription : MonoBehaviour {
     public void LevelTwo()
     {
         name.text = "Horridon";
-        description.text = "Horridon ist ein stachelieges, gepanzertes Reptiel das sich in einen nahen Wald verirrt hat. Töte ihn um das Land ein kleines Stück sicherer zu machen.";
+        description.text = "Horridon is a prickly, armored reptile that has strayed into a nearby forest. Kill him to make the country a little safer.";
         skillOneImage.sprite = Resources.Load("Klaue", typeof(Sprite)) as Sprite;
-        skillOne.text = "Horridon schlägt mit seinen starken Klauen nach deinem Tank.";
+        skillOne.text = "Hoggers hits your tank with his strong claws.";
         skillTwoImage.sprite = Resources.Load("Stacheln", typeof(Sprite)) as Sprite;
-        skillTwo.text = "Horridons Körper ist mit Stacheln übersäht an dem sich einzelne Spieler verletzen.";
+        skillTwo.text = "Horridon's body is littered with spines on which individual partymembers are injured.";
         skillThreeImage.sprite = Resources.Load("Trampeln", typeof(Sprite)) as Sprite;
-        skillThree.text = "Horridon ist so groß das er deine Gruppe zertrampeln kann.";
+        skillThree.text = "Horridon is so big that he can crush your party.";
     }
 
     /// <summary>
@@ -102,15 +100,15 @@ public class BossDescription : MonoBehaviour {
     public void LevelThree()
     {
         name.text = "Coldarra";
-        description.text = "Coldarra ist ein Drache der die Viehherden einiger localen Bauern stark dezimiert hat. Töte Coldarra um die Region vor einer Hungersnot zu bewahren.";
+        description.text = "Coldarra is a dragon that has severely decimated the livestock of some local peasants. Kill Coldarra to save the region from famine.";
         skillOneImage.sprite = Resources.Load("DragonKlaue", typeof(Sprite)) as Sprite;
-        skillOne.text = "Coldarra schlägt mit ihren starken Klauen nach deinen Tanks.";
+        skillOne.text = "Coldarra hits your tanks with her strong claws.";
         skillTwoImage.sprite = Resources.Load("DragonSpikes", typeof(Sprite)) as Sprite;
-        skillTwo.text = "Coldarras Körper ist mit Stacheln übersäht an dem sich einzelne Spieler verletzen.";
+        skillTwo.text = "Coldarra's body is littered with spines on which individual partymembers are injured.";
         skillThreeImage.sprite = Resources.Load("FeuerAtem", typeof(Sprite)) as Sprite;
-        skillThree.text = "Coldarra kann mit ihrem Feurigem Atem die ganze Gruppe in Brand stecken.";
+        skillThree.text = "Coldarra can set the whole party on fire with her fiery breath.";
         skillFourImage.sprite = Resources.Load("Schwanzschlag", typeof(Sprite)) as Sprite;
-        skillFour.text = "Coldarra hohlt mit ihrem Schwanz aus und schlägt einzelne Spieler zu boden.";
+        skillFour.text = "Coldarra has a strong tail with which she can use to beat individual partymembers to ground.";
     }
 
     /// <summary>
@@ -119,15 +117,15 @@ public class BossDescription : MonoBehaviour {
     public void LevelFour()
     {
         name.text = "Ko'ragh";
-        description.text = "Ko'ragh ist ein Magier, welcher der dunklen Seite verfallen ist. Er hat einige Kinder aus einem nahem Dorf entführt. Töte ihn und bring die Kinder zu ihren Familien zurück.";
+        description.text = "Ko'ragh is a magician who has fallen to the dark side. He has kidnapped some children from a nearby village. Kill him and bring the children back to their families.";
         skillOneImage.sprite = Resources.Load("MagicAutoAttack", typeof(Sprite)) as Sprite;
-        skillOne.text = "Ko'ragh schießt Magische geschosse mit seinem Stab.";
+        skillOne.text = "Ko'ragh can shoot magic bolts at your tanks with his staff.";
         skillTwoImage.sprite = Resources.Load("KillDebuff", typeof(Sprite)) as Sprite;
-        skillTwo.text = "Ko'ragh verflucht einen Spieler, welcher dispellt werden muss oder ansonsten stirbt.";
+        skillTwo.text = "Ko'ragh curses a partymember who must be dispelled or dies otherwise.";
         skillThreeImage.sprite = Resources.Load("Fireball", typeof(Sprite)) as Sprite;
-        skillThree.text = "Ko'ragh erzeugt einen großen Feuerball, welcher mehrere Spieler trifft.";
+        skillThree.text = "Ko'ragh creates a large fireball that hits several partymembers.";
         skillFourImage.sprite = Resources.Load("Blizzard", typeof(Sprite)) as Sprite;
-        skillFour.text = "Ko'ragh beschwört einen Blizzard welcher kontinuierlich Schaden an der gesamten Gruppe anrichtet.";
+        skillFour.text = "Ko'ragh summons a blizzard that causes damage to the entire party.";
     }
 
     /// <summary>
@@ -136,13 +134,13 @@ public class BossDescription : MonoBehaviour {
     public void LevelFive()
     {
         name.text = "Kargath";
-        description.text = "Kargath ist ein Schurke, der durch Bestechung die Kontrolle über ein kleines Dorf erlangt hat. Töte ihn um das Dorf wieder zu befreien.";
+        description.text = "Kargath is a rogue who has gained control of a small village through bribery. Kill him to free the village.";
         skillOneImage.sprite = Resources.Load("Dagger", typeof(Sprite)) as Sprite;
-        skillOne.text = "Kargath schlägt mit seinen Dolchen nach deinen Tanks.";
+        skillOne.text = "Kargath hits your tanks with his daggers.";
         skillTwoImage.sprite = Resources.Load("Shuriken", typeof(Sprite)) as Sprite;
-        skillTwo.text = "Kargath wirft regelmäßig mit Shurikens nach deiner Gruppe.";
+        skillTwo.text = "Kargath throws her litter stars regularly at your party.";
         skillThreeImage.sprite = Resources.Load("MarkedDebuff", typeof(Sprite)) as Sprite;
-        skillThree.text = "Kargath markiert einen Spieler, welche starken Schaden erleidet und mehr Schaden verursacht.";
+        skillThree.text = "Kargath marks a partymember who suffers severe damage but deals more damage in return.";
     }
 
     /// <summary>
@@ -151,15 +149,15 @@ public class BossDescription : MonoBehaviour {
     public void LevelSix()
     {
         name.text = "Varian";
-        description.text = "Varian war einst ein edler Krieger, welcher sich auf die Suche nach ewigem Leben begeben hat und dort dem Wahnsinn verfallen ist. Beende sein Leben mit Würde.";
+        description.text = "Varian was once a noble warrior, who has set out on the search for eternal life but fell for madness instead. End his life with dignity.";
         skillOneImage.sprite = Resources.Load("Schwert", typeof(Sprite)) as Sprite;
-        skillOne.text = "Varian schlägt mit seinem Schwert nach deinen Tanks.";
+        skillOne.text = "Varian hits your tanks with his sword.";
         skillTwoImage.sprite = Resources.Load("Wahnsinn", typeof(Sprite)) as Sprite;
-        skillTwo.text = "Varians Wahnsinn sucht regelmäßig deine Gruppenmitglieder heim und fügt ihnen Schaden zu.";
+        skillTwo.text = "Varian's insanity regularly tempts a party members and damages them.";
         skillThreeImage.sprite = Resources.Load("Cleave", typeof(Sprite)) as Sprite;
-        skillThree.text = "Varian holt zu einem mächtigen Schlag aus der beide Tanks trifft.";
+        skillThree.text = "Varian takes a powerful punch which hits both tanks.";
         skillFourImage.sprite = Resources.Load("Fixate", typeof(Sprite)) as Sprite;
-        skillFour.text = "Varian fixiert sich auf einen Tank und deckt ihn mit einer Abfolge von mehreren Schlägen ein.";
+        skillFour.text = "Varian fixeades himself on a tank and covers it with a sequence of several hits.";
     }
 
     /// <summary>
@@ -168,15 +166,15 @@ public class BossDescription : MonoBehaviour {
     public void LevelSeven()
     {
         name.text = "Tectus";
-        description.text = "Tectus ist ein Steingigant der in einer Höhle nahe einer großen Straße haust und Reisenden auflauert. Gerüchte sagen er würde die Reisenden versteinern und in seine Höhle schleppen.";
+        description.text = "Tectus is a stone giant who lingers in a cave near a large street and lurks there for travelers. Rumors say he would petrify the travelers and drag him into his cave.";
         skillOneImage.sprite = Resources.Load("StoneFist", typeof(Sprite)) as Sprite;
-        skillOne.text = "Tectus schlägt mit seine Steinernen Fäusten nach deinen Tanks.";
+        skillOne.text = "Tectus hits your tanks with his stone fists.";
         skillTwoImage.sprite = Resources.Load("StoneRange", typeof(Sprite)) as Sprite;
-        skillTwo.text = "Tectus reist den Boden auf und fügt einzelnen Gruppenmitgliedern Schaden zu.";
+        skillTwo.text = "Tectus rips the ground and damages individual party members.";
         skillThreeImage.sprite = Resources.Load("Stein_1", typeof(Sprite)) as Sprite;
-        skillThree.text = "Das Ziel ist versteinert und erhält Schaden. Wenn es vollgeheilt wird fügt es der Gruppe Schaden zu.";
+        skillThree.text = "Tectus petrifies a target for a short time. When it dies or is healed to full, it splinters and damages your whole party.";
         skillFourImage.sprite = Resources.Load("Stein_2", typeof(Sprite)) as Sprite;
-        skillFour.text = "Das Ziel ist versteinert und erhält regelmäßig Schaden bis es vollgeheilt wird.";
+        skillFour.text = "Tectus petrifies a target until it is healed to full. When it dies it splinters and damages your whole party.";
     }
 
     /// <summary>
@@ -185,15 +183,15 @@ public class BossDescription : MonoBehaviour {
     public void LevelEight()
     {
         name.text = "Brackenspore";
-        description.text = "Brackenspore ist ein Sumpfmonster, welches einem düsterem Moor enstammt und nun ein kleines Dorf belauert. Töte es um das Dorf zu beschützen.";
+        description.text = "Brackenspore is a marsh monster, which descends from a gloomy moor and threatens a small village. Kill it to protect the village.";
         skillOneImage.sprite = Resources.Load("Ranken", typeof(Sprite)) as Sprite;
-        skillOne.text = "Brackenspore schlägt mit seinen Ranken nach deinen Tanks.";
+        skillOne.text = "Brackenspore is striking after your tanks with his tendrils.";
         skillTwoImage.sprite = Resources.Load("Sporen", typeof(Sprite)) as Sprite;
-        skillTwo.text = "Brackenspore wird von einer Wolke aus giftigen Sporen umgeben, welche deiner ganzen Gruppe schaden.";
+        skillTwo.text = "Brackenspore is surrounded by a cloud of poisonous spores that harm your whole party.";
         skillThreeImage.sprite = Resources.Load("Breath", typeof(Sprite)) as Sprite;
-        skillThree.text = "Brackenspore entläd regelmäßig seinen fauligen Atem über deiner Gruppe ";
+        skillThree.text = "Brackenspore regularly discharges his putrid breath over your party.";
         skillFourImage.sprite = Resources.Load("Pilz", typeof(Sprite)) as Sprite;
-        skillFour.text = "Aus dem Boden spriesen regelmäßig Pilze welche sobald geheilt deine Gruppe unterstützen.";
+        skillFour.text = "Mushrooms spawn refularly from the ground which will heal your party when healed to full.";
     }
 
     /// <summary>
@@ -202,17 +200,17 @@ public class BossDescription : MonoBehaviour {
     public void LevelNine()
     {
         name.text = "Valeera";
-        description.text = "Valeera ist die Anführerin einer großen Diebesgilde. Töte sie um diese Gilde zu zerschmettern.";
+        description.text = "Valeera is the leader of a great thieves guild. Kill her to smash this guild.";
         skillOneImage.sprite = Resources.Load("Dagger", typeof(Sprite)) as Sprite;
-        skillOne.text = "Valeera schlägt mit ihrem Dolch nach deinen Tanks.";
+        skillOne.text = "Valeera hits your tanks with her dagger.";
         skillTwoImage.sprite = Resources.Load("Cleave", typeof(Sprite)) as Sprite;
-        skillTwo.text = "Valeera holt zu einem mächtigen Schlag aus der beide Tanks trifft.";
+        skillTwo.text = "Valeera takes a powerful punch which hits both tanks.";
         skillThreeImage.sprite = Resources.Load("Fixate", typeof(Sprite)) as Sprite;
-        skillThree.text = "Valeera fixiert sich auf einen Tank und deckt ihn mit einer Abfolge von mehreren Schlägen ein.";
+        skillThree.text = "Valeera fixeades himself on a tank and covers it with a sequence of several hits.";
         skillFourImage.sprite = Resources.Load("Dot_Debuff", typeof(Sprite)) as Sprite;
-        skillFour.text = "Valeera vergiftet ein Gruppenmitglied. Dieser Debuff kann dispellt werden.";
+        skillFour.text = "Valeera poisoned a party member.This debuff can be dispelled.";
         skillFiveImage.sprite = Resources.Load("Heal_Debuff", typeof(Sprite)) as Sprite;
-        skillFive.text = "Valeera erschüttert ein Gruppenmitglied und verhindert das es Heilung erhält.";
+        skillFive.text = "Valeera shakes a party member and prevents all healing he takes.";
     }
 
     /// <summary>
@@ -221,17 +219,17 @@ public class BossDescription : MonoBehaviour {
     public void LevelTen()
     {
         name.text = "Al'akir";
-        description.text = "Al'akir ist ein mächtiger Elementarlord. Er wurde korrupiert und versucht nun die Elemente in ein Ungleichgewicht zu bringen.";
+        description.text = "Al'akir is a powerful elemental lord. He was corrupted and now tried to bring the elements into an imbalance.";
         skillOneImage.sprite = Resources.Load("ElementalAttack", typeof(Sprite)) as Sprite;
-        skillOne.text = "Al'akir unterwirft die Elemente und fügt einzelnen Spielern regelmäßig Schaden zu.";
+        skillOne.text = "Al'akir uses the elements and deals damage to individual partymembers on a regular basis.";
         skillTwoImage.sprite = Resources.Load("AlakirPhasen", typeof(Sprite)) as Sprite;
-        skillTwo.text = "Al'akir wechselt im Verlauf des Kampfes zwichen einzelnen Phasen.";
+        skillTwo.text = "Over the course of the fight Al'akir will zwitch between different elemental forms.";
         skillThreeImage.sprite = Resources.Load("Feuer_Debuff", typeof(Sprite)) as Sprite;
-        skillThree.text = "In der Feuerphase verbrennt Al'akir Spieler, sie erleiden regelmäßig Schaden.";
+        skillThree.text = "Fireform: Al'akir burns partymembers, which will suffer damage on a regular basis.";
         skillFourImage.sprite = Resources.Load("Luft", typeof(Sprite)) as Sprite;
-        skillFour.text = "In der Luftphase verringert Al'akir langsam die von Spielern erhaltene Heilung.";
+        skillFour.text = "Airform: Al'akir slowly reduces the healing obtained by partymembers.";
         skillFiveImage.sprite = Resources.Load("Blizzard", typeof(Sprite)) as Sprite;
-        skillFive.text = "In der Wasserphase zieht ein Blizzard auf der Verbrennungen entfernt und Schaden verursacht.";
+        skillFive.text = "Waterform: Al'akir summons a blizzard that removes burns and causes damage";
     }
 
     /// <summary>
@@ -240,17 +238,17 @@ public class BossDescription : MonoBehaviour {
     public void LevelEleven()
     {
         name.text = "Ultraxion";
-        description.text = "Ultraxion ist ein mächtiger dunkler Drache. Er zwingt anderen Drachen seinen Willen auf. Heile diese Drachen damit sie dich im Kampf unterstützen.";
+        description.text = "Ultraxion is a powerful dark dragon. He forces his will onto other dragons. Heal these dragons to help you fight.";
         skillOneImage.sprite = Resources.Load("Claw", typeof(Sprite)) as Sprite;
-        skillOne.text = "Ultraxion klauen können beide Tanks gleichzeitig verletzen und er Fixiert regelmäßig einen Tank.";
+        skillOne.text = "Ultraxions can hurt both tanks simultaneously. From time to time he will also fixate one tank.";
         skillTwoImage.sprite = Resources.Load("ShadowAura", typeof(Sprite)) as Sprite;
-        skillTwo.text = "Ultraxion wird von einer mächtigen Aura umgeben, die regelmäßig Schaden verursacht.";
+        skillTwo.text = "Ultraxion is surrounded by a powerful aura, which deals damage regulary.";
         skillThreeImage.sprite = Resources.Load("red", typeof(Sprite)) as Sprite;
-        skillThree.text = "Der Rote Drache verdoppelt deine Heilung sobald er geheilt wurde.";
+        skillThree.text = "The Red Dragon doubles your healing as soon as he is healed.";
         skillFourImage.sprite = Resources.Load("blue", typeof(Sprite)) as Sprite;
-        skillFour.text = "Der Blaue Drache füllt sobald er geheilt wurde regelmäßig dein Mana auf.";
+        skillFour.text = "The Blue Dragon regulary restores some mana as soon as he heals.";
         skillFiveImage.sprite = Resources.Load("green", typeof(Sprite)) as Sprite;
-        skillFive.text = "Der Grüne Drache dupliziert deine Heilung und verteilt sie gleichmäßig auf deine Gruppe.";
+        skillFive.text = "The Green Dragon duplicates your healing and distributes it evenly to your party.";
     }
 
     /// <summary>
@@ -263,10 +261,10 @@ public class BossDescription : MonoBehaviour {
         skillOneImage.sprite = Resources.Load("AUTOATTACK", typeof(Sprite)) as Sprite;
         skillOne.text = "AUTOATTACK";
         skillTwoImage.sprite = Resources.Load("DOTLEICHT", typeof(Sprite)) as Sprite;
-        skillTwo.text = "PLACEHOLDER";
+        skillTwo.text = "DOTLEICHT";
         skillThreeImage.sprite = Resources.Load("DOTMITTEL", typeof(Sprite)) as Sprite;
-        skillThree.text = "PLACEHOLDER";
+        skillThree.text = "DOTMITTEL";
         skillFourImage.sprite = Resources.Load("DOTSCHWER", typeof(Sprite)) as Sprite;
-        skillFour.text = "PLACEHOLDER";
+        skillFour.text = "DOTSCHWER";
     }
 }

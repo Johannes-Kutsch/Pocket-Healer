@@ -8,7 +8,7 @@ using System.Linq;
 /// </summary>
 public class GuardianSpiritBuff : Buff, IGuardianSpirit
 {
-    private readonly float DURATION = 14f;
+    public readonly float DURATION = 14f;
     private readonly string MATERIALNAME = "Schutzgeist_Buff";
 
     /// <summary>

@@ -9,13 +9,13 @@ using System.Reflection;
 /// </summary>
 public class RenewHot : BuffTicking
 {
-    private readonly float DURATION = 10f;
-    private readonly float INTERVALLTICKS = 2;
+    public readonly float DURATION = 10f;
+    public readonly float INTERVALLTICKS = 2;
     private readonly string MATERIALNAME = "Renew_Buff";
     private readonly string MATERIALNAME_2 = "Renew_Buff_2";
 
-    private float healPerTick = 10f;
-    public float jumpsLeft = 1;
+    public readonly float HEALPERTICK = 10f;
+    private float jumpsLeft = 1;
 
     /// <summary>
     /// Called on awake.
@@ -40,7 +40,7 @@ public class RenewHot : BuffTicking
     /// </summary>
     public override void OnTick()
     {
-        GetRaider().Heal(healPerTick);
+        GetRaider().Heal(HEALPERTICK);
     }
 
     /// <summary>
