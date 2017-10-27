@@ -4,7 +4,8 @@ using System.Collections;
 /// <summary>
 /// This class controlls the playback of music
 /// </summary>
-public class Music : MonoBehaviour {
+public class Music : MonoBehaviour
+{
     public static Music music;
     private AudioSource source;
     private int trackNumber;
@@ -37,6 +38,9 @@ public class Music : MonoBehaviour {
         StartCoroutine("PlayNextBackroundTrack");
     }
 
+    /// <summary>
+    /// Plays a new Backgroundtrack and calls itself after the track has finished playing.
+    /// </summary>
     IEnumerator PlayNextBackroundTrack()
     {
         switch (trackNumber)
@@ -69,7 +73,7 @@ public class Music : MonoBehaviour {
                 source.clip = Resources.Load("Background_9", typeof(AudioClip)) as AudioClip;
                 break;
         }
-        
+
         if (trackNumber == 9) //go to the next track
             trackNumber = 0;
         else
@@ -78,50 +82,5 @@ public class Music : MonoBehaviour {
         source.Play();
         yield return new WaitForSeconds(source.clip.length);
         StartCoroutine("PlayNextBackroundTrack");
-    }
-
-    /// <summary>
-    /// Called on every Update.
-    /// If currently no backgroundtrack is played, start playing the new backgroundtrack.
-    /// </summary>
-    void FixedUpdate()
-    {
-        if (!source.isPlaying) //ToDo this is really sloppy and should be changed to a system that knows when an audioclip is finished.
-            //ToDo option to disable music
-        {
-           /* switch (trackNumber) {
-                case 1:
-                    source.PlayOneShot(Resources.Load("Background_1", typeof(AudioClip)) as AudioClip, 0.2f);
-                    break;
-                case 2:
-                    source.PlayOneShot(Resources.Load("Background_2", typeof(AudioClip)) as AudioClip, 0.2f);
-                    break;
-                case 3:
-                    source.PlayOneShot(Resources.Load("Background_3", typeof(AudioClip)) as AudioClip, 0.2f);
-                    break;
-                case 4:
-                    source.PlayOneShot(Resources.Load("Background_4", typeof(AudioClip)) as AudioClip, 0.2f);
-                    break;
-                case 5:
-                    source.PlayOneShot(Resources.Load("Background_5", typeof(AudioClip)) as AudioClip, 0.2f);
-                    break;
-                case 6:
-                    source.PlayOneShot(Resources.Load("Background_6", typeof(AudioClip)) as AudioClip, 0.2f);
-                    break;
-                case 7:
-                    source.PlayOneShot(Resources.Load("Background_7", typeof(AudioClip)) as AudioClip, 0.2f);
-                    break;
-                case 8:
-                    source.PlayOneShot(Resources.Load("Background_8", typeof(AudioClip)) as AudioClip, 0.2f);
-                    break;
-                case 9:
-                    source.PlayOneShot(Resources.Load("Background_9", typeof(AudioClip)) as AudioClip, 0.21f);
-                    break;
-            }*/
-            if (trackNumber == 9) //go to the next track
-                trackNumber = 0;
-            else
-                trackNumber++;
-        }
     }
 }
