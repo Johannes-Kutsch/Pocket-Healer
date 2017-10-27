@@ -28,6 +28,8 @@ public class GameControl : MonoBehaviour {
     /// </summary>
     void Awake()
     {
+        Screen.SetResolution(540, 960, false);
+
         if (control == null) //only 1 Gamecontrol
         {
             DontDestroyOnLoad(gameObject);
@@ -38,8 +40,7 @@ public class GameControl : MonoBehaviour {
             Destroy(gameObject);
         }
 
-        source = GetComponent<AudioSource>();
-        source.volume = soundMultiplier;
+        
     }
 
     /// <summary>
@@ -48,6 +49,8 @@ public class GameControl : MonoBehaviour {
     void Start()
     {
         Screen.orientation = ScreenOrientation.Portrait;
+        source = GetComponent<AudioSource>();
+        source.volume = soundMultiplier;
     }
 
     /// <summary>

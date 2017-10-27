@@ -74,10 +74,10 @@ public class StoneOne : BuffTicking
             }
         }
 
-        if (!hasGuardianSpirit)
+        if (!hasGuardianSpirit) //only damage when no guardian spirit
         {
             List<Raider> targetDict = RaiderDB.GetInstance().GetAllRaiders();
-            targetDict.Remove(raider);
+            targetDict.Remove(GetRaider());
 
             Destroy();
 

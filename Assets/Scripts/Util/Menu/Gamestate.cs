@@ -72,7 +72,7 @@ public class Gamestate : MonoBehaviour {
             }
             else if (RaiderDB.GetInstance().GetAllRaiders().Count == 0 && !finished)
             {
-                Popup.GetComponentInChildren<Text>().text = "Deine Gruppe wurde vernichtet bevor du " + Boss.name + " töten konntest. Versuche es erneut.";
+                Popup.GetComponentInChildren<Text>().text = "Your group was destroyed before you could kill " + Boss.name + ". Try again.";
                 finished = true;
                 Destroy(Boss.gameObject);
                 FindObjectOfType<SpellBarManagerTutorial>().DisableButtons();
@@ -80,7 +80,7 @@ public class Gamestate : MonoBehaviour {
             }
             else if (Boss.GetCurrentHp() <= 0 && !finished)
             {
-                string textPopup = "Du hast " + Boss.name + " getötet.";
+                string textPopup = "You killed " + Boss.name;
                 Popup.GetComponentInChildren<Text>().text = textPopup;
                 finished = true;
                 Destroy(Boss.gameObject);
@@ -96,7 +96,7 @@ public class Gamestate : MonoBehaviour {
             }
             else if (RaiderDB.GetInstance().GetAllRaiders().Count == 0 && !finished)
             {
-                Popup.GetComponentInChildren<Text>().text = "Deine Gruppe wurde vernichtet bevor du " + Boss.name + " töten konntest. Versuche es erneut.";
+                Popup.GetComponentInChildren<Text>().text = "Your group was destroyed before you could kill " + Boss.name + ". Try again.";
                 finished = true;
                 Destroy(Boss.gameObject);
                 FindObjectOfType<SpellBarManager>().DisableButtons();
@@ -127,15 +127,15 @@ public class Gamestate : MonoBehaviour {
         string textPopup = "Du hast " + Boss.name + " getötet.";
         if (GameControl.control.currentLevelId == 2 || GameControl.control.currentLevelId == 4 || GameControl.control.currentLevelId == 7 || GameControl.control.currentLevelId == 9)
         {
-            textPopup += " Du hast eine neue Reihe Talente freigeschaltet.";
+            textPopup += " You unlocked a new row of talents.";
         }
         if (GameControl.control.currentLevelId == 1 || GameControl.control.currentLevelId == 2 || GameControl.control.currentLevelId == 3 || GameControl.control.currentLevelId == 4 || GameControl.control.currentLevelId == 5 || GameControl.control.currentLevelId == 6 || GameControl.control.currentLevelId == 8 || GameControl.control.currentLevelId == 10)
         {
-            textPopup += " Du hast einen neuen Zauber freigeschaltet.";
+            textPopup += " You unlocked a new spell.";
         }
         if (GameControl.control.currentLevelId == 11)
         {
-            textPopup += " Das war der letzte Boss, die Welt ist nun wieder sicher.";
+            textPopup += " This was the last boss. The world is now save again.";
         }
         GameControl.control.LevelDone();
         Popup.GetComponentInChildren<Text>().text = textPopup;

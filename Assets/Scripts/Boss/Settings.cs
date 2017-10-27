@@ -168,7 +168,7 @@ public class Settings{
         //Scene two
         //AutoAttack
         autoAttackSwingTimer = 2f;
-        autoAttackDmg = 20f;
+        autoAttackDmg = 25f;
         autoAttackChangeTargetTimer = 15f;
         autoAttackMultiplier = 0.1f;
 
@@ -190,13 +190,13 @@ public class Settings{
         //Scene three
         //AutoAttack
         autoAttackSwingTimer = 2f;
-        autoAttackDmg = 20f;
+        autoAttackDmg = 25f;
         autoAttackChangeTargetTimer = 15f;
         autoAttackMultiplier = 0.1f;
 
         //RangeAutoAttack
         rangeAutoAttackSwingTimer = 2.5f;
-        rangeAutoAttackDmg = 10f;
+        rangeAutoAttackDmg = 20f;
         rangeAutoAttackMultiplier = 0.1f;
 
         //PulsingAOE
@@ -294,13 +294,13 @@ public class Settings{
         //Scene seven
         //AutoAttack
         autoAttackSwingTimer = 2f;
-        autoAttackDmg = 25f;
+        autoAttackDmg = 20f;
         autoAttackChangeTargetTimer = 10f;
         autoAttackMultiplier = 0.1f;
 
         //RangeAutoAttack
         rangeAutoAttackSwingTimer = 2f;
-        rangeAutoAttackDmg = 15f;
+        rangeAutoAttackDmg = 10f;
         rangeAutoAttackMultiplier = 0f;
         rangeAutoAttackSwingTimerStart = 1f;
 
