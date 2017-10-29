@@ -28,7 +28,7 @@ public class GameControl : MonoBehaviour {
     /// </summary>
     void Awake()
     {
-        Screen.SetResolution(540, 960, false);
+        //Screen.SetResolution(540, 960, false); //Workaorund for correct ratio on Windows Clients
 
         if (control == null) //only 1 Gamecontrol
         {
@@ -93,45 +93,7 @@ public class GameControl : MonoBehaviour {
     /// <param name="Id">The identifier of the new level.</param>
     public void SwitchCurrentLevel(int Id)
     {
-        switch (Id)
-        {
-            case 1:
-                currentLevel = "Fight_1";
-                break;
-            case 2:
-                currentLevel = "Fight_2";
-                break;
-            case 3:
-                currentLevel = "Fight_3";
-                break;
-            case 4:
-                currentLevel = "Fight_4";
-                break;
-            case 5:
-                currentLevel = "Fight_5";
-                break;
-            case 6:
-                currentLevel = "Fight_6";
-                break;
-            case 7:
-                currentLevel = "Fight_7";
-                break;
-            case 8:
-                currentLevel = "Fight_8";
-                break;
-            case 9:
-                currentLevel = "Fight_9";
-                break;
-            case 10:
-                currentLevel = "Fight_10";
-                break;
-            case 11:
-                currentLevel = "Fight_11";
-                break;
-            case 12:
-                currentLevel = "Fight_12";
-                break;
-        }
+        currentLevel = "Fight_" + Id;
     }
 
     /// <summary>

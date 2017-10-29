@@ -18,21 +18,21 @@ public class MenuButtons : MonoBehaviour {
     /// </summary>
     void Start()
     {
-        volume.value = GameControl.control.soundMultiplier;
+        volume.value = GameControl.control.soundMultiplier; 
     }
 
     /// <summary>
-    /// Called in each simulation tick i.e. 50 times a second.
-    /// Responsible for quitting the app.
+    /// Called with every update.
+    /// Responsible for quitting the app and adjusting the sound volume.
     /// </summary>
-    void FixedUpdate()
+    void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             GameControl.control.Save();
             Application.Quit();
         }
-        GameControl.control.source.volume = volume.value;
+        GameControl.control.source.volume = volume.value; //ToDO: Only adjust volume when the slider is moved, not on every update
     }
 
     /// <summary>

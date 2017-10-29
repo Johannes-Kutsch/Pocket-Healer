@@ -58,11 +58,11 @@ public class Gamestate : MonoBehaviour {
     }
 
     /// <summary>
-    /// Called with every fixed update.
+    /// Called with every update.
     /// Checks if the current level is lost/won.
     /// Detects when the Escape/Back button is pressed.
     /// </summary>
-    void FixedUpdate()
+    void Update()
     {
         if (SceneManager.GetActiveScene().name == "Tutorial") //slightly different behaviour for the tutorial
         {

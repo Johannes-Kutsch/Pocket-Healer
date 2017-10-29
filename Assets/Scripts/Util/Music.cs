@@ -43,36 +43,7 @@ public class Music : MonoBehaviour
     /// </summary>
     IEnumerator PlayNextBackroundTrack()
     {
-        switch (trackNumber)
-        {
-            case 1:
-                source.clip = Resources.Load("Background_1", typeof(AudioClip)) as AudioClip;
-                break;
-            case 2:
-                source.clip = Resources.Load("Background_2", typeof(AudioClip)) as AudioClip;
-                break;
-            case 3:
-                source.clip = Resources.Load("Background_3", typeof(AudioClip)) as AudioClip;
-                break;
-            case 4:
-                source.clip = Resources.Load("Background_4", typeof(AudioClip)) as AudioClip;
-                break;
-            case 5:
-                source.clip = Resources.Load("Background_5", typeof(AudioClip)) as AudioClip;
-                break;
-            case 6:
-                source.clip = Resources.Load("Background_6", typeof(AudioClip)) as AudioClip;
-                break;
-            case 7:
-                source.clip = Resources.Load("Background_7", typeof(AudioClip)) as AudioClip;
-                break;
-            case 8:
-                source.clip = Resources.Load("Background_8", typeof(AudioClip)) as AudioClip;
-                break;
-            case 9:
-                source.clip = Resources.Load("Background_9", typeof(AudioClip)) as AudioClip;
-                break;
-        }
+        source.clip = Resources.Load("Background_" + trackNumber, typeof(AudioClip)) as AudioClip;
 
         if (trackNumber == 9) //go to the next track
             trackNumber = 0;
