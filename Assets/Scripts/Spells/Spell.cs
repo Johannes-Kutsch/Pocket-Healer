@@ -8,13 +8,6 @@ using System;
 /// <summary>
 /// Abstract class spell which implements the basic functionality of most spells.
 /// It triggers the virtual methods OnCastStart() and OnCastSucess(). (When a cast is started and when a cast is sucessfully finished)
-/// Overwrite the following variables during awake: 
-///     castSound; //The Audioclip used for the cast sound. Can be null if the spell has no casttime
-///     impactSound; //The Audioclip used for the impact sound.
-///     cooldown; //The cooldown of the spell in seconds.
-///     manaCost; //The manacost of the spell.
-///     castTime; //The casttime of the spell, 0 when instant.
-///     spellName; //The name of the spell.
 /// </summary>
 public abstract class Spell : MonoBehaviour
 {
@@ -48,20 +41,22 @@ public abstract class Spell : MonoBehaviour
 
         gamestate = Gamestate.gamestate;
         cooldownOverlay = GetComponentInChildren<Image>();
+        cooldownOverlay.color = new Color32(160, 160, 160, 160);
+        cooldownOverlay.enabled = false;
         gamestate.AddSpell(this);
         cooldownTimer = cooldown;
         source = GetComponent<AudioSource>();
     }
 
     /// <summary>
-    /// Called with every fixed update. Advance the cooldown and draw the cooldownoverlay.
+    /// Called with every fixed update. Advances the cooldown and draws the cooldownoverlay at the new Position.
     /// </summary>
     void FixedUpdate()
     {
-        if (cooldownTimer >= cooldownMax)
+        if (onCooldown && cooldownTimer >= cooldownMax)
         {
             onCooldown = false;
-            cooldownOverlay.color = new Color32(160, 160, 160, 0);
+            cooldownOverlay.enabled = false;
         }
         else
         {
@@ -72,25 +67,33 @@ public abstract class Spell : MonoBehaviour
 
     /// <summary>
     /// Called when [mouse down].
-    /// Checks if we can cast the spell and starts the cast prozedure.
     /// </summary>
     void OnMouseDown()
     {
+        StartCast();
+    }
+
+    /// <summary>
+    /// Checks if we can cast the spell and starts the cast procedure.
+    /// </summary>
+    public void StartCast()
+    {
         if (!gamestate.GetCastBar().IsCasting() && !gamestate.GetGcdBar().GetIsInGcd() && !onCooldown)
-        {
+        { //we are not casting, are not in an gcd (Global Cooldown) and the spell is not on cooldown
             target = gamestate.GetTarget();
             if (target != null && target.IsAlive())
             {
-                if (manaCost >= 0) //Spell costs Mana
+                if (manaCost >= 0) //spell costs Mana
                 {
                     if (gamestate.DecreaseMana(manaCost))
-                    {
+                    {                                       //we have enough Mana to cast the spell
                         if (castTime == 0)
                             CastInstant(); //spell with no casttime
                         else
                             StartCoroutine(Cast()); //spell with casttime
                     }
-                } else //Spel regenerates Mana
+                }
+                else //spel regenerates Mana
                 {
                     gamestate.IncreaseMana(manaCost * -1);
 
@@ -118,14 +121,7 @@ public abstract class Spell : MonoBehaviour
         OnCastStart();
         OnCastSucess();
 
-        //check if the spell has a cooldown
-        if (cooldown > 0)
-        {
-            cooldownTimer = 0f;
-            cooldownMax = cooldown;
-            onCooldown = true;
-            cooldownOverlay.color = new Color32(160, 160, 160, 160);
-        }
+        StartCooldown(); //stat the cooldown
 
         //start the gcd
         gamestate.GetGcdBar().StartGcd();
@@ -141,17 +137,11 @@ public abstract class Spell : MonoBehaviour
         //start the cast
         gamestate.GetCastBar().Cast(castTime, spellName);
 
-        //check if the spell has a cooldown
-        if (cooldown > 0)
-        {
-            cooldownTimer = 0f;
-            cooldownMax = cooldown;
-            onCooldown = true;
-            cooldownOverlay.color = new Color32(160, 160, 160, 160);
-        }
-
         //start the gcd
         gamestate.GetGcdBar().StartGcd();
+
+        //start the cooldown
+        StartCooldown(); 
 
         //play the cast sound
         if (castSound != null)
@@ -181,7 +171,7 @@ public abstract class Spell : MonoBehaviour
     }
 
     /// <summary>
-    /// Starts a GCD.
+    /// Checks if the spell is not onCooldown or if the cooldown is lower than the GCD and starts a GCD if it is.
     /// </summary>
     public void StartGcd()
     {
@@ -189,8 +179,22 @@ public abstract class Spell : MonoBehaviour
         {
             cooldownMax = gamestate.GetGcdBar().GetGcdTime();
             onCooldown = true;
-            cooldownTimer = 0;
-            cooldownOverlay.color = new Color32(160, 160, 160, 160);
+            cooldownTimer = 0f;
+            cooldownOverlay.enabled = true;
+        }
+    }
+
+    /// <summary>
+    /// Checks if the spell has a cooldown and starts the cooldown if the spell has one.
+    /// </summary>
+    private void StartCooldown()
+    {
+        if (cooldown > 0) //check if the spell has a cooldown
+        { //start the cooldown
+            cooldownTimer = 0f;
+            cooldownMax = cooldown;
+            onCooldown = true;
+            cooldownOverlay.enabled = true;
         }
     }
 

@@ -8,10 +8,9 @@ using UnityEngine.SceneManagement;
 public class LevelSelect : MonoBehaviour {
 
     /// <summary>
-    /// Called in each simulation tick i.e. 50 times a second.
     /// Loads the main menu scene when the escape button is pressed.
     /// </summary>
-    void FixedUpdate()
+    void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {

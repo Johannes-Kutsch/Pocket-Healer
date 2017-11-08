@@ -32,10 +32,9 @@ public class SkillSelectorButtons : MonoBehaviour
     }
 
     /// <summary>
-    /// Called in each simulation tick i.e. 50 times a second.
     /// Loads the main menu scene if the "Escape" key is pressed
     /// </summary>
-    void FixedUpdate()
+    void Update()
     {
         if(Input.GetKeyDown(KeyCode.Escape))
         {

@@ -28,7 +28,10 @@ public class GameControl : MonoBehaviour {
     /// </summary>
     void Awake()
     {
-        //Screen.SetResolution(540, 960, false); //Workaorund for correct ratio on Windows Clients
+        if (Application.platform.ToString() == "WindowsPlayer")
+        {
+            Screen.SetResolution(500, 800, false); //Workaorund for correct ratio on Windows Clients
+        }
 
         if (control == null) //only 1 Gamecontrol
         {

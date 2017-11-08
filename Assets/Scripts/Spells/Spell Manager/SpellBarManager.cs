@@ -10,6 +10,10 @@ public class SpellBarManager : MonoBehaviour {
     public GameObject buttonThree;
     public GameObject buttonFour;
     public GameObject passiveButton;
+    public Spell spellOne;
+    public Spell spellTwo;
+    public Spell spellThree;
+    public Spell spellFour;
 
     /// <summary>
     /// Called on Start, updates all buttons.
@@ -17,6 +21,30 @@ public class SpellBarManager : MonoBehaviour {
     void Start()
     {
         UpdateButtons();
+        UpdateSpells();
+    }
+
+    /// <summary>
+    /// Called with every update. Checks if a key corresponding to a spell is pressed.
+    /// </summary>
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            spellOne.StartCast();
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            spellTwo.StartCast();
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            spellThree.StartCast();
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            spellFour.StartCast();
+        }
     }
 
     /// <summary>
@@ -29,6 +57,17 @@ public class SpellBarManager : MonoBehaviour {
         UpdateButton(buttonThree, GameControl.control.spellId[2]);
         UpdateSpecialButton(buttonFour, GameControl.control.spellId[3]);
         UpdatePassiveButton(passiveButton);
+    }
+
+    /// <summary>
+    /// Gets the spellscript of each button and asigns it to a variable
+    /// </summary>
+    public void UpdateSpells()
+    {
+        spellOne = buttonOne.GetComponent<Spell>();
+        spellTwo = buttonTwo.GetComponent<Spell>();
+        spellThree = buttonThree.GetComponent<Spell>();
+        spellFour = buttonFour.GetComponent<Spell>();
     }
 
     /// <summary>

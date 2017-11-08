@@ -124,7 +124,7 @@ public class Gamestate : MonoBehaviour {
     /// </summary>
     public void OnBossKill()
     {
-        string textPopup = "Du hast " + Boss.name + " getötet.";
+        string textPopup = "You killed " + Boss.name + ".";
         if (GameControl.control.currentLevelId == 2 || GameControl.control.currentLevelId == 4 || GameControl.control.currentLevelId == 7 || GameControl.control.currentLevelId == 9)
         {
             textPopup += " You unlocked a new row of talents.";

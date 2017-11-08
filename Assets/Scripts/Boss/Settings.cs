@@ -82,7 +82,7 @@ public class Settings{
         {
             case 0:
                 LoadLevelZero();
-                Debug.Log("WARNING LEVEL INDES IS ZERO (DEFAULT/TUTORIAL)");
+                Debug.Log("WARNING LEVEL INDEX IS ZERO (DEFAULT/TUTORIAL)");
                 break;
             case 1:
                 LoadLevelOne();
@@ -195,9 +195,9 @@ public class Settings{
         autoAttackMultiplier = 0.1f;
 
         //RangeAutoAttack
-        rangeAutoAttackSwingTimer = 2.5f;
+        rangeAutoAttackSwingTimer = 3f;
         rangeAutoAttackDmg = 20f;
-        rangeAutoAttackMultiplier = 0.1f;
+        rangeAutoAttackMultiplier = 0f;
 
         //PulsingAOE
         pulsingAOESwingTimer = 6f;
