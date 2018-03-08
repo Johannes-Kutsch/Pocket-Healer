@@ -16,8 +16,11 @@ public class SelectButtonTop : MonoBehaviour {
         if(unlockedAt > GameControl.control.maxLevelIdUnlocked)
         {
             GetComponent<MeshRenderer>().material = Resources.Load("UnknownSkill_BW", typeof(Material)) as Material;
+            GetComponent<MeshRenderer>().material.shader = Shader.Find("Standard");
             Destroy(this);
-        }
+        } 
+
+        GetComponent<MeshRenderer>().material.shader = Shader.Find("Standard");
     }
 
     /// <summary>

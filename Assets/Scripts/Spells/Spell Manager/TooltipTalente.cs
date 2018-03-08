@@ -49,7 +49,7 @@ public class TooltipTalente : MonoBehaviour
         beschreibung[17] = "TODO";
         beschreibung[18] = "The healing you do is increased by 5%.";
         beschreibung[19] = "You start with 10% more mana.";
-        beschreibung[20] = "If a target has less than 30% health remaining the healing you do is increased by 25% .";
+        beschreibung[20] = "Partymembers below 30% health take 25% increased healing.";
         beschreibung[21] = "TODO";
         beschreibung[22] = "TODO";
     }

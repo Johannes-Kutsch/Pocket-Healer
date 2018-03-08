@@ -15,7 +15,6 @@ public class TalenteButton : MonoBehaviour {
     public int unlockedAtLevel;
 
     public Material picture;
-    public Material pictureBW;
     public TalentManager manager;
 
     /// <summary>
