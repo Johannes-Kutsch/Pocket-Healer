@@ -1,3 +1,5 @@
+###### I did not create any of the assets used for this project! Sounds/Icons are from WoW, sadly i no longer have a source for the beautifull background images.
+
 #### Pocket Healer
 
 Pocket Healer is the first video game I ever created. It is a mobile game that features an MMO inspired combat system, broken down to its essentials. You are placed in the role of a healer and it is your job to keep the party alive until the boss is defeated. You unlock new skills and talents by defeating bosses. Can you slay them all?
