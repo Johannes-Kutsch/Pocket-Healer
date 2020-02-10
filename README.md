@@ -2,6 +2,10 @@
 
 Pocket Healer is the first video game I ever created. It is a mobile game that features an MMO inspired combat system, broken down to its essentials. You are placed in the role of a healer and it is your job to keep the party alive until the boss is defeated. You unlock new skills and talents by defeating bosses. Can you slay them all?
 
+#### Download
+
+Find the latest release [here](https://github.com/Johannes-Kutsch/Pocket-Healer/releases/latest).
+
 #### Videos
 
 [![Pocket Healer Boss 3](http://img.youtube.com/vi/uIfE-irobDI/0.jpg)](https://www.youtube.com/watch?v=uIfE-irobDI&list=PL1yhS38OeSNoyPmWPKO-_lNmM2QNMxUwk&index=2 "Pocket Healer Boss 3")
