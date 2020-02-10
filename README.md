@@ -1,8 +1,6 @@
 # Pocket Healer
 
-Pocket Healer is the first video game I ever created.
-
-Unlock new Skills, Talents and defeat all Bosses!
+Pocket Healer is the first video game I ever created. It is a mobile game that features an MMO inspired combat system, broken down to its essentials. You are placed in the role of a healer and it is your job to keep the party alive until the boss dies. Unlock new skills and talents by defeating bosses. Defeat all bosses to save the world.
 
 # Videos:
 
