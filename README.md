@@ -1,4 +1,4 @@
-###### I did not create any of the assets used for this project! Sounds/Icons are from WoW, sadly i don't have a source for the beautifull background images.
+###### I did not create any of the assets used for this project! Sounds/Icons are from WoW, sadly I can't find the source for the beautifull background images anymore.
 
 #### Pocket Healer
 
